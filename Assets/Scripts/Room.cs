@@ -7,6 +7,7 @@ namespace PCG_SearchBased_Dungeon
     {
         public CellType[,] cells;
         public Vector2 startPoint;
+        
         private int width;
         private int height;
 
@@ -18,7 +19,6 @@ namespace PCG_SearchBased_Dungeon
             this.startPoint = startPoint;
             this.width = width;
             this.height = height;
-            cells = new CellType[width, height];
         }
 
         public Room(Room room) : this()
@@ -26,11 +26,11 @@ namespace PCG_SearchBased_Dungeon
             startPoint = room.startPoint;
             width = room.width;
             height = room.height;
-            cells = new CellType[width, height];
         }
 
         public void SetCells()
         {
+            cells = new CellType[width, height];
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)

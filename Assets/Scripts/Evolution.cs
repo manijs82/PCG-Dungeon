@@ -40,7 +40,6 @@ namespace PCG_SearchBased_Dungeon
                     samples.Add(d);
                 }
                 
-                Debug.Log(samples[0].fitnessValue);
                 if(samples[0].fitnessValue >= MinGoodScore) return;
             }
         }

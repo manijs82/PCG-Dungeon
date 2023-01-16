@@ -13,6 +13,7 @@ namespace PCG_SearchBased_Dungeon
         private CellType[,] cells;
         private int width = 50;
         public List<Room> rooms;
+        public List<Triangle> triangles;
 
         public Dungeon()
         {
