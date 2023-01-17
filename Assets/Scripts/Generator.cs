@@ -46,7 +46,7 @@ namespace PCG_SearchBased_Dungeon
                 case CellType.Empty:
                     return Color.white;
                 case CellType.Wall:
-                    return Color.black;
+                    return Color.blue;
             }
 
             return Color.white;
@@ -76,10 +76,11 @@ namespace PCG_SearchBased_Dungeon
                 Handles.DrawAAPolyLine(Vector2.Distance(center, room.Center) / 25f * 10, center, room.Center);
             } */
 
+            Handles.color = Color.black;
             foreach (var triangle in dungeon.triangles)
             {
-                Handles.DrawAAPolyLine(triangle.Vertices[0].point, triangle.Vertices[1].point,
-                    triangle.Vertices[2].point, triangle.Vertices[0].point);
+                Handles.DrawAAPolyLine(triangle.Vertices[0], triangle.Vertices[1],
+                    triangle.Vertices[2], triangle.Vertices[0]);
             }
         }
 #endif

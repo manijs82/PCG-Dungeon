@@ -5,13 +5,13 @@ namespace PCG_SearchBased_Dungeon
 {
     public class Triangle
     {
-        public Point[] Vertices = new Point[3];
+        public Vector2[] Vertices = new Vector2[3];
         public List<Edge> Edges = new List<Edge>();
 
         public Vector2 CircumCenter;
         public double RadiusSquared;
 
-        public Triangle(Point point1, Point point2, Point point3)
+        public Triangle(Vector2 point1, Vector2 point2, Vector2 point3)
         {
             if (!IsCounterClockwise(point1, point2, point3))
             {
@@ -25,14 +25,11 @@ namespace PCG_SearchBased_Dungeon
                 Vertices[1] = point2;
                 Vertices[2] = point3;
             }
-
-            Vertices[0].AdjacentTriangles.Add(this);
-            Vertices[1].AdjacentTriangles.Add(this);
-            Vertices[2].AdjacentTriangles.Add(this);
+            
             SetCircumCenter();
         }
         
-        private bool IsCounterClockwise(Point point1, Point point2, Point point3)
+        private bool IsCounterClockwise(Vector2 point1, Vector2 point2, Vector2 point3)
         {
             var result = (point2.x - point1.x) * (point3.y - point1.y) -
                          (point3.x - point1.x) * (point2.y - point1.y);
@@ -54,7 +51,6 @@ namespace PCG_SearchBased_Dungeon
 
             if (div == 0)
             {
-                Debug.Log("1");
                 return;
             }
 
@@ -63,7 +59,7 @@ namespace PCG_SearchBased_Dungeon
             RadiusSquared = (center.x - p0.x) * (center.x - p0.x) + (center.y - p0.y) * (center.y - p0.y);
         }
 
-        public bool IsPointInsideCircumCircle(Point point)
+        public bool IsPointInsideCircumCircle(Vector2 point)
         {
             var d_squared = (point.x - CircumCenter.x) * (point.x - CircumCenter.x) +
                             (point.y - CircumCenter.y) * (point.y - CircumCenter.y);
