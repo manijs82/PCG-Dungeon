@@ -1,8 +1,6 @@
-namespace PCG_SearchBased_Dungeon
+public enum CellType
 {
-    public enum CellType
-    {
-        Empty,
-        Wall
-    }
+    Empty,
+    Wall,
+    Ground
 }

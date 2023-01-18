@@ -1,74 +1,76 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace PCG_SearchBased_Dungeon
+public class Generator : MonoBehaviour
 {
-    public class Generator : MonoBehaviour
+    public static event Action<Dungeon> OnDungeonGenerated; 
+
+    [SerializeField] private GameObject block;
+
+    private Dungeon candidateDungeon;
+
+    private void Start()
     {
-        [SerializeField] private GameObject block;
+        Evolution<Dungeon> e = new Evolution<Dungeon>();
 
-        private Dungeon candidateDungeon;
-
-        private void Start()
+        Dungeon d = (Dungeon)e.samples[0];
+        d.triangles = Triangulator.Triangulate(d.rooms).ToList();
+        foreach (var room in d.rooms)
         {
-            Evolution<Dungeon> e = new Evolution<Dungeon>();
-
-            Dungeon d = (Dungeon)e.samples[0];
-            d.triangles = Triangulator.Triangulate(d.rooms).ToList();
-            foreach (var room in d.rooms)
-            {
-                room.SetCells();
-                GenerateRoom(room);
-            }
-
-            candidateDungeon = d;
+            room.SetCells();
+            GenerateRoom(room);
         }
 
-        private void GenerateRoom(Room room)
+        candidateDungeon = d;
+        OnDungeonGenerated?.Invoke(candidateDungeon);
+    }
+
+    private void GenerateRoom(Room room)
+    {
+        for (int y = 0; y < room.cells.GetLength(1); y++)
         {
-            for (int y = 0; y < room.cells.GetLength(1); y++)
+            for (int x = 0; x < room.cells.GetLength(0); x++)
             {
-                for (int x = 0; x < room.cells.GetLength(0); x++)
-                {
-                    var go = Instantiate(block, room.startPoint + new Vector2(x, y),
-                        Quaternion.identity, transform);
-                    SpriteRenderer sprite = go.GetComponentInChildren<SpriteRenderer>();
-                    sprite.color = GetColor(room.cells[x, y]);
-                }
+                var go = Instantiate(block, room.startPoint + new Vector2(x, y),
+                    Quaternion.identity, transform);
+                SpriteRenderer sprite = go.GetComponentInChildren<SpriteRenderer>();
+                sprite.color = GetColor(room.cells[x, y]);
             }
         }
+    }
 
-        private Color GetColor(CellType roomCell)
+    private Color GetColor(CellType roomCell)
+    {
+        switch (roomCell)
         {
-            switch (roomCell)
-            {
-                case CellType.Empty:
-                    return Color.white;
-                case CellType.Wall:
-                    return Color.blue;
-            }
-
-            return Color.white;
+            case CellType.Ground:
+                return Color.white;
+            case CellType.Wall:
+                return Color.blue;
         }
+
+        return Color.white;
+    }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawLine(Vector3.zero, new Vector3(50, 0));
-            Gizmos.DrawLine(Vector3.zero, new Vector3(0, 50));
-            Gizmos.DrawLine(new Vector3(50, 0), new Vector3(50, 50));
-            Gizmos.DrawLine(new Vector3(0, 50), new Vector3(50, 50));
-            Gizmos.DrawSphere(new Vector3(25, 25), .5f);
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(Vector3.zero, new Vector3(50, 0));
+        Gizmos.DrawLine(Vector3.zero, new Vector3(0, 50));
+        Gizmos.DrawLine(new Vector3(50, 0), new Vector3(50, 50));
+        Gizmos.DrawLine(new Vector3(0, 50), new Vector3(50, 50));
+        Gizmos.DrawSphere(new Vector3(25, 25), .5f);
 
-            if (candidateDungeon != null)
-                DrawDungeon(candidateDungeon);
-        }
+        if (candidateDungeon != null)
+            DrawDungeon(candidateDungeon);
+    }
 
 
-        private void DrawDungeon(Dungeon dungeon)
-        {
-            /* foreach (var room in dungeon.rooms)
+    private void DrawDungeon(Dungeon dungeon)
+    {
+        /* foreach (var room in dungeon.rooms)
             {
                 Vector2 center = new Vector2(25f, 25f);
 
@@ -76,13 +78,14 @@ namespace PCG_SearchBased_Dungeon
                 Handles.DrawAAPolyLine(Vector2.Distance(center, room.Center) / 25f * 10, center, room.Center);
             } */
 
-            Handles.color = Color.black;
-            foreach (var triangle in dungeon.triangles)
-            {
-                Handles.DrawAAPolyLine(triangle.Vertices[0], triangle.Vertices[1],
-                    triangle.Vertices[2], triangle.Vertices[0]);
-            }
+        Handles.color = Color.black;
+        foreach (var triangle in dungeon.triangles)
+        {
+            Handles.DrawAAPolyLine(triangle.Vertices[0], triangle.Vertices[1],
+                triangle.Vertices[2], triangle.Vertices[0]);
+            //Handles.DrawWireDisc(triangle.CircumCenter, Vector3.back, Mathf.Sqrt(triangle.RadiusSquared));
+            //Handles.
         }
-#endif
     }
+#endif
 }
