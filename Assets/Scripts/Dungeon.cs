@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using Graph;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,7 +11,7 @@ public class Dungeon : Sample
     private CellType[,] cells;
     private int width = 50;
     public List<Room> rooms;
-    public List<Triangle> triangles;
+    public Graph<Room> roomGraph;
 
     public Dungeon()
     {

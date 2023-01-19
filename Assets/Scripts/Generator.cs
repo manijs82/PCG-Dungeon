@@ -16,7 +16,8 @@ public class Generator : MonoBehaviour
         Evolution<Dungeon> e = new Evolution<Dungeon>();
 
         Dungeon d = (Dungeon)e.samples[0];
-        d.triangles = Triangulator.Triangulate(d.rooms).ToList();
+        d.roomGraph = Triangulator.Triangulate(d.rooms);
+        d.roomGraph = MST.GetMST(d.roomGraph);
         foreach (var room in d.rooms)
         {
             room.SetCells();
@@ -70,22 +71,9 @@ public class Generator : MonoBehaviour
 
     private void DrawDungeon(Dungeon dungeon)
     {
-        /* foreach (var room in dungeon.rooms)
-            {
-                Vector2 center = new Vector2(25f, 25f);
-
-                Handles.color = Color.LerpUnclamped(Color.red, Color.black, Vector2.Distance(center, room.Center) / 25f);
-                Handles.DrawAAPolyLine(Vector2.Distance(center, room.Center) / 25f * 10, center, room.Center);
-            } */
-
         Handles.color = Color.black;
-        foreach (var triangle in dungeon.triangles)
-        {
-            Handles.DrawAAPolyLine(triangle.Vertices[0], triangle.Vertices[1],
-                triangle.Vertices[2], triangle.Vertices[0]);
-            //Handles.DrawWireDisc(triangle.CircumCenter, Vector3.back, Mathf.Sqrt(triangle.RadiusSquared));
-            //Handles.
-        }
+        foreach (var connection in dungeon.roomGraph.connections)
+            Handles.DrawAAPolyLine(connection.start.value.Center, connection.end.value.Center);
     }
 #endif
 }

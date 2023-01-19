@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Graph;
 using UnityEngine;
 
 public static class Triangulator
 {
-    public static List<Triangle> Triangulate(List<Room> rooms)
+    public static Graph<Room> Triangulate(List<Room> rooms)
     {
+        Graph<Room> graph = new Graph<Room>();
+        Dictionary<Vector2, Node<Room>> roomDic = new Dictionary<Vector2, Node<Room>>();
+        foreach (var room in rooms) roomDic.Add(room.Center, new Node<Room>(room));
+        
         var triangles = new List<Triangle>();
         var superTris = GetSuperTriangle();
         triangles.Add(superTris);
@@ -17,7 +22,17 @@ public static class Triangulator
         foreach (var triangle in outerTris) 
             triangles.Remove(triangle);
 
-        return triangles;
+        foreach (var triangle in triangles)
+        {
+            var node1 = roomDic[triangle.Vertices[0]];
+            var node2 = roomDic[triangle.Vertices[1]];
+            var node3 = roomDic[triangle.Vertices[2]];
+            graph.AddConnection(node1, node2)?.SetCost(Vector2.Distance(node1.value.Center, node2.value.Center));
+            graph.AddConnection(node2, node3)?.SetCost(Vector2.Distance(node2.value.Center, node3.value.Center));
+            graph.AddConnection(node3, node1)?.SetCost(Vector2.Distance(node3.value.Center, node1.value.Center));
+        }
+        
+        return graph;
     }
 
     private static void TriangulatePoint(Vector2 point, List<Triangle> triangles)
