@@ -3,6 +3,7 @@
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject camera;
     
     private void Start()
     {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     private void PlacePlayer(Dungeon dungeon)
     {
-        player.transform.position = dungeon.rooms[0].Center + new Vector2(55, 0);
+        var roomPos = dungeon.rooms[0].Center + new Vector2(55, 0);
+        player.transform.position = roomPos;
+        camera.transform.position = new Vector3(roomPos.x, roomPos.y, -10);
     }
 }
