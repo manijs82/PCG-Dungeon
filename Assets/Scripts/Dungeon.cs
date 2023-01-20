@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class Dungeon : Sample
 {
-    public Vector2Int RoomCountRange = new(6, 13);
-    public Vector2Int RoomWidthRange = new(5, 8);
+    public Vector2Int RoomCountRange = new(8, 13);
+    public Vector2Int RoomWidthRange = new(6, 9);
 
     private CellType[,] cells;
     private int width = 50;

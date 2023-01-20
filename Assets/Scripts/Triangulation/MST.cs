@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Graph;
 using UnityEngine;
 
@@ -7,33 +8,40 @@ public static class MST
     public static Graph<Room> GetMST(Graph<Room> graph)
     {
         var o = new Graph<Room>();
-        var current = new List<Node<Room>>(graph.vertices);
-        var final = new List<Node<Room>>();
+        var nodes = new List<Node<Room>>(graph.vertices);
+        var mst = new List<Node<Room>>();
         
-        var startNode = current[0];
-        final.Add(startNode);
-        current.Remove(startNode);
+        var startNode = nodes[0];
+        mst.Add(startNode);
+        nodes.Remove(startNode);
 
-        while (current.Count != 0)
+        while (nodes.Count != 0)
         {
-            var connections = graph.GetConnectedConnections(final[^1]);
+            var connections = graph.GetConnectedConnections(mst[^1]);
+            connections = connections.OrderBy(c => c.cost).ToList();
             Connection<Room> nextConnection = null;
 
             foreach (var connection in connections)
             {
-                if (final.Contains(connection.GetOtherNode(final[^1]))) continue;
+                if (mst.Contains(connection.GetOtherNode(mst[^1]))) continue;
                 nextConnection = connection;
                 break;
             }
             if(nextConnection == null) break;
-            var nextRoom = nextConnection.GetOtherNode(final[^1]);
-            current.Remove(nextRoom);
-            final.Add(nextRoom);
+            var nextRoom = nextConnection.GetOtherNode(mst[^1]);
+            nodes.Remove(nextRoom);
+            mst.Add(nextRoom);
             
             o.AddConnection(nextConnection.GetOtherNode(nextRoom), nextRoom);
         }
-        
-        
+
+        foreach (var connection in graph.connections)
+        {
+            float r = Random.value;
+            if (r < 0.333f) 
+                o.AddConnection(connection.start, connection.end);
+        }
+
         return o;
     }
 }
