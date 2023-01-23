@@ -18,26 +18,23 @@ public class Generator : MonoBehaviour
         Dungeon d = (Dungeon)e.samples[0];
         d.roomGraph = Triangulator.Triangulate(d.rooms);
         d.roomGraph = MST.GetMST(d.roomGraph);
-        foreach (var room in d.rooms)
-        {
-            room.SetCells();
-            GenerateRoom(room);
-        }
+        GenerateDungeon(d);
 
         candidateDungeon = d;
         OnDungeonGenerated?.Invoke(candidateDungeon);
     }
 
-    private void GenerateRoom(Room room)
+    private void GenerateDungeon(Dungeon dungeon)
     {
-        for (int y = 0; y < room.cells.GetLength(1); y++)
+        dungeon.SetGrid();
+        for (int y = 0; y < dungeon.grid.Width; y++)
         {
-            for (int x = 0; x < room.cells.GetLength(0); x++)
+            for (int x = 0; x < dungeon.grid.Height; x++)
             {
-                var go = Instantiate(block, room.startPoint + new Vector2(x, y),
+                var go = Instantiate(block, new Vector2(x, y),
                     Quaternion.identity, transform);
                 SpriteRenderer sprite = go.GetComponentInChildren<SpriteRenderer>();
-                sprite.color = GetColor(room.cells[x, y]);
+                sprite.color = GetColor(((TileGridObject)dungeon.grid.GetValue(x, y)).Type);
             }
         }
     }
@@ -52,7 +49,7 @@ public class Generator : MonoBehaviour
                 return Color.blue;
         }
 
-        return Color.white;
+        return Color.gray;
     }
 
 #if UNITY_EDITOR

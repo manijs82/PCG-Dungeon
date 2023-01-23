@@ -19,18 +19,14 @@ public class TileMapVisual : MonoBehaviour
 
     private void SetTiles(Dungeon d)
     {
-        FillBlank();
-
-        foreach (var room in d.rooms)
+        //FillBlank();
+        
+        for (int y = 0; y < d.grid.Width; y++)
         {
-            room.SetCells();
-            for (int x = 0; x < room.cells.GetLength(0); x++)
+            for (int x = 0; x < d.grid.Height; x++)
             {
-                for (int y = 0; y < room.cells.GetLength(1); y++)
-                {
-                    tilemap.SetTile(new Vector3Int((int) room.startPoint.x + x, (int) room.startPoint.y + y) + new Vector3Int(55, 0)
-                        , GetTile(room.cells[x, y]));
-                }
+                tilemap.SetTile(new Vector3Int(x, y) + new Vector3Int(55, 0)
+                    , GetTile(((TileGridObject)d.grid.GetValue(x, y)).Type));
             }
         }
     }

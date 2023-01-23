@@ -3,7 +3,6 @@ using UnityEngine;
 
 public struct Room
 {
-    public CellType[,] cells;
     public Vector2 startPoint;
         
     private int width;
@@ -24,20 +23,5 @@ public struct Room
         startPoint = room.startPoint;
         width = room.width;
         height = room.height;
-    }
-
-    public void SetCells()
-    {
-        cells = new CellType[width, height];
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1)
-                    cells[x, y] = CellType.Wall;
-                else
-                    cells[x, y] = CellType.Ground;
-            }
-        }
     }
 }

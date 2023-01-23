@@ -8,10 +8,11 @@ public class Dungeon : Sample
     public Vector2Int RoomCountRange = new(8, 13);
     public Vector2Int RoomWidthRange = new(6, 9);
 
-    private CellType[,] cells;
-    private int width = 50;
     public List<Room> rooms;
     public Graph<Room> roomGraph;
+    public Grid<GridObject> grid;
+
+    private int width = 50;
 
     public Dungeon()
     {
@@ -25,6 +26,56 @@ public class Dungeon : Sample
         rooms = new List<Room>(d.rooms);
     }
 
+    public override void Mutate()
+    {
+        for (var i = 0; i < rooms.Count; i++)
+        {
+            Vector2 startPointOffset = new Vector2(Random.Range(-2, 3), Random.Range(-2, 3));
+            Room newRoom = new Room(rooms[i]);
+            newRoom.startPoint += startPointOffset;
+            rooms[i] = newRoom;
+        }
+    }
+
+    public void SetGrid()
+    {
+        grid = new Grid<GridObject>(50, 50, 1, (_, x, y) => new TileGridObject(x, y, CellType.Empty));
+
+        foreach (var room in rooms)
+        {
+            for (int x = 0; x < room.Bound.w; x++)
+            {
+                for (int y = 0; y < room.Bound.h; y++)
+                {
+                    if (x == 0 || y == 0 || x == room.Bound.w - 1 || y == room.Bound.h - 1)
+                        grid.SetValue(x + room.Bound.x, y + room.Bound.y, new TileGridObject(x, y, CellType.Wall));
+                    else
+                        grid.SetValue(x + room.Bound.x, y + room.Bound.y, new TileGridObject(x, y, CellType.Ground));
+                }
+            }
+        }
+
+        SetPaths();
+    }
+
+    private void SetPaths()
+    {
+        foreach (var connection in roomGraph.connections)
+        {
+            var centerStart = connection.start.value.Center;
+            var centerEnd = connection.end.value.Center;
+
+            DijkstrasAlgorithm astar = new DijkstrasAlgorithm(grid, grid.GetValue((int)centerStart.x, (int)centerStart.y),
+                grid.GetValue((int)centerEnd.x, (int)centerEnd.y));
+            astar.PathFindingSearch();
+            foreach (var gridObject in astar.path)
+            {
+                TileGridObject tile = (TileGridObject)gridObject;
+                tile.Type = CellType.Ground;
+            }
+        }
+    }
+
     private void SetRooms()
     {
         int roomCount = Random.Range(RoomCountRange.x, RoomCountRange.y);
@@ -35,17 +86,6 @@ public class Dungeon : Sample
                 Random.Range(RoomWidthRange.x, RoomWidthRange.y));
 
             rooms.Add(room);
-        }
-    }
-
-    public override void Mutate()
-    {
-        for (var i = 0; i < rooms.Count; i++)
-        {
-            Vector2 startPointOffset = new Vector2(Random.Range(-2, 3), Random.Range(-2, 3));
-            Room newRoom = new Room(rooms[i]);
-            newRoom.startPoint += startPointOffset;
-            rooms[i] = newRoom;
         }
     }
 }
