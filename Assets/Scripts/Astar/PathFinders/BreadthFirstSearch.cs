@@ -39,7 +39,6 @@ public class BreadthFirstSearch
 
             foreach (var gridObj in pathGrid.GetNeighbors(current))
             {
-                //yield return null;
                 if (!searched.ContainsKey(gridObj))
                 {
                     frontiers.Enqueue(gridObj);

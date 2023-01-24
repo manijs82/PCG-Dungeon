@@ -65,8 +65,15 @@ public class Dungeon : Sample
             var centerStart = connection.start.value.Center;
             var centerEnd = connection.end.value.Center;
 
-            DijkstrasAlgorithm astar = new DijkstrasAlgorithm(grid, grid.GetValue((int)centerStart.x, (int)centerStart.y),
-                grid.GetValue((int)centerEnd.x, (int)centerEnd.y));
+            var gridStart = grid.GetValue((int)centerStart.x, (int)centerStart.y);
+            var gridEnd = grid.GetValue((int)centerEnd.x, (int)centerEnd.y);
+            
+            Debug.Log(centerStart);
+            Debug.Log(centerEnd);
+            Debug.Log(gridStart.x + " " + gridStart.y);
+            Debug.Log(gridEnd.x + " " + gridEnd.y);
+            
+            BreadthFirstSearch astar = new BreadthFirstSearch(grid, gridStart, gridEnd);
             astar.PathFindingSearch();
             foreach (var gridObject in astar.path)
             {

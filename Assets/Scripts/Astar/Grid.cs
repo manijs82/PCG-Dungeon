@@ -95,7 +95,9 @@ public class Grid<TGridObject> where TGridObject : GridObject
     public TGridObject GetValue(int x, int y)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)
+        {
             return gridArray[x, y];
+        }
         else
             return default(TGridObject);
     }
