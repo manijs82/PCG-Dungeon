@@ -157,4 +157,29 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
         return output;
     }
+    
+    public List<TGridObject> Get9Neighbors(TGridObject center)
+    {
+        var output = new List<TGridObject>();
+        var temp = new List<TGridObject>();
+
+        
+        temp.Add(GetValue(center.x, center.y + 1));
+        temp.Add(GetValue(center.x, center.y - 1));
+        temp.Add(GetValue(center.x + 1, center.y));
+        temp.Add(GetValue(center.x - 1, center.y));
+        temp.Add(GetValue(center.x + 1, center.y + 1));
+        temp.Add(GetValue(center.x - 1, center.y - 1));
+        temp.Add(GetValue(center.x + 1, center.y - 1));
+        temp.Add(GetValue(center.x - 1, center.y + 1));
+
+        foreach (var p in temp)
+            if (p != null)
+            {
+                if (!p.IsBlocked)
+                    output.Add(p);
+            }
+
+        return output;
+    }
 }

@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class Dungeon : Sample
 {
-    public Vector2Int RoomCountRange = new(8, 13);
-    public Vector2Int RoomWidthRange = new(6, 9);
+    public Vector2Int RoomCountRange = new(8, 12);
+    public Vector2Int RoomWidthRange = new(7, 15);
 
     public List<Room> rooms;
     public Graph<Room> roomGraph;
@@ -47,10 +47,10 @@ public class Dungeon : Sample
             {
                 for (int y = 0; y < room.Bound.h; y++)
                 {
-                    if (x == 0 || y == 0 || x == room.Bound.w - 1 || y == room.Bound.h - 1)
-                        grid.SetValue(x + room.Bound.x, y + room.Bound.y, new TileGridObject(x, y, CellType.Wall));
-                    else
-                        grid.SetValue(x + room.Bound.x, y + room.Bound.y, new TileGridObject(x, y, CellType.Ground));
+                    var isWall = x == 0 || y == 0 || x == room.Bound.w - 1 || y == room.Bound.h - 1;
+                    grid.SetValue(x + room.Bound.x, y + room.Bound.y,
+                        new TileGridObject(x + room.Bound.x, y + room.Bound.y,
+                            isWall ? CellType.Wall : CellType.Ground));
                 }
             }
         }
@@ -65,20 +65,20 @@ public class Dungeon : Sample
             var centerStart = connection.start.value.Center;
             var centerEnd = connection.end.value.Center;
 
-            var gridStart = grid.GetValue((int)centerStart.x, (int)centerStart.y);
-            var gridEnd = grid.GetValue((int)centerEnd.x, (int)centerEnd.y);
-            
-            Debug.Log(centerStart);
-            Debug.Log(centerEnd);
-            Debug.Log(gridStart.x + " " + gridStart.y);
-            Debug.Log(gridEnd.x + " " + gridEnd.y);
-            
-            BreadthFirstSearch astar = new BreadthFirstSearch(grid, gridStart, gridEnd);
+            var gridStart = grid.GetValue(centerStart);
+            var gridEnd = grid.GetValue(centerEnd);
+
+            AStarAlgorithm astar = new AStarAlgorithm(grid, gridStart, gridEnd);
             astar.PathFindingSearch();
             foreach (var gridObject in astar.path)
             {
-                TileGridObject tile = (TileGridObject)gridObject;
+                var tile = (TileGridObject)gridObject;
                 tile.Type = CellType.Ground;
+                foreach (var neighbor in grid.Get9Neighbors(tile))
+                {
+                    var n = (TileGridObject)neighbor;
+                    if (n.Type == CellType.Empty) n.Type = CellType.Wall;
+                }
             }
         }
     }
