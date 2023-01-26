@@ -6,17 +6,17 @@ public class Evolution<T> where T : Sample
 {
     public const int MaxIterationCount = 100;
     public const int MinGoodScore = 100;
-    public const int Population = 20; // gotta be an even number
+    public const int Population = 50; // gotta be an even number
         
     public List<Sample> samples;
 
-    public Evolution()
+    public Evolution(Vector2Int roomCountRange, Vector2Int roomWidthRange, int width, int height)
     {
         samples = new List<Sample>();
 
         for (int i = 0; i < Population; i++)
         {
-            Dungeon d = new Dungeon();
+            Dungeon d = new Dungeon(roomCountRange, roomWidthRange, width, height);
             d.fitnessValue = Evaluator.EvaluateDungeon(d);
             samples.Add(d);
         }

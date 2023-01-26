@@ -21,11 +21,11 @@ public class TileMapVisual : MonoBehaviour
     {
         //FillBlank();
         
-        for (int y = 0; y < d.grid.Width; y++)
+        for (int y = 0; y < d.grid.Height; y++)
         {
-            for (int x = 0; x < d.grid.Height; x++)
+            for (int x = 0; x < d.grid.Width; x++)
             {
-                tilemap.SetTile(new Vector3Int(x, y) + new Vector3Int(55, 0)
+                tilemap.SetTile(new Vector3Int(x, y) + new Vector3Int(d.grid.Width + 5, 0)
                     , GetTile(((TileGridObject)d.grid.GetValue(x, y)).Type));
             }
         }

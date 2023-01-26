@@ -7,7 +7,7 @@ public static class Evaluator
         float finalScore = 0;
 
         foreach (var room in dungeon.rooms)
-            finalScore += EvaluateRoom(room);
+            finalScore += EvaluateRoom(room, dungeon);
 
         finalScore += EvaluateCollision(dungeon);
 
@@ -20,25 +20,25 @@ public static class Evaluator
 
         for (int i = 0; i < dungeon.rooms.Count; i++)
         {
-            if (!Bound.Inside(dungeon.rooms[i].Bound, new Bound(0, 0, 50, 50)))
-                score -= 1000;
+            if (!Bound.Inside(dungeon.rooms[i].Bound, new Bound(0, 0, dungeon.width, dungeon.height)))
+                score -= 10000;
 
             if (i == dungeon.rooms.Count - 1) break;
             for (int j = i + 1; j < dungeon.rooms.Count; j++)
             {
                 if (Bound.Collide(dungeon.rooms[i].Bound, dungeon.rooms[j].Bound))
-                    score -= 100;
+                    score -= 5000;
             }
         }
 
         return score;
     }
 
-    private static float EvaluateRoom(Room room)
+    private static float EvaluateRoom(Room room, Dungeon dungeon)
     {
-        Vector2 center = new Vector2(25f, 25f);
+        Vector2 center = new Vector2(dungeon.width/2f, dungeon.height/2f);
 
-        float score = 25 - (room.Center - center).magnitude;
+        float score = center.magnitude - (room.Center - center).magnitude;
         return score;
     }
 }

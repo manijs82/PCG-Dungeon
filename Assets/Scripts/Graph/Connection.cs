@@ -28,5 +28,11 @@
         {
             this.cost = cost;
         }
+
+        public bool Contains(Node<T> node)
+        {
+            if (node == end || node == start) return true;
+            return false;
+        }
     }
 }

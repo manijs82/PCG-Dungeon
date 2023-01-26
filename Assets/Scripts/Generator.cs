@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,28 +7,39 @@ public class Generator : MonoBehaviour
     public static event Action<Dungeon> OnDungeonGenerated; 
 
     [SerializeField] private GameObject block;
+    [Space] [SerializeField] private Vector2Int roomCountRange = new(13, 16);
+    [SerializeField] private Vector2Int roomWidthRange = new(10, 20);
+    [SerializeField] private int width = 100;
+    [SerializeField] private int height = 100;
 
     private Dungeon candidateDungeon;
 
     private void Start()
     {
-        Evolution<Dungeon> e = new Evolution<Dungeon>();
+        GenerateDungeon();
+    }
+
+    public void GenerateDungeon()
+    {
+        Evolution<Dungeon> e = new Evolution<Dungeon>(roomCountRange, roomWidthRange, width, height);
 
         Dungeon d = (Dungeon)e.samples[0];
         d.roomGraph = Triangulator.Triangulate(d.rooms);
         d.roomGraph = MST.GetMST(d.roomGraph);
+        d.RemoveUnusedRooms();
+        candidateDungeon = d;
         GenerateDungeon(d);
 
-        candidateDungeon = d;
+        print(candidateDungeon.fitnessValue);
         OnDungeonGenerated?.Invoke(candidateDungeon);
     }
 
     private void GenerateDungeon(Dungeon dungeon)
     {
         dungeon.SetGrid();
-        for (int y = 0; y < dungeon.grid.Width; y++)
+        for (int y = 0; y < dungeon.grid.Height; y++)
         {
-            for (int x = 0; x < dungeon.grid.Height; x++)
+            for (int x = 0; x < dungeon.grid.Width; x++)
             {
                 var go = Instantiate(block, new Vector2(x, y),
                     Quaternion.identity, transform);
@@ -55,14 +65,15 @@ public class Generator : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(Vector3.zero, new Vector3(50, 0));
-        Gizmos.DrawLine(Vector3.zero, new Vector3(0, 50));
-        Gizmos.DrawLine(new Vector3(50, 0), new Vector3(50, 50));
-        Gizmos.DrawLine(new Vector3(0, 50), new Vector3(50, 50));
-        Gizmos.DrawSphere(new Vector3(25, 25), .5f);
-
-        if (candidateDungeon != null)
-            DrawDungeon(candidateDungeon);
+        if (candidateDungeon == null) return;
+        
+        Gizmos.DrawLine(Vector3.zero, new Vector3(candidateDungeon.width, 0));
+        Gizmos.DrawLine(Vector3.zero, new Vector3(0, candidateDungeon.height));
+        Gizmos.DrawLine(new Vector3(candidateDungeon.width, 0), new Vector3(candidateDungeon.width, candidateDungeon.height));
+        Gizmos.DrawLine(new Vector3(0, candidateDungeon.height), new Vector3(candidateDungeon.width, candidateDungeon.height));
+        Gizmos.DrawSphere(new Vector3(candidateDungeon.height/2f, candidateDungeon.height/2f), .5f);
+        
+        DrawDungeon(candidateDungeon);
     }
 
 

@@ -42,6 +42,26 @@ namespace Graph
             return connection;
         }
 
+        public List<Node<T>> RemoveUnconnectedVertices()
+        {
+            var unconnected = new List<Node<T>>();
+            foreach (var node in vertices)
+            {
+                bool isConnected = false;
+                foreach (var connection in connections)
+                    if(connection.Contains(node))
+                    {
+                        isConnected = true;
+                        break;
+                    }
+
+                if (isConnected) continue;
+                unconnected.Add(node);
+            }
+
+            return unconnected;
+        }
+
         private bool ContainConnection(Node<T> start, Node<T> end)
         {
             foreach (var connection in connections)

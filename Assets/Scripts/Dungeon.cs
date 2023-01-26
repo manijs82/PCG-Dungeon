@@ -5,14 +5,15 @@ using Random = UnityEngine.Random;
 
 public class Dungeon : Sample
 {
-    public Vector2Int RoomCountRange = new(8, 12);
-    public Vector2Int RoomWidthRange = new(7, 15);
-
+    public Vector2Int roomCountRange = new(13, 16);
+    public Vector2Int roomWidthRange = new(10, 20);
+    public int width = 100;
+    public int height = 100;
+    
     public List<Room> rooms;
     public Graph<Room> roomGraph;
     public Grid<GridObject> grid;
 
-    private int width = 50;
 
     public Dungeon()
     {
@@ -20,10 +21,43 @@ public class Dungeon : Sample
         SetRooms();
     }
 
+    public Dungeon(Vector2Int roomCountRange, Vector2Int roomWidthRange, int width, int height)
+    {
+        this.roomCountRange = roomCountRange;
+        this.roomWidthRange = roomWidthRange;
+        this.width = width;
+        this.height = height;
+        rooms = new List<Room>();
+        SetRooms();
+    }
+
     public Dungeon(Dungeon d)
     {
+        roomCountRange = d.roomCountRange;
+        roomWidthRange = d.roomWidthRange;
         width = d.width;
+        height = d.height;
         rooms = new List<Room>(d.rooms);
+    }
+
+    private void SetRooms()
+    {
+        int roomCount = Random.Range(roomCountRange.x, roomCountRange.y);
+        for (int i = 0; i < roomCount; i++)
+        {
+            Vector2 point = new Vector2(Random.Range(0, width), Random.Range(0, height));
+            Room room = new Room(point, Random.Range(roomWidthRange.x, roomWidthRange.y),
+                Random.Range(roomWidthRange.x, roomWidthRange.y));
+
+            rooms.Add(room);
+        }
+    }
+
+    public void RemoveUnusedRooms()
+    {
+        var unusedRooms = roomGraph.RemoveUnconnectedVertices();
+        foreach (var room in unusedRooms) 
+            rooms.Remove(room.value);
     }
 
     public override void Mutate()
@@ -39,7 +73,7 @@ public class Dungeon : Sample
 
     public void SetGrid()
     {
-        grid = new Grid<GridObject>(50, 50, 1, (_, x, y) => new TileGridObject(x, y, CellType.Empty));
+        grid = new Grid<GridObject>(width, height, 1, (_, x, y) => new TileGridObject(x, y, CellType.Empty));
 
         foreach (var room in rooms)
         {
@@ -80,19 +114,6 @@ public class Dungeon : Sample
                     if (n.Type == CellType.Empty) n.Type = CellType.Wall;
                 }
             }
-        }
-    }
-
-    private void SetRooms()
-    {
-        int roomCount = Random.Range(RoomCountRange.x, RoomCountRange.y);
-        for (int i = 0; i < roomCount; i++)
-        {
-            Vector2 point = new Vector2(Random.Range(0, width), Random.Range(0, width));
-            Room room = new Room(point, Random.Range(RoomWidthRange.x, RoomWidthRange.y),
-                Random.Range(RoomWidthRange.x, RoomWidthRange.y));
-
-            rooms.Add(room);
         }
     }
 }

@@ -234,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67516708}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -80.5, y: -25.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -659,27 +659,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3966601028533726727, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
   m_PrefabInstance: {fileID: 3966601029658745020}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &1307686591
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1307686586}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!1 &1518624282
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,17 +759,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3966601029364775655, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966601029364775655, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5809648991976867227, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
       propertyPath: acceleration
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5809648991976867227, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
-      propertyPath: initialSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 5809648991976867227, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
       propertyPath: deAcceleration
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428235058518146878, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428235058518146878, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
