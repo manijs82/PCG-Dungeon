@@ -689,6 +689,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
+  roomCountRange: {x: 8, y: 13}
+  roomWidthRange: {x: 10, y: 20}
+  width: 100
+  height: 100
 --- !u!4 &1518624284
 Transform:
   m_ObjectHideFlags: 0

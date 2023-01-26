@@ -79,7 +79,7 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
     public void SetValue(int x, int y, TGridObject value)
     {
-        if (x >= 0 && y >= 0 && x <= width && y <= height)
+        if (x >= 0 && y >= 0 && x < width && y < height)
         {
             gridArray[x, y] = value;
             OnGridValueChange?.Invoke(x, y);
