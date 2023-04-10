@@ -16,7 +16,7 @@ With the bowyer-watson algorithm which does a Delaunay triangulation I connect t
 
 3- Tweeking the graph to a Minimum-Spanning-Tree
 With the Prim's algorithm which makes a Minimum-Spanning-Tree out of the created room graph. After this step every room will only acessible one way.
-I add some of the connections back so it has some variation.
+You can add some of the connections back so it has some variation.
 ![step3](https://user-images.githubusercontent.com/57400375/230924829-3094effd-a2b4-4390-8a94-62cfe7b3dccf.png)
 
 4- Visualize
