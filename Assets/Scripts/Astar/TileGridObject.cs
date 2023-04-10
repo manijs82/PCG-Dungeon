@@ -7,5 +7,5 @@
         Type = type;
     }
 
-    public override bool IsBlocked => false;
+    public override bool IsBlocked => Type is CellType.Wall or CellType.Ground;
 }

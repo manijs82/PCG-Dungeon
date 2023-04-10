@@ -20,13 +20,13 @@ public static class Evaluator
 
         for (int i = 0; i < dungeon.rooms.Count; i++)
         {
-            if (!Bound.Inside(dungeon.rooms[i].Bound, new Bound(0, 0, dungeon.width, dungeon.height)))
+            if (!Bound.Inside(dungeon.rooms[i].bound, new Bound(0, 0, dungeon.dungeonParameters.width, dungeon.dungeonParameters.height)))
                 score -= 10000;
 
             if (i == dungeon.rooms.Count - 1) break;
             for (int j = i + 1; j < dungeon.rooms.Count; j++)
             {
-                if (Bound.Collide(dungeon.rooms[i].Bound, dungeon.rooms[j].Bound))
+                if (Bound.Collide(dungeon.rooms[i].bound, dungeon.rooms[j].bound))
                     score -= 5000;
             }
         }
@@ -36,7 +36,7 @@ public static class Evaluator
 
     private static float EvaluateRoom(Room room, Dungeon dungeon)
     {
-        Vector2 center = new Vector2(dungeon.width/2f, dungeon.height/2f);
+        Vector2 center = new Vector2(dungeon.dungeonParameters.width/2f, dungeon.dungeonParameters.height/2f);
 
         float score = center.magnitude - (room.Center - center).magnitude;
         return score;

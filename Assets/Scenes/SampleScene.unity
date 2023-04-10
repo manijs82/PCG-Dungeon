@@ -633,6 +633,7 @@ MonoBehaviour:
   outLine: {fileID: 11400000, guid: f5786cf0eb9e5a5489d788e19d6c1f0e, type: 2}
   ground: {fileID: 11400000, guid: 424210d9d70b5f544ba600d4389fdf27, type: 2}
   filler: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+  door: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
 --- !u!19719996 &752770667
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -689,10 +690,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
-  roomCountRange: {x: 8, y: 13}
-  roomWidthRange: {x: 10, y: 20}
-  width: 100
-  height: 100
+  dungeonParameters:
+    roomCountRange: {x: 9, y: 12}
+    roomWidthRange: {x: 10, y: 20}
+    width: 100
+    height: 100
+  index: 0
 --- !u!4 &1518624284
 Transform:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class AStarAlgorithm : DijkstrasAlgorithm
     
     private float GetManhattanDist(Vector2 a, Vector2 b)
     {
-        return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y = b.y);
+        return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
     }
 }
     

@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class Evolution<T> where T : Sample
 {
@@ -10,15 +10,15 @@ public class Evolution<T> where T : Sample
         
     public List<Sample> samples;
 
-    public Evolution(Vector2Int roomCountRange, Vector2Int roomWidthRange, int width, int height)
+    public Evolution(SampleParameters parameters)
     {
         samples = new List<Sample>();
 
         for (int i = 0; i < Population; i++)
         {
-            Dungeon d = new Dungeon(roomCountRange, roomWidthRange, width, height);
-            d.fitnessValue = Evaluator.EvaluateDungeon(d);
-            samples.Add(d);
+            T sample = (T)Activator.CreateInstance(typeof(T), parameters);
+            sample.fitnessValue = sample.Evaluate();
+            samples.Add(sample);
         }
 
         Evolute();
@@ -32,13 +32,13 @@ public class Evolution<T> where T : Sample
             samples.RemoveRange(Population/2, Population/2);
             for (int j = 0; j < Population/2; j++)
             {
-                Dungeon d = new Dungeon((Dungeon) samples[j]);
-                d.Mutate();
-                d.fitnessValue = Evaluator.EvaluateDungeon(d);
-                samples.Add(d);
+                T sample = (T)Activator.CreateInstance(typeof(T), (T) samples[j]);
+                sample.Mutate();
+                sample.fitnessValue = sample.Evaluate();
+                samples.Add(sample);
             }
                 
-            if(samples[0].fitnessValue >= MinGoodScore) return;
+            //if(samples[0].fitnessValue >= MinGoodScore) return;
         }
     }
 }

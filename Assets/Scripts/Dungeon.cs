@@ -1,53 +1,59 @@
+
 using System.Collections.Generic;
 using Graph;
 using UnityEngine;
-using Random = UnityEngine.Random;
+
+[System.Serializable]
+public class DungeonParameters : SampleParameters
+{
+    public Vector2Int roomCountRange;
+    public Vector2Int roomWidthRange;
+    public int width;
+    public int height;
+}
 
 public class Dungeon : Sample
 {
-    public Vector2Int roomCountRange = new(13, 16);
-    public Vector2Int roomWidthRange = new(10, 20);
-    public int width = 100;
-    public int height = 100;
-    
     public List<Room> rooms;
     public Graph<Room> roomGraph;
     public Grid<GridObject> grid;
-
+    public DungeonParameters dungeonParameters;
 
     public Dungeon()
     {
         rooms = new List<Room>();
-        SetRooms();
+        AddRandomRooms();
     }
 
-    public Dungeon(Vector2Int roomCountRange, Vector2Int roomWidthRange, int width, int height)
+    public Dungeon(SampleParameters parameters)
     {
-        this.roomCountRange = roomCountRange;
-        this.roomWidthRange = roomWidthRange;
-        this.width = width;
-        this.height = height;
-        rooms = new List<Room>();
-        SetRooms();
+        var parms = parameters as DungeonParameters;
+        dungeonParameters = new DungeonParameters
+        {
+            roomCountRange = parms.roomCountRange,
+            roomWidthRange = parms.roomWidthRange,
+            width = parms.width,
+            height = parms.height
+        };
+        AddRandomRooms();
     }
 
     public Dungeon(Dungeon d)
     {
-        roomCountRange = d.roomCountRange;
-        roomWidthRange = d.roomWidthRange;
-        width = d.width;
-        height = d.height;
+        dungeonParameters = d.dungeonParameters;
         rooms = new List<Room>(d.rooms);
+        roomGraph = d.roomGraph;
     }
 
-    private void SetRooms()
+    private void AddRandomRooms()
     {
-        int roomCount = Random.Range(roomCountRange.x, roomCountRange.y);
+        rooms = new List<Room>();
+        int roomCount = Random.Range(dungeonParameters.roomCountRange.x, dungeonParameters.roomCountRange.y);
         for (int i = 0; i < roomCount; i++)
         {
-            Vector2 point = new Vector2(Random.Range(0, width), Random.Range(0, height));
-            Room room = new Room(point, Random.Range(roomWidthRange.x, roomWidthRange.y),
-                Random.Range(roomWidthRange.x, roomWidthRange.y));
+            Vector2 point = new Vector2(Random.Range(0, dungeonParameters.width), Random.Range(0, dungeonParameters.height));
+            Room room = new Room(point, Random.Range(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y),
+                Random.Range(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y));
 
             rooms.Add(room);
         }
@@ -58,6 +64,64 @@ public class Dungeon : Sample
         var unusedRooms = roomGraph.RemoveUnconnectedVertices();
         foreach (var room in unusedRooms) 
             rooms.Remove(room.value);
+    }
+
+    public void MakeGridOutOfRooms()
+    {
+        grid = new Grid<GridObject>(dungeonParameters.width, dungeonParameters.height, 1,
+            (_, x, y) => new TileGridObject(x, y, CellType.Empty));
+
+        foreach (var room in rooms)
+        {
+            room.InitializeGrid();
+            grid.PlaceGridOnGrid(room.bound.x, room.bound.y, room.grid);
+        }
+
+        AddPathsToConnectedRooms();
+    }
+
+    private void AddPathsToConnectedRooms()
+    {
+        if(roomGraph == null) return;
+        foreach (var connection in roomGraph.connections)
+        {
+            var room1 = connection.start.value;
+            var room2 = connection.end.value;
+            
+            AddDoorsBetweenRooms(room1, room2, out Vector2 door1, out Vector2 door2);
+
+            var startTile = (TileGridObject) grid.GetValue(door1);
+            var endTile = (TileGridObject) grid.GetValue(door2);
+            
+            startTile.Type = CellType.Door;
+            endTile.Type = CellType.Door;
+
+            AStarAlgorithm astar = new AStarAlgorithm(grid, startTile, endTile);
+            astar.PathFindingSearch();
+            foreach (var gridObject in astar.path)
+            {
+                var tile = (TileGridObject)gridObject;
+                tile.Type = CellType.Ground;
+                foreach (var neighbor in grid.Get9Neighbors(tile))
+                {
+                    var n = (TileGridObject)neighbor;
+                    if (n.Type == CellType.Empty) n.Type = CellType.Wall;
+                }
+            }
+            
+            startTile.Type = CellType.Door;
+            endTile.Type = CellType.Door;
+        }
+    }
+
+    private void AddDoorsBetweenRooms(Room room1, Room room2, out Vector2 door1, out Vector2 door2)
+    {
+        door1 = room1.bound.ClosestPointInside(room2.Center);
+        door1 += (room1.Center - door1).normalized / 5;
+        door2 = room2.bound.ClosestPointInside(room1.Center);
+        door2 += (room2.Center - door2).normalized / 5;
+        room1.doors.Add(door1 - room1.startPoint);
+        room2.doors.Add(door2 - room2.startPoint);
     }
 
     public override void Mutate()
@@ -71,49 +135,8 @@ public class Dungeon : Sample
         }
     }
 
-    public void SetGrid()
+    public override float Evaluate()
     {
-        grid = new Grid<GridObject>(width, height, 1, (_, x, y) => new TileGridObject(x, y, CellType.Empty));
-
-        foreach (var room in rooms)
-        {
-            for (int x = 0; x < room.Bound.w; x++)
-            {
-                for (int y = 0; y < room.Bound.h; y++)
-                {
-                    var isWall = x == 0 || y == 0 || x == room.Bound.w - 1 || y == room.Bound.h - 1;
-                    grid.SetValue(x + room.Bound.x, y + room.Bound.y,
-                        new TileGridObject(x + room.Bound.x, y + room.Bound.y,
-                            isWall ? CellType.Wall : CellType.Ground));
-                }
-            }
-        }
-
-        SetPaths();
-    }
-
-    private void SetPaths()
-    {
-        foreach (var connection in roomGraph.connections)
-        {
-            var centerStart = connection.start.value.Center;
-            var centerEnd = connection.end.value.Center;
-
-            var gridStart = grid.GetValue(centerStart);
-            var gridEnd = grid.GetValue(centerEnd);
-
-            AStarAlgorithm astar = new AStarAlgorithm(grid, gridStart, gridEnd);
-            astar.PathFindingSearch();
-            foreach (var gridObject in astar.path)
-            {
-                var tile = (TileGridObject)gridObject;
-                tile.Type = CellType.Ground;
-                foreach (var neighbor in grid.Get9Neighbors(tile))
-                {
-                    var n = (TileGridObject)neighbor;
-                    if (n.Type == CellType.Empty) n.Type = CellType.Wall;
-                }
-            }
-        }
+        return Evaluator.EvaluateDungeon(this);
     }
 }

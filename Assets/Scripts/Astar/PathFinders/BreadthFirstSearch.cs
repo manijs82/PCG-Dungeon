@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class BreadthFirstSearch
 {
@@ -55,6 +56,8 @@ public class BreadthFirstSearch
         while (currentPlace != start)
         {
             path.Add(currentPlace);
+            if(!searched.ContainsKey(currentPlace))
+                break;
             currentPlace = searched[currentPlace];
         }
         path.Add(start);

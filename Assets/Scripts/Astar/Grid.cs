@@ -182,4 +182,15 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
         return output;
     }
+
+    public void PlaceGridOnGrid(int startX, int startY, Grid<TGridObject> grid)
+    {
+        for (int x = 0; x < grid.width; x++)
+        {
+            for (int y = 0; y < grid.height; y++)
+            {
+                SetValue(startX + x, startY + y, grid.GetValue(x, y));
+            }
+        }
+    }
 }

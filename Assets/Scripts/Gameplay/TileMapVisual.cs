@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,7 +7,8 @@ public class TileMapVisual : MonoBehaviour
     [SerializeField] private TileBase outLine;
     [SerializeField] private TileBase ground;
     [SerializeField] private TileBase filler;
-
+    [SerializeField] private TileBase door;
+    
     private Tilemap tilemap;
     
     void Start()
@@ -46,6 +46,8 @@ public class TileMapVisual : MonoBehaviour
                 return outLine;
             case CellType.Ground:
                 return ground;
+            case CellType.Door:
+                return door;
         }
 
         return filler;

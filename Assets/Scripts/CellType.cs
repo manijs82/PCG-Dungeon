@@ -2,5 +2,6 @@ public enum CellType
 {
     Empty,
     Wall,
-    Ground
+    Ground,
+    Door
 }

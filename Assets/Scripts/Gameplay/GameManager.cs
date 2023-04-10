@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private void PlacePlayer(Dungeon dungeon)
     {
-        var roomPos = dungeon.rooms[0].Center + new Vector2(dungeon.width + 5, 0);
+        var roomPos = dungeon.rooms[0].Center + new Vector2(dungeon.dungeonParameters.width + 5, 0);
         player.transform.position = roomPos;
         camera.transform.position = new Vector3(roomPos.x, roomPos.y, -10);
     }
