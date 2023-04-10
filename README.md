@@ -6,6 +6,8 @@ In this project I am using various algorithms to generate a rough-like dungeon.
 ## Steps of the algorithm
 
 1- Evolution strategy for generating rooms
+Using a evaluation function I can give a fitness value to a completely radomly generated room placement.
+By mutating the best samples over and over until getting a sample that has a good score you will get a suitable sample to generate a dungeon for. 
 ![step1](https://user-images.githubusercontent.com/57400375/230924478-20ff97cc-2c19-4dea-9e35-ea9ddccb3064.png)
 
 2- Making a graph out of the rooms with a Triangulation algorithm
