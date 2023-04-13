@@ -12,6 +12,7 @@ By mutating the best samples over and over until getting a sample that has a goo
 
 2- Making a graph out of the rooms with a Triangulation algorithm
 With the bowyer-watson algorithm which does a Delaunay triangulation I connect the rooms in a way that it looks like paths between rooms.
+Rooms are then connected with A* path finding.
 ![step2](https://user-images.githubusercontent.com/57400375/230924690-4fd772ca-e73c-4b05-80e6-71799fba1f91.png)
 
 3- Tweeking the graph to a Minimum-Spanning-Tree
