@@ -10,7 +10,8 @@ public class Generator : MonoBehaviour
     [SerializeField] private GameObject block;
     [SerializeField] private DungeonParameters dungeonParameters;
     [SerializeField] private int index = 1;
-    
+    [SerializeField] private bool stepDebug;
+
     private Dungeon candidateDungeon;
     private List<Dungeon> dungeonSteps;
 
@@ -33,6 +34,12 @@ public class Generator : MonoBehaviour
         d.RemoveUnusedRooms();
         d.MakeGridOutOfRooms();
         candidateDungeon = d;
+
+        if (!stepDebug)
+        {
+            index = dungeonSteps.Count - 1;
+            VisualizeDebugDungeon();
+        }
 
         print(candidateDungeon.fitnessValue);
         OnDungeonGenerated?.Invoke(candidateDungeon);

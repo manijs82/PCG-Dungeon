@@ -7,6 +7,7 @@ public static class MST
 {
     public static Graph<Room> GetMST(Graph<Room> graph)
     {
+        if (graph.vertices.Count <= 2) return graph;
         var o = new Graph<Room>();
         var nodes = new List<Node<Room>>(graph.vertices);
         var mst = new List<Node<Room>>();

@@ -19,10 +19,11 @@ public class Dungeon : Sample
     public Grid<GridObject> grid;
     public DungeonParameters dungeonParameters;
 
-    public Dungeon()
+    public Dungeon(int roomCount = -1)
     {
         rooms = new List<Room>();
         AddRandomRooms();
+        optimalFitnessValue = rooms.Count - 1;
     }
 
     public Dungeon(SampleParameters parameters)
@@ -36,6 +37,8 @@ public class Dungeon : Sample
             height = parms.height
         };
         AddRandomRooms();
+        optimalFitnessValue = rooms.Count - 1;
+        Debug.Log(optimalFitnessValue);
     }
 
     public Dungeon(Dungeon d)
@@ -45,10 +48,12 @@ public class Dungeon : Sample
         roomGraph = d.roomGraph;
     }
 
-    private void AddRandomRooms()
+    private void AddRandomRooms(int count = -1)
     {
         rooms = new List<Room>();
-        int roomCount = Random.Range(dungeonParameters.roomCountRange.x, dungeonParameters.roomCountRange.y);
+        int roomCount = count;
+        if(roomCount == -1)
+            roomCount = Random.Range(dungeonParameters.roomCountRange.x, dungeonParameters.roomCountRange.y);
         for (int i = 0; i < roomCount; i++)
         {
             Vector2 point = new Vector2(Random.Range(0, dungeonParameters.width), Random.Range(0, dungeonParameters.height));
@@ -137,6 +142,6 @@ public class Dungeon : Sample
 
     public override float Evaluate()
     {
-        return Evaluator.EvaluateDungeon(this);
+        return Evaluator.EvaluateDungeonBasedOnLineBetweenRooms(this);
     }
 }

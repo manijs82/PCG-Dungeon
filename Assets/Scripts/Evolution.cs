@@ -5,7 +5,6 @@ using System.Linq;
 public class Evolution<T> where T : Sample
 {
     public const int MaxIterationCount = 100;
-    public const int MinGoodScore = 100;
     public const int Population = 50; // gotta be an even number
         
     public List<Sample> samples;
@@ -38,7 +37,7 @@ public class Evolution<T> where T : Sample
                 samples.Add(sample);
             }
                 
-            //if(samples[0].fitnessValue >= MinGoodScore) return;
+            if(samples[0].fitnessValue >= samples[0].optimalFitnessValue) return;
         }
     }
 }
