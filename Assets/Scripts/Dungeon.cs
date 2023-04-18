@@ -37,8 +37,7 @@ public class Dungeon : Sample
             height = parms.height
         };
         AddRandomRooms();
-        optimalFitnessValue = rooms.Count - 1;
-        Debug.Log(optimalFitnessValue);
+        optimalFitnessValue = rooms.Count;
     }
 
     public Dungeon(Dungeon d)
@@ -97,6 +96,8 @@ public class Dungeon : Sample
 
             var startTile = (TileGridObject) grid.GetValue(door1);
             var endTile = (TileGridObject) grid.GetValue(door2);
+
+            if (startTile == null || endTile == null) return;
             
             startTile.Type = CellType.Door;
             endTile.Type = CellType.Door;

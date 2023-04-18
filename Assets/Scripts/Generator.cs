@@ -27,13 +27,15 @@ public class Generator : MonoBehaviour
 
         Dungeon d = (Dungeon)e.samples[0];
         dungeonSteps.Add(new Dungeon(d));
+        
         d.roomGraph = Triangulator.Triangulate(d.rooms);
         dungeonSteps.Add(new Dungeon(d));
+        
         d.roomGraph = MST.GetMST(d.roomGraph);
-        dungeonSteps.Add(new Dungeon(d));
         d.RemoveUnusedRooms();
         d.MakeGridOutOfRooms();
         candidateDungeon = d;
+        dungeonSteps.Add(new Dungeon(d));
 
         if (!stepDebug)
         {
@@ -112,14 +114,13 @@ public class Generator : MonoBehaviour
             Handles.DrawAAPolyLine(connection.start.value.Center, connection.end.value.Center);
 
         Handles.color = Color.red;
-        
         foreach (var room in dungeon.rooms)
-        {
-            foreach (var door in room.doors)
-            {
-                Handles.DrawSolidDisc(room.startPoint + door, Vector3.back, .2f);
-            }
-        }
+        foreach (var door in room.doors)
+            Handles.DrawSolidDisc(room.startPoint + door, Vector3.back, .2f);
+
+        Handles.color = Color.green;
+        for (int i = 1; i < dungeon.rooms.Count; i++)
+            Handles.DrawAAPolyLine(dungeon.rooms[i-1].Center, dungeon.rooms[i].Center);
     }
 #endif
 }
