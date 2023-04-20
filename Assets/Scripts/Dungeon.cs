@@ -143,6 +143,6 @@ public class Dungeon : Sample
 
     public override float Evaluate()
     {
-        return Evaluator.EvaluateDungeonBasedOnLineBetweenRooms(this);
+        return Evaluator.EvaluateDungeonBasedOnDistanceFromCenter(this);
     }
 }

@@ -78,8 +78,10 @@ public class Generator : MonoBehaviour
         switch (roomCell)
         {
             case CellType.Ground:
+            case CellType.HallwayGround:
                 return Color.white;
             case CellType.Wall:
+            case CellType.HallwayWall:
                 return Color.blue;
             case CellType.Door:
                 return Color.black;
