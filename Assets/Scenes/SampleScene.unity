@@ -691,10 +691,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
   dungeonParameters:
-    roomCountRange: {x: 10, y: 10}
-    roomWidthRange: {x: 7, y: 13}
-    width: 100
-    height: 100
+    roomCountRange: {x: 40, y: 40}
+    roomWidthRange: {x: 10, y: 20}
+    width: 1000
+    height: 1000
   index: 0
   stepDebug: 0
 --- !u!4 &1518624284

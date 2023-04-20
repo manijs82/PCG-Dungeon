@@ -116,9 +116,21 @@ public class Generator : MonoBehaviour
             Handles.DrawAAPolyLine(connection.start.value.Center, connection.end.value.Center);
 
         Handles.color = Color.red;
+
+        int count = 1;
         foreach (var room in dungeon.rooms)
-        foreach (var door in room.doors)
-            Handles.DrawSolidDisc(room.startPoint + door, Vector3.back, .2f);
+        {
+            var labelSkin = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 20, 
+                fontStyle = FontStyle.Bold,
+                richText = true
+            };
+            Handles.Label(room.Center, $"<color=red> {count} </color>", labelSkin);
+            foreach (var door in room.doors)
+                Handles.DrawSolidDisc(room.startPoint + door, Vector3.back, .2f);
+            count++;
+        }
 
         Handles.color = Color.green;
         for (int i = 1; i < dungeon.rooms.Count; i++)
