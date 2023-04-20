@@ -43,8 +43,10 @@ public class TileMapVisual : MonoBehaviour
             case CellType.Empty:
                 return filler;
             case CellType.Wall:
+            case CellType.HallwayWall:
                 return outLine;
             case CellType.Ground:
+            case CellType.HallwayGround:    
                 return ground;
             case CellType.Door:
                 return door;

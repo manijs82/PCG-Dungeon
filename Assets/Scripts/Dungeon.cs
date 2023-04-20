@@ -107,11 +107,11 @@ public class Dungeon : Sample
             foreach (var gridObject in astar.path)
             {
                 var tile = (TileGridObject)gridObject;
-                tile.Type = CellType.Ground;
+                tile.Type = CellType.HallwayGround;
                 foreach (var neighbor in grid.Get9Neighbors(tile))
                 {
                     var n = (TileGridObject)neighbor;
-                    if (n.Type == CellType.Empty) n.Type = CellType.Wall;
+                    if (n.Type == CellType.Empty) n.Type = CellType.HallwayWall;
                 }
             }
             
