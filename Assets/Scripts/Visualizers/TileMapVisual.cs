@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Tilemap))]
-public class TileMapVisual : MonoBehaviour
+public class TileMapVisual : DungeonVisualizer
 {
     [SerializeField] private TileBase outLine;
     [SerializeField] private TileBase ground;
@@ -14,26 +14,19 @@ public class TileMapVisual : MonoBehaviour
     void Start()
     {
         tilemap = GetComponent<Tilemap>();
-        Generator.OnDungeonGenerated += SetTiles;
+        tilemap.orientationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
     }
 
-    private void SetTiles(Dungeon d)
+    protected override void Visualize(Dungeon dungeon)
     {
-        //FillBlank();
-        
-        for (int y = 0; y < d.grid.Height; y++)
+        for (int y = 0; y < dungeon.grid.Height; y++)
         {
-            for (int x = 0; x < d.grid.Width; x++)
+            for (int x = 0; x < dungeon.grid.Width; x++)
             {
-                tilemap.SetTile(new Vector3Int(x, y) + new Vector3Int(d.grid.Width + 5, 0)
-                    , GetTile(((TileGridObject)d.grid.GetValue(x, y)).Type));
+                tilemap.SetTile(new Vector3Int(x, y)
+                    , GetTile(((TileGridObject)dungeon.grid.GetValue(x, y)).Type));
             }
         }
-    }
-
-    private void FillBlank()
-    {
-        tilemap.BoxFill(new Vector3Int(105, 50), filler, 55, 0, 105, 50);
     }
 
     private TileBase GetTile(CellType cellType)
