@@ -2,7 +2,7 @@
 
 public class DungeonVisualizer : MonoBehaviour
 {
-    private void Awake()
+    protected virtual void Awake()
     {
         Generator.OnDungeonGenerated += Visualize;
     }

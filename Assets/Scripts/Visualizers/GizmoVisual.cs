@@ -1,8 +1,21 @@
-﻿using UnityEditor;
+﻿using Freya;
+using UnityEditor;
 using UnityEngine;
 
 public class GizmoVisual : DungeonVisualizer
 {
+    [SerializeField] private bool showRoomGraphPath;
+    [SerializeField] private Color graphColor = Color.black;
+    [SerializeField] private bool showRoomIndex;
+    [SerializeField] private Color textColor = Color.red;
+    [SerializeField] private bool showRoomArrayPath;
+    [SerializeField] private Color arrayColor = Color.green;
+    [SerializeField] private bool showDoors;
+    [SerializeField] private Color doorColor = Color.red;
+    [SerializeField] private bool showDungeonOutline;
+    [SerializeField] private bool showRoomOutline;
+    [SerializeField] private Color outlineColor = Color.white;
+    
     private Dungeon dungeon;
     
     protected override void Visualize(Dungeon dungeon)
@@ -15,53 +28,97 @@ public class GizmoVisual : DungeonVisualizer
     {
         if(!Application.isPlaying) return;
         if (dungeon == null) return;
-        
-        DrawOutline();
-        DrawDungeon();
-    }
 
-    private void DrawOutline()
-    {
-        Handles.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
-        Gizmos.DrawLine(Vector3.zero, new Vector3(dungeon.dungeonParameters.width, 0));
-        Gizmos.DrawLine(Vector3.zero, new Vector3(0, dungeon.dungeonParameters.height));
-        Gizmos.DrawLine(new Vector3(dungeon.dungeonParameters.width, 0),
-            new Vector3(dungeon.dungeonParameters.width, dungeon.dungeonParameters.height));
-        Gizmos.DrawLine(new Vector3(0, dungeon.dungeonParameters.height),
-            new Vector3(dungeon.dungeonParameters.width, dungeon.dungeonParameters.height));
-        Gizmos.DrawSphere(new Vector3(dungeon.dungeonParameters.height / 2f, dungeon.dungeonParameters.height / 2f), .5f);
+        var matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
+        Handles.matrix = matrix;
+        Gizmos.matrix = matrix;
+        
+        DrawDungeon();
+        
+        Handles.matrix = Matrix4x4.identity;
+        Gizmos.matrix = Matrix4x4.identity;
     }
 
 
     private void DrawDungeon()
     {
-        Handles.color = Color.black;
-        if(dungeon.roomGraph == null) return;
-        foreach (var connection in dungeon.roomGraph.connections)
-            Handles.DrawAAPolyLine(connection.start.value.Center, connection.end.value.Center);
-
-        Handles.color = Color.red;
+        DrawRoomsGraph();
+        
+        if(showDungeonOutline)
+            DrawOutline(dungeon.grid.GetBound());
 
         int count = 1;
         foreach (var room in dungeon.rooms)
         {
-            var labelSkin = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 20, 
-                fontStyle = FontStyle.Bold,
-                richText = true
-            };
-            Handles.Label(room.Center, $"<color=red> {count} </color>", labelSkin);
-            foreach (var door in room.doors)
-                Handles.DrawSolidDisc(room.startPoint + door, Vector3.back, .2f);
+            DrawRoomIndexText(room, count);
+            
+            if(showRoomOutline)
+                DrawOutline(room.bound);
+            
+            DrawRoomDoors(room);
+            
             count++;
         }
 
-        Handles.color = Color.green;
-        for (int i = 1; i < dungeon.rooms.Count; i++)
-            Handles.DrawAAPolyLine(dungeon.rooms[i-1].Center, dungeon.rooms[i].Center);
+        DrawRoomArray();
+    }
+
+    private void DrawRoomsGraph()
+    {
+        if (!showRoomGraphPath) return;
         
-        Handles.matrix = Matrix4x4.identity;
+        Handles.color = graphColor;
+        foreach (var connection in dungeon.roomGraph.connections)
+        {
+            Handles.DrawAAPolyLine(connection.start.value.Center, connection.end.value.Center);
+            Handles.DrawSolidDisc(connection.start.value.Center, Vector3.back, 2f);
+            Handles.DrawSolidDisc(connection.end.value.Center, Vector3.back, 2f);
+        }
+    }
+
+    private void DrawRoomArray()
+    {
+        if (!showRoomArrayPath) return;
+        
+        Handles.color = arrayColor;
+        for (int i = 1; i < dungeon.rooms.Count; i++)
+        {
+            Handles.DrawAAPolyLine(dungeon.rooms[i - 1].Center, dungeon.rooms[i].Center);
+            Handles.DrawSolidDisc(dungeon.rooms[i - 1].Center, Vector3.back, .7f);
+            Handles.DrawSolidDisc(dungeon.rooms[i].Center, Vector3.back, .7f);
+        }
+    }
+
+    private void DrawRoomIndexText(Room room, int count)
+    {
+        if (!showRoomIndex) return;
+        
+        var labelSkin = new GUIStyle(GUI.skin.label)
+        {
+            fontSize = 20, 
+            fontStyle = FontStyle.Bold,
+            richText = true
+        };
+        Handles.Label(room.Center, $"<color=#{textColor.ToHexString()}> {count} </color>", labelSkin);
+    }
+
+    private void DrawRoomDoors(Room room)
+    {
+        if (!showDoors) return;
+        
+        Handles.color = doorColor;
+        foreach (var door in room.doors)
+            Handles.DrawSolidDisc(room.startPoint + door, Vector3.back, .2f);
+    }
+
+    private void DrawOutline(Bound bound)
+    {
+        Handles.color = outlineColor;
+        Handles.DrawAAPolyLine(new Vector3(bound.x, bound.y), new Vector3(bound.XPW, bound.y));
+        Handles.DrawAAPolyLine(new Vector3(bound.x, bound.y), new Vector3(bound.x, bound.YPH));
+        Handles.DrawAAPolyLine(new Vector3(bound.XPW, bound.y), new Vector3(bound.XPW, bound.YPH));
+        Handles.DrawAAPolyLine(new Vector3(bound.x, bound.YPH), new Vector3(bound.XPW, bound.YPH));
+        Handles.DrawSolidDisc(bound.Center, Vector3.back, .5f);
     }
 #endif
 }

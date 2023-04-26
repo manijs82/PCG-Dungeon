@@ -11,7 +11,7 @@ public struct Room
     private int width;
     private int height;
 
-    public Vector2 Center => new(startPoint.x + width / 2f, startPoint.y + height / 2f);
+    public Vector2 Center => bound.Center;
 
     public Room(Vector2 startPoint, int width, int height) : this()
     {
@@ -34,7 +34,7 @@ public struct Room
     public void InitializeGrid()
     {
         grid = new Grid<GridObject>(bound.w, bound.h, 1,
-            (_, x, y) => new TileGridObject(x, y, CellType.Empty));
+            (_, x, y) => new TileGridObject(x, y, CellType.Empty), startPoint);
 
         for (int x = 0; x < bound.w; x++)
         {

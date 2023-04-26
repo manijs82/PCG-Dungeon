@@ -11,10 +11,11 @@ public class TileMapVisual : DungeonVisualizer
     
     private Tilemap tilemap;
     
-    void Start()
+    protected override void Awake()
     {
         tilemap = GetComponent<Tilemap>();
         tilemap.orientationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
+        base.Awake();
     }
 
     protected override void Visualize(Dungeon dungeon)

@@ -193,4 +193,9 @@ public class Grid<TGridObject> where TGridObject : GridObject
             }
         }
     }
+
+    public Bound GetBound()
+    {
+        return new Bound((int)origin.x, (int)origin.y, width, height);
+    }
 }
