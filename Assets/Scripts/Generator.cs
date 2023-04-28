@@ -22,6 +22,7 @@ public class Generator : MonoBehaviour
         Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
 
         Dungeon d = (Dungeon)e.samples[0];
+        d.OnMakeGrids += () => OnDungeonGenerated?.Invoke(d);
         
         d.roomGraph = Triangulator.Triangulate(d.rooms);
         
@@ -31,7 +32,6 @@ public class Generator : MonoBehaviour
         candidateDungeon = d;
 
         print(candidateDungeon.fitnessValue);
-        OnDungeonGenerated?.Invoke(candidateDungeon);
     }
 
     [ContextMenu("VDD")]

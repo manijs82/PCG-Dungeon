@@ -308,16 +308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a09f572873b42c4bfbe44b28ff1f83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputScriptableObject: {fileID: 11400000, guid: 3c6f5856fb408044cb07dc7ef405a683, type: 2}
-  horizontalAxis:
-    axisName: Horizontal
-    smooth: 1
-  verticalAxis:
-    axisName: Vertical
-    smooth: 1
-  horizontal: 0
-  vertical: 0
-  _inputSo: {fileID: 0}
 --- !u!4 &330073921
 Transform:
   m_ObjectHideFlags: 0
@@ -407,7 +397,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752770662}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 105, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -513,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0314c3006a9995a43826c355a4687d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 2
+  scale: 1
   outLine: {fileID: 11400000, guid: f5786cf0eb9e5a5489d788e19d6c1f0e, type: 2}
   ground: {fileID: 11400000, guid: 424210d9d70b5f544ba600d4389fdf27, type: 2}
   filler: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
@@ -640,7 +630,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518624282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -105, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

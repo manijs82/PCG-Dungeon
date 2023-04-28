@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Room
+public class Room
 {
     public Grid<GridObject> grid;
     public Vector2 startPoint;
@@ -13,7 +13,7 @@ public struct Room
 
     public Vector2 Center => bound.Center;
 
-    public Room(Vector2 startPoint, int width, int height) : this()
+    public Room(Vector2 startPoint, int width, int height)
     {
         this.startPoint = startPoint;
         this.width = width;
@@ -22,13 +22,20 @@ public struct Room
         bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
     }
 
-    public Room(Room room) : this()
+    public Room(Room room)
     {
         startPoint = room.startPoint;
         width = room.width;
         height = room.height;
         doors = new List<Vector2>();
         bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
+    }
+
+    public void ChangePosition(Vector2 newPos)
+    {
+        startPoint = newPos;
+        bound.x = (int)newPos.x;
+        bound.y = (int)newPos.y;
     }
 
     public void InitializeGrid()

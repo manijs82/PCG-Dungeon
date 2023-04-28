@@ -30,6 +30,11 @@ namespace Graph
             if(!vertices.Contains(node)) vertices.Add(node);
         }
 
+        public T GetVertex(int index)
+        {
+            return vertices[index].value;
+        }
+
         public Connection<T> AddConnection(Node<T> start, Node<T> end)
         {
             if(ContainConnection(start, end)) return null;
