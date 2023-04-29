@@ -1,7 +1,9 @@
 
+using System;
 using System.Collections.Generic;
 using Graph;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [System.Serializable]
 public class DungeonParameters : SampleParameters
@@ -14,6 +16,8 @@ public class DungeonParameters : SampleParameters
 
 public class Dungeon : Sample
 {
+    public event Action OnMakeGrids;
+    
     public List<Room> rooms;
     public Graph<Room> roomGraph;
     public Grid<GridObject> grid;
@@ -118,6 +122,8 @@ public class Dungeon : Sample
             startTile.Type = CellType.Door;
             endTile.Type = CellType.Door;
         }
+        
+        OnMakeGrids?.Invoke();
     }
 
     private void AddDoorsBetweenRooms(Room room1, Room room2, out Vector2 door1, out Vector2 door2)

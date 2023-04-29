@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Tilemap))]
 public class TileMapVisual : DungeonVisualizer
 {
+    [SerializeField] private int scale = 1;
     [SerializeField] private TileBase outLine;
     [SerializeField] private TileBase ground;
     [SerializeField] private TileBase filler;
@@ -20,12 +21,12 @@ public class TileMapVisual : DungeonVisualizer
 
     protected override void Visualize(Dungeon dungeon)
     {
-        for (int y = 0; y < dungeon.grid.Height; y++)
+        for (int y = 0; y < dungeon.grid.Height * scale; y++)
         {
-            for (int x = 0; x < dungeon.grid.Width; x++)
+            for (int x = 0; x < dungeon.grid.Width * scale; x++)
             {
                 tilemap.SetTile(new Vector3Int(x, y)
-                    , GetTile(((TileGridObject)dungeon.grid.GetValue(x, y)).Type));
+                    , GetTile(((TileGridObject)dungeon.grid.GetValue(x / scale, y / scale)).Type));
             }
         }
     }
