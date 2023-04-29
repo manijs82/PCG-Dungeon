@@ -8,10 +8,8 @@ namespace Editor
         private Dungeon dungeon;
         private bool hasDungeon;
         private bool isEditingRooms;
-        private int selectedRoomIndex;
-        private int roomIndex;
-        private Vector3 currentRoomPos;
-        
+        private Vector3[] roomPositions;
+
         [MenuItem("PCG_Dungeon/Editor")]
         private static void ShowWindow()
         {
@@ -28,8 +26,6 @@ namespace Editor
                 dungeon = d;
                 hasDungeon = true;
             };
-            selectedRoomIndex = -1;
-            currentRoomPos = Vector3.zero;
         }
 
         private void OnGUI()
@@ -40,38 +36,33 @@ namespace Editor
                 isEditingRooms = false;
                 return;
             }
-            if(!hasDungeon) return;
+
+            if (!hasDungeon) return;
             if (GUILayout.Button("ReloadVisuals"))
             {
                 dungeon.MakeGridOutOfRooms();
             }
-            if (GUILayout.Button("Edit Rooms")) 
-                isEditingRooms = !isEditingRooms;
 
-            if (isEditingRooms)
+            if (GUILayout.Button("Edit Rooms"))
             {
-                using (new EditorGUILayout.HorizontalScope())
-                {
-                    roomIndex = EditorGUILayout.IntSlider(roomIndex, 0, dungeon.rooms.Count - 1);
-                    currentRoomPos = dungeon.rooms[roomIndex].startPoint;
-                    if (GUILayout.Button("Select Room"))
-                    {
-                        selectedRoomIndex = roomIndex;
-                    }
-                }
+                roomPositions = new Vector3[dungeon.rooms.Count];
+                for (int i = 0; i < roomPositions.Length; i++) 
+                    roomPositions[i] = dungeon.rooms[i].startPoint;
+                isEditingRooms = !isEditingRooms;
             }
         }
 
         private void OnSceneView(SceneView scene)
         {
-            if (isEditingRooms && selectedRoomIndex == roomIndex)
+            if (isEditingRooms)
             {
-                currentRoomPos = Handles.PositionHandle(currentRoomPos, Quaternion.identity);
-                dungeon.rooms[selectedRoomIndex].ChangePosition(currentRoomPos);
-            }
-            else
-            {
-                Handles.PositionHandle(currentRoomPos, Quaternion.identity);
+                for (int i = 0; i < roomPositions.Length; i++)
+                {
+                    EditorGUI.BeginChangeCheck();
+                    roomPositions[i] = Handles.PositionHandle(roomPositions[i], Quaternion.identity);
+                    if(EditorGUI.EndChangeCheck())
+                        dungeon.rooms[i].ChangePosition(roomPositions[i]);
+                }
             }
         }
     }
