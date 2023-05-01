@@ -54,7 +54,7 @@ public static class Evaluator
     {
         Vector2 center = new Vector2(dungeon.dungeonParameters.width/2f, dungeon.dungeonParameters.height/2f);
 
-        float score = center.magnitude - (room.Center - center).magnitude;
+        float score = 1 - (room.Center - center).magnitude / center.magnitude;
         return score;
     }
 

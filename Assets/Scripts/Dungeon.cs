@@ -27,7 +27,7 @@ public class Dungeon : Sample
     {
         rooms = new List<Room>();
         AddRandomRooms();
-        optimalFitnessValue = rooms.Count - 1;
+        optimalFitnessValue = 1;
     }
 
     public Dungeon(SampleParameters parameters)

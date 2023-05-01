@@ -1,6 +1,7 @@
 ﻿using Freya;
 using UnityEngine;
 
+[System.Serializable]
 public struct Bound
 {
     public int x;

@@ -19,9 +19,13 @@ public class Generator : MonoBehaviour
 
     private void GenerateDungeon()
     {
-        Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
+        Dungeon d;
+        do
+        {
+            Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
+            d = (Dungeon)e.samples[0];
+        } while (d.fitnessValue < 0);
 
-        Dungeon d = (Dungeon)e.samples[0];
         d.OnMakeGrids += () => OnDungeonGenerated?.Invoke(d);
         
         d.roomGraph = Triangulator.Triangulate(d.rooms);
