@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class Generator : MonoBehaviour
@@ -34,6 +32,11 @@ public class Generator : MonoBehaviour
         d.RemoveUnusedRooms();
         d.MakeGridOutOfRooms();
         candidateDungeon = d;
+
+        foreach (var room in candidateDungeon.rooms)
+        {
+            RoomDecorator.DecorateRoom(room, EnvironmentType.Forest);
+        }
 
         print(candidateDungeon.fitnessValue);
     }

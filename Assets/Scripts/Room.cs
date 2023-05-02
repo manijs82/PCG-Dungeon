@@ -41,15 +41,15 @@ public class Room
     public void InitializeGrid()
     {
         grid = new Grid<GridObject>(bound.w, bound.h, 1,
-            (_, x, y) => new TileGridObject(x, y, CellType.Empty), startPoint);
+            (_, x, y) => new RoomTileObject(x, y, CellType.Empty, TileState.Free), startPoint);
 
         for (int x = 0; x < bound.w; x++)
         {
             for (int y = 0; y < bound.h; y++)
             {
                 var isWall = x == 0 || y == 0 || x == bound.w - 1 || y == bound.h - 1;
-                grid.SetValue(x, y, new TileGridObject(x + bound.x, y + bound.y,
-                    isWall ? CellType.Wall : CellType.Ground));
+                grid.SetValue(x, y, new RoomTileObject(x + bound.x, y + bound.y,
+                    isWall ? CellType.Wall : CellType.Ground, TileState.Free));
             }
         }
     }

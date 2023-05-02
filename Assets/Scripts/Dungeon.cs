@@ -112,7 +112,7 @@ public class Dungeon : Sample
             {
                 var tile = (TileGridObject)gridObject;
                 tile.Type = CellType.HallwayGround;
-                foreach (var neighbor in grid.Get9Neighbors(tile))
+                foreach (var neighbor in grid.Get8Neighbors(tile))
                 {
                     var n = (TileGridObject)neighbor;
                     if (n.Type == CellType.Empty) n.Type = CellType.HallwayWall;
@@ -142,7 +142,7 @@ public class Dungeon : Sample
         {
             Vector2 startPointOffset = new Vector2(Random.Range(-2, 3), Random.Range(-2, 3));
             Room newRoom = new Room(rooms[i]);
-            newRoom.startPoint += startPointOffset;
+            newRoom.ChangePosition(newRoom.startPoint + startPointOffset);
             rooms[i] = newRoom;
         }
     }

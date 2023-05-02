@@ -26,7 +26,7 @@ public class GreedyBestFirstSearch : BreadthFirstSearch
             if(current == goal)
                 break;
             
-            foreach (var gridObj in pathGrid.GetNeighbors(current))
+            foreach (var gridObj in pathGrid.Get4Neighbors(current))
             {
                 
                 // yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.D));

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Grid<TGridObject> where TGridObject : GridObject
 {
@@ -17,20 +18,20 @@ public class Grid<TGridObject> where TGridObject : GridObject
     private TextMeshPro[,] debugObj;
 
     public int Height => height;
-
     public int Width => width;
-
+    public float OriginX => origin.x;
+    public float OriginY => origin.y;
     public float CellSize => cellSize;
 
     public Grid(int width, int height, float cellSize, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject,
         Vector3 origin = default, bool shouldDebug = false)
     {
-        this.width = width;
-        this.height = height;
+        this.width = (int)(width / cellSize);
+        this.height = (int)(height / cellSize);
         this.cellSize = cellSize;
         this.origin = origin;
 
-        gridArray = new TGridObject[width, height];
+        gridArray = new TGridObject[this.width, this.height];
 
         for (int x = 0; x < gridArray.GetLength(0); x++)
         {
@@ -50,18 +51,18 @@ public class Grid<TGridObject> where TGridObject : GridObject
         {
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
-                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + cellSize, y), Color.white,
+                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white,
                     Mathf.Infinity);
-                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + cellSize), Color.white,
+                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white,
                     Mathf.Infinity);
             }
         }
 
-        Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(height, width), Color.white, Mathf.Infinity);
-        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(height, width), Color.white, Mathf.Infinity);
+        Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, Mathf.Infinity);
+        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, Mathf.Infinity);
     }
 
-    public Vector3 GetWorldPosition(float x, float y) => new Vector3(x, y) * cellSize + origin;
+    public Vector3 GetWorldPosition(int x, int y) => new Vector3(x, y) * cellSize + origin;
 
     private void GetXY(Vector3 pos, out int x, out int y)
     {
@@ -125,8 +126,11 @@ public class Grid<TGridObject> where TGridObject : GridObject
     }
 
     private bool neighborAlter;
-    
-    public List<TGridObject> GetNeighbors(TGridObject center)
+
+    public List<TGridObject> Get4Neighbors(int x, int y) =>
+        Get4Neighbors(gridArray[x, y]);
+
+    public List<TGridObject> Get4Neighbors(TGridObject center)
     {
         var output = new List<TGridObject>();
         var temp = new List<TGridObject>();
@@ -157,8 +161,11 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
         return output;
     }
-    
-    public List<TGridObject> Get9Neighbors(TGridObject center)
+
+    public List<TGridObject> Get8Neighbors(int x, int y) => 
+        Get8Neighbors(gridArray[x, y]);
+
+    public List<TGridObject> Get8Neighbors(TGridObject center)
     {
         var output = new List<TGridObject>();
         var temp = new List<TGridObject>();
@@ -183,6 +190,25 @@ public class Grid<TGridObject> where TGridObject : GridObject
         return output;
     }
 
+    public List<TGridObject> GetGridObjectsWithCondition(Func<Grid<TGridObject>, int, int, bool> conditionFunction)
+    {
+        List<TGridObject> list = new List<TGridObject>();
+
+        foreach (var gridObject in gridArray)
+        {
+            if(conditionFunction(this, gridObject.x, gridObject.y))
+                list.Add(gridObject);
+        }
+
+        return list;
+    }
+    
+    public TGridObject GetRandomGridObjectWithCondition(Func<Grid<TGridObject>, int, int, bool> conditionFunction)
+    {
+        var list = GetGridObjectsWithCondition(conditionFunction);
+        return list[Random.Range(0, list.Count)];
+    }
+
     public void PlaceGridOnGrid(int startX, int startY, Grid<TGridObject> grid)
     {
         for (int x = 0; x < grid.width; x++)
@@ -194,8 +220,6 @@ public class Grid<TGridObject> where TGridObject : GridObject
         }
     }
 
-    public Bound GetBound()
-    {
-        return new Bound((int)origin.x, (int)origin.y, width, height);
-    }
+    public Bound GetBound() => 
+        new Bound((int)origin.x, (int)origin.y, width, height);
 }

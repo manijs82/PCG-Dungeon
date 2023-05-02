@@ -369,53 +369,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &715776992
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 715776994}
-  - component: {fileID: 715776993}
-  m_Layer: 0
-  m_Name: PDV
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &715776993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715776992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c250658900d232e41b753073a19acf64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  environmentType: 0
-  contentType: 0
-  decorationObjectSource: {fileID: 11400000, guid: d056f867f16a0fc489710a5352465c4f, type: 2}
---- !u!4 &715776994
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715776992}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -20, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &752770662
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +397,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752770662}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 105, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -696,7 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90eabbfffa964936af163d6e1ccbb26c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showRoomGraphPath: 1
+  showRoomGraphPath: 0
   graphColor: {r: 0, g: 0, b: 0, a: 1}
   showRoomIndex: 0
   textColor: {r: 0.98039216, g: 0.93333334, b: 0.03137255, a: 1}
@@ -704,8 +657,8 @@ MonoBehaviour:
   arrayColor: {r: 0, g: 1, b: 0, a: 1}
   showDoors: 0
   doorColor: {r: 1, g: 0, b: 0, a: 1}
-  showDungeonOutline: 1
-  showRoomOutline: 1
+  showDungeonOutline: 0
+  showRoomOutline: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2071118045
 GameObject:

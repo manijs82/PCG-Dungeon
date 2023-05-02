@@ -30,7 +30,7 @@ public class DijkstrasAlgorithm : BreadthFirstSearch
             if(current == goal)
                 break;
 
-            foreach (var gridObj in pathGrid.GetNeighbors(current))
+            foreach (var gridObj in pathGrid.Get4Neighbors(current))
             {
                 int nextCost = costs[current] + current.Cost + gridObj.Cost;
                 if (!costs.ContainsKey(gridObj) || nextCost < costs[gridObj])

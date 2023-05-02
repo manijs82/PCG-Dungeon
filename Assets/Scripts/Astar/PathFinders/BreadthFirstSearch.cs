@@ -34,7 +34,7 @@ public class BreadthFirstSearch
             if(current == goal)
                 break;
 
-            foreach (var gridObj in pathGrid.GetNeighbors(current))
+            foreach (var gridObj in pathGrid.Get4Neighbors(current))
             {
                 if (!searched.ContainsKey(gridObj))
                 {
