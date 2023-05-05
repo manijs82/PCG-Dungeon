@@ -23,6 +23,10 @@ public class Grid<TGridObject> where TGridObject : GridObject
     public float OriginY => origin.y;
     public float CellSize => cellSize;
 
+    public TGridObject[,] GridObjects => gridArray;
+
+    public Vector3 Origin => origin;
+
     public Grid(int width, int height, float cellSize, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject,
         Vector3 origin = default, bool shouldDebug = false)
     {
@@ -109,6 +113,23 @@ public class Grid<TGridObject> where TGridObject : GridObject
         return GetValue(x, y);
     }
 
+    public bool HasValue(int x, int y)
+    {
+        return x >= 0 && y >= 0 && x < width && y < height;
+    }
+
+    public bool HasValue(int x, int y, out TGridObject value)
+    {
+        if (HasValue(x, y))
+        {
+            value = gridArray[x, y];
+            return true;
+        }
+
+        value = null;
+        return false;
+    }
+
     public TGridObject[] GetAll()
     {
         var o = new TGridObject[height * width];
@@ -162,30 +183,28 @@ public class Grid<TGridObject> where TGridObject : GridObject
         return output;
     }
 
-    public List<TGridObject> Get8Neighbors(int x, int y) => 
-        Get8Neighbors(gridArray[x, y]);
+    public List<TGridObject> Get8Neighbors(TGridObject center) => 
+        Get8Neighbors(center.x, center.y);
 
-    public List<TGridObject> Get8Neighbors(TGridObject center)
+    public List<TGridObject> Get8Neighbors(int x, int y)
+    {
+        return GetNeighbors(x, y, new Bound(1, 1, 1, 1), true);
+    }
+    
+    public List<TGridObject> GetNeighbors(int x, int y, Bound extents, bool checkBlocked = false)
     {
         var output = new List<TGridObject>();
-        var temp = new List<TGridObject>();
-
         
-        temp.Add(GetValue(center.x, center.y + 1));
-        temp.Add(GetValue(center.x, center.y - 1));
-        temp.Add(GetValue(center.x + 1, center.y));
-        temp.Add(GetValue(center.x - 1, center.y));
-        temp.Add(GetValue(center.x + 1, center.y + 1));
-        temp.Add(GetValue(center.x - 1, center.y - 1));
-        temp.Add(GetValue(center.x + 1, center.y - 1));
-        temp.Add(GetValue(center.x - 1, center.y + 1));
-
-        foreach (var p in temp)
-            if (p != null)
+        for (int i = x - extents.x; i <= x + extents.w; i++)
+        {
+            for (int j = y - extents.y; j <= y + extents.h; j++)
             {
-                if (!p.IsBlocked)
-                    output.Add(p);
+                if(i == x && j == y) continue;
+                if (!HasValue(i, j, out TGridObject gridObject)) continue;
+                if(checkBlocked && gridObject.IsBlocked) continue;
+                output.Add(gridObject);
             }
+        }
 
         return output;
     }
@@ -206,6 +225,8 @@ public class Grid<TGridObject> where TGridObject : GridObject
     public TGridObject GetRandomGridObjectWithCondition(Func<Grid<TGridObject>, int, int, bool> conditionFunction)
     {
         var list = GetGridObjectsWithCondition(conditionFunction);
+        if (list.Count == 0) return null;
+        
         return list[Random.Range(0, list.Count)];
     }
 

@@ -660,6 +660,7 @@ MonoBehaviour:
   showDungeonOutline: 0
   showRoomOutline: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  showPDV: 1
 --- !u!1 &2071118045
 GameObject:
   m_ObjectHideFlags: 0

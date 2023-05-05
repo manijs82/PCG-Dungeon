@@ -1,4 +1,5 @@
-﻿using Freya;
+﻿using System.Collections.Generic;
+using Freya;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,11 +16,17 @@ public class GizmoVisual : DungeonVisualizer
     [SerializeField] private bool showDungeonOutline;
     [SerializeField] private bool showRoomOutline;
     [SerializeField] private Color outlineColor = Color.white;
+    [SerializeField] private bool showPDV;
     
     private Dungeon dungeon;
+    private List<DecorationVolume> volumes = new();
     
     protected override void Visualize(Dungeon dungeon)
     {
+        volumes = new List<DecorationVolume>();
+        foreach (var room in dungeon.rooms) 
+            volumes.Add(RoomDecorator.DecorateRoom(room, EnvironmentType.Forest));
+        
         this.dungeon = dungeon;
     }
     
@@ -31,17 +38,16 @@ public class GizmoVisual : DungeonVisualizer
 
         var matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
         Handles.matrix = matrix;
-        Gizmos.matrix = matrix;
         
         DrawDungeon();
-        
+
         Handles.matrix = Matrix4x4.identity;
-        Gizmos.matrix = Matrix4x4.identity;
     }
 
 
     private void DrawDungeon()
     {
+        DrawPDV();
         DrawRoomsGraph();
         
         if(showDungeonOutline)
@@ -56,11 +62,20 @@ public class GizmoVisual : DungeonVisualizer
                 DrawOutline(room.bound);
             
             DrawRoomDoors(room);
-            
+
             count++;
         }
 
         DrawRoomArray();
+    }
+
+    private void DrawPDV()
+    {
+        if (showPDV)
+            foreach (var volume in volumes)
+            {
+                volume.DrawGizmos();
+            }
     }
 
     private void DrawRoomsGraph()
