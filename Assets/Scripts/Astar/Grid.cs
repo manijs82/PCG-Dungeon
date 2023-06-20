@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -243,4 +244,19 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
     public Bound GetBound() => 
         new Bound((int)origin.x, (int)origin.y, width, height);
+    
+#if UNITY_EDITOR
+    public void DrawGizmos(Func<TGridObject, Color> colorFunc)
+    {
+        Handles.color = Color.white;
+        Color color = Color.black;
+        
+        foreach (var obj in GridObjects)
+        {
+            color = colorFunc(obj);
+            
+            Handles.DrawSolidRectangleWithOutline(new Rect(Origin.x + obj.x, Origin.y + obj.y, CellSize, CellSize), color, color);
+        }
+    }
+#endif
 }

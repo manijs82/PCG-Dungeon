@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Graph;
+using ManisDataStructures;
+using ManisDataStructures.Graph;
 using UnityEngine;
 
 public static class Triangulator
@@ -27,9 +28,9 @@ public static class Triangulator
             var node1 = roomDic[triangle.Vertices[0]];
             var node2 = roomDic[triangle.Vertices[1]];
             var node3 = roomDic[triangle.Vertices[2]];
-            graph.AddConnection(node1, node2)?.SetCost(Vector2.Distance(node1.value.Center, node2.value.Center));
-            graph.AddConnection(node2, node3)?.SetCost(Vector2.Distance(node2.value.Center, node3.value.Center));
-            graph.AddConnection(node3, node1)?.SetCost(Vector2.Distance(node3.value.Center, node1.value.Center));
+            graph.AddEdge(node1, node2)?.SetCost(Vector2.Distance(node1.Value.Center, node2.Value.Center));
+            graph.AddEdge(node2, node3)?.SetCost(Vector2.Distance(node2.Value.Center, node3.Value.Center));
+            graph.AddEdge(node3, node1)?.SetCost(Vector2.Distance(node3.Value.Center, node1.Value.Center));
         }
         
         return graph;

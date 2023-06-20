@@ -86,6 +86,17 @@ public class DecorationVolume
             
             Handles.DrawSolidRectangleWithOutline(new Rect(Origin.x + obj.x, Origin.y + obj.y, 1, 1), color, color);
         }
+        
+        partition.DrawGizmos(tile =>
+        {
+            return tile.tileState switch
+            {
+                TileState.Free => Color.white / 2,
+                TileState.Ready => Color.green / 2,
+                TileState.Occupied => Color.red / 2,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        });
     }
     #endif
 }

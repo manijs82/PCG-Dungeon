@@ -1,11 +1,10 @@
-
 using System;
 using System.Collections.Generic;
-using Graph;
+using ManisDataStructures.Graph;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[System.Serializable]
+[Serializable]
 public class DungeonParameters : SampleParameters
 {
     public Vector2Int roomCountRange;
@@ -69,9 +68,9 @@ public class Dungeon : Sample
 
     public void RemoveUnusedRooms()
     {
-        var unusedRooms = roomGraph.RemoveUnconnectedVertices();
+        var unusedRooms = roomGraph.RemoveNodesWithoutNeighbors();
         foreach (var room in unusedRooms) 
-            rooms.Remove(room.value);
+            rooms.Remove(room.Value);
     }
 
     public void MakeGridOutOfRooms()
@@ -91,10 +90,10 @@ public class Dungeon : Sample
     private void AddPathsToConnectedRooms()
     {
         if(roomGraph == null) return;
-        foreach (var connection in roomGraph.connections)
+        foreach (var connection in roomGraph.Edges)
         {
-            var room1 = connection.start.value;
-            var room2 = connection.end.value;
+            var room1 = connection.Start.Value;
+            var room2 = connection.End.Value;
             
             AddDoorsBetweenRooms(room1, room2, out Vector2 door1, out Vector2 door2);
 

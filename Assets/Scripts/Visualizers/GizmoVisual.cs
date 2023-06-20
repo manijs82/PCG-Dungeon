@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Freya;
 using UnityEditor;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class GizmoVisual : DungeonVisualizer
     [SerializeField] private bool showRoomOutline;
     [SerializeField] private Color outlineColor = Color.white;
     [SerializeField] private bool showPDV;
+    [SerializeField] private bool showGridTiles;
     
     private Dungeon dungeon;
     private List<DecorationVolume> volumes = new();
@@ -47,6 +49,7 @@ public class GizmoVisual : DungeonVisualizer
 
     private void DrawDungeon()
     {
+        DrawGridTiles();
         DrawPDV();
         DrawRoomsGraph();
         
@@ -77,17 +80,36 @@ public class GizmoVisual : DungeonVisualizer
                 volume.DrawGizmos();
             }
     }
+    
+    private void DrawGridTiles()
+    {
+        if (showGridTiles)
+            dungeon.grid.DrawGizmos(tile =>
+            {
+                var gridTileObject = (TileGridObject)tile;
+                return gridTileObject.Type switch
+                {
+                    CellType.Empty => Color.black / 4,
+                    CellType.Wall => Color.blue / 2,
+                    CellType.Ground => Color.white / 2,
+                    CellType.Door => Color.red / 2,
+                    CellType.HallwayGround => Color.gray / 2,
+                    CellType.HallwayWall => Color.cyan / 2,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            });
+    }
 
     private void DrawRoomsGraph()
     {
         if (!showRoomGraphPath) return;
         
         Handles.color = graphColor;
-        foreach (var connection in dungeon.roomGraph.connections)
+        foreach (var connection in dungeon.roomGraph.Edges)
         {
-            Handles.DrawAAPolyLine(connection.start.value.Center, connection.end.value.Center);
-            Handles.DrawSolidDisc(connection.start.value.Center, Vector3.back, 2f);
-            Handles.DrawSolidDisc(connection.end.value.Center, Vector3.back, 2f);
+            Handles.DrawAAPolyLine(connection.Start.Value.Center, connection.End.Value.Center);
+            Handles.DrawSolidDisc(connection.Start.Value.Center, Vector3.back, 2f);
+            Handles.DrawSolidDisc(connection.End.Value.Center, Vector3.back, 2f);
         }
     }
 

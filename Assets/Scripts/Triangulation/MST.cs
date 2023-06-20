@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Graph;
+using ManisDataStructures;
+using ManisDataStructures.Graph;
 using UnityEngine;
 
 public static class MST
 {
     public static Graph<Room> GetMST(Graph<Room> graph)
     {
-        if (graph.vertices.Count <= 2) return graph;
+        if (graph.Nodes.Count <= 2) return graph;
         var o = new Graph<Room>();
-        var nodes = new List<Node<Room>>(graph.vertices);
+        var nodes = new List<Node<Room>>(graph.Nodes);
         var mst = new List<Node<Room>>();
         
         var startNode = nodes[0];
@@ -18,9 +19,9 @@ public static class MST
 
         while (nodes.Count != 0)
         {
-            var connections = graph.GetConnectedConnections(mst[^1]);
-            connections = connections.OrderBy(c => c.cost).ToList();
-            Connection<Room> nextConnection = null;
+            var connections = graph.GetAllConnectedEdges(mst[^1]).ToList();
+            connections = connections.OrderBy(c => c.Cost).ToList();
+            Edge<Room> nextConnection = null;
 
             foreach (var connection in connections)
             {
@@ -33,14 +34,14 @@ public static class MST
             nodes.Remove(nextRoom);
             mst.Add(nextRoom);
             
-            o.AddConnection(nextConnection.GetOtherNode(nextRoom), nextRoom);
+            o.AddEdge(nextConnection.GetOtherNode(nextRoom), nextRoom);
         }
 
-        foreach (var connection in graph.connections)
+        foreach (var connection in graph.Edges)
         {
             float r = Random.value;
             if (r < 0.333f) 
-                o.AddConnection(connection.start, connection.end);
+                o.AddEdge(connection.Start, connection.End);
         }
 
         return o;
