@@ -42,10 +42,12 @@ public static class Evaluator
     {
         float finalScore = 0;
 
+        finalScore += EvaluateCollision(dungeon);
+        if (finalScore < -1)
+            return finalScore;
+        
         foreach (var room in dungeon.rooms)
             finalScore += EvaluateRoom(room, dungeon);
-
-        finalScore += EvaluateCollision(dungeon);
 
         return finalScore;
     }
@@ -65,7 +67,7 @@ public static class Evaluator
         for (int i = 0; i < dungeon.rooms.Count; i++)
         {
             if (!Bound.Inside(dungeon.rooms[i].bound, new Bound(0, 0, dungeon.dungeonParameters.width, dungeon.dungeonParameters.height)))
-                score -= 10000;
+                score -= 5000;
 
             if (i == dungeon.rooms.Count - 1) break;
             for (int j = i + 1; j < dungeon.rooms.Count; j++)

@@ -105,7 +105,7 @@ public class Dungeon : Sample
             startTile.Type = CellType.Door;
             endTile.Type = CellType.Door;
 
-            AStarAlgorithm astar = new AStarAlgorithm(grid, startTile, endTile);
+            BreadthFirstSearch astar = new BreadthFirstSearch(grid, startTile, endTile);
             astar.PathFindingSearch();
             foreach (var gridObject in astar.path)
             {
