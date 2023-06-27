@@ -15,7 +15,7 @@ D:/Unity/MyGames/PCG-Dungeon
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-7712
+12523
 Successfully changed project path to: D:/Unity/MyGames/PCG-Dungeon
 D:/Unity/MyGames/PCG-Dungeon
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,11 +49,11 @@ D:/Unity/MyGames/PCG-Dungeon
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [17272] Host "[IP] 192.168.0.100 [Port] 0 [Flags] 2 [Guid] 3235559644 [EditorId] 3235559644 [Version] 1048832 [Id] WindowsEditor(7,ManisPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [4840] Host "[IP] 192.168.0.100 [Port] 0 [Flags] 2 [Guid] 2997073768 [EditorId] 2997073768 [Version] 1048832 [Id] WindowsEditor(7,ManisPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [17272] Host "[IP] 192.168.0.100 [Port] 0 [Flags] 2 [Guid] 3235559644 [EditorId] 3235559644 [Version] 1048832 [Id] WindowsEditor(7,ManisPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [4840] Host "[IP] 192.168.0.100 [Port] 0 [Flags] 2 [Guid] 2997073768 [EditorId] 2997073768 [Version] 1048832 [Id] WindowsEditor(7,ManisPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 19.92 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 17.34 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.2f1 (d74737c6db50)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.2f1/Editor/Data/Resources/UnitySubsystems
@@ -69,46 +69,46 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.2f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.2f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.2f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56364
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56868
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.012246 seconds.
-- Loaded All Assemblies, in  0.909 seconds
+Registered in 0.017621 seconds.
+- Loaded All Assemblies, in  0.795 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.636 seconds
-Domain Reload Profiling: 2541ms
-	BeginReloadAssembly (289ms)
+- Finished resetting the current domain, in  1.483 seconds
+Domain Reload Profiling: 2275ms
+	BeginReloadAssembly (305ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (88ms)
-	RebuildNativeTypeToScriptingClass (24ms)
-	initialDomainReloadingComplete (108ms)
-	LoadAllAssembliesAndSetupDomain (394ms)
-		LoadAssemblies (287ms)
+		CreateAndSetChildDomain (2ms)
+	RebuildCommonClasses (71ms)
+	RebuildNativeTypeToScriptingClass (18ms)
+	initialDomainReloadingComplete (125ms)
+	LoadAllAssembliesAndSetupDomain (272ms)
+		LoadAssemblies (301ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (384ms)
-			TypeCache.Refresh (381ms)
-				TypeCache.ScanAssembly (317ms)
-			ScanForSourceGeneratedMonoScriptInfo (1ms)
-			ResolveRequiredComponents (2ms)
-	FinalizeReload (1637ms)
+		AnalyzeDomain (259ms)
+			TypeCache.Refresh (258ms)
+				TypeCache.ScanAssembly (238ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (1484ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1285ms)
+		SetupLoadedEditorAssemblies (1187ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (48ms)
-			SetLoadedEditorAssemblies (29ms)
+			InitializePlatformSupportModulesInManaged (52ms)
+			SetLoadedEditorAssemblies (34ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (17ms)
-			ProcessInitializeOnLoadAttributes (920ms)
-			ProcessInitializeOnLoadMethodAttributes (269ms)
+			BeforeProcessingInitializeOnLoad (16ms)
+			ProcessInitializeOnLoadAttributes (832ms)
+			ProcessInitializeOnLoadMethodAttributes (252ms)
 			AfterProcessingInitializeOnLoad (0ms)
-			EditorAssembliesLoaded (1ms)
+			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (0ms)
 ========================================================================
@@ -116,51 +116,51 @@ Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-- Loaded All Assemblies, in  1.985 seconds
-Refreshing native plugins compatible for Editor in 7.52 ms, found 4 plugins.
+- Loaded All Assemblies, in  2.866 seconds
+Refreshing native plugins compatible for Editor in 5.67 ms, found 4 plugins.
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.609 seconds
-Domain Reload Profiling: 3590ms
-	BeginReloadAssembly (428ms)
+- Finished resetting the current domain, in  1.702 seconds
+Domain Reload Profiling: 4566ms
+	BeginReloadAssembly (384ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (13ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (55ms)
-	RebuildCommonClasses (69ms)
+		CreateAndSetChildDomain (47ms)
+	RebuildCommonClasses (55ms)
 	RebuildNativeTypeToScriptingClass (25ms)
-	initialDomainReloadingComplete (82ms)
-	LoadAllAssembliesAndSetupDomain (1376ms)
-		LoadAssemblies (858ms)
+	initialDomainReloadingComplete (84ms)
+	LoadAllAssembliesAndSetupDomain (2316ms)
+		LoadAssemblies (948ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (780ms)
-			TypeCache.Refresh (694ms)
-				TypeCache.ScanAssembly (664ms)
-			ScanForSourceGeneratedMonoScriptInfo (61ms)
-			ResolveRequiredComponents (25ms)
-	FinalizeReload (1610ms)
+		AnalyzeDomain (1600ms)
+			TypeCache.Refresh (1518ms)
+				TypeCache.ScanAssembly (1495ms)
+			ScanForSourceGeneratedMonoScriptInfo (55ms)
+			ResolveRequiredComponents (28ms)
+	FinalizeReload (1703ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1220ms)
+		SetupLoadedEditorAssemblies (1282ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (11ms)
-			SetLoadedEditorAssemblies (13ms)
+			InitializePlatformSupportModulesInManaged (14ms)
+			SetLoadedEditorAssemblies (18ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (314ms)
-			ProcessInitializeOnLoadAttributes (686ms)
-			ProcessInitializeOnLoadMethodAttributes (181ms)
-			AfterProcessingInitializeOnLoad (14ms)
+			BeforeProcessingInitializeOnLoad (356ms)
+			ProcessInitializeOnLoadAttributes (699ms)
+			ProcessInitializeOnLoadMethodAttributes (182ms)
+			AfterProcessingInitializeOnLoad (13ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (12ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.13 seconds
-Refreshing native plugins compatible for Editor in 29.29 ms, found 4 plugins.
+		AwakeInstancesAfterBackupRestoration (13ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.12 seconds
+Refreshing native plugins compatible for Editor in 4.64 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 5799 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 86 unused Assets / (350.5 KB). Loaded Objects now: 6263.
-Memory consumption went from 219.1 MB to 218.7 MB.
-Total: 27.079300 ms (FindLiveObjects: 1.974200 ms CreateObjectMapping: 2.191800 ms MarkObjects: 21.601400 ms  DeleteObjects: 1.308300 ms)
+Unloading 86 unused Assets / (352.2 KB). Loaded Objects now: 6263.
+Memory consumption went from 219.0 MB to 218.6 MB.
+Total: 9.010700 ms (FindLiveObjects: 0.843400 ms CreateObjectMapping: 2.033700 ms MarkObjects: 5.869700 ms  DeleteObjects: 0.261500 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -175,53 +175,669 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Prepare
+Refreshing native plugins compatible for Editor in 6.52 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 2 unused Assets / (290.7 KB). Loaded Objects now: 6263.
+Memory consumption went from 105.6 MB to 105.3 MB.
+Total: 9.136000 ms (FindLiveObjects: 1.635700 ms CreateObjectMapping: 0.781600 ms MarkObjects: 6.633400 ms  DeleteObjects: 0.082900 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 1025343.223208 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0035.png
+  artifactKey: Guid(7ea66ee9941007b4ebdc702c82c8cfdc) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0035.png using Guid(7ea66ee9941007b4ebdc702c82c8cfdc) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '948f42b41d52bf0b4ffa3a33572f1bb7') in 0.697452 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Scripts/Dungeon.cs
+  artifactKey: Guid(14a8f670f751eae419d654b09e14d01b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Scripts/Dungeon.cs using Guid(14a8f670f751eae419d654b09e14d01b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'f65be98a25cdb290e3adf4f1e6fb0f5b') in 0.032588 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/ObjectSource.asset
+  artifactKey: Guid(d056f867f16a0fc489710a5352465c4f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Resources/ObjectSource.asset using Guid(d056f867f16a0fc489710a5352465c4f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '646027a2c85bdf05e28a362929365db5') in 0.096944 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0050.png
+  artifactKey: Guid(cc6bb31ec50d7914f89a516871c09dc5) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0050.png using Guid(cc6bb31ec50d7914f89a516871c09dc5) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '398452e35fbb06477adcf5df8d254b73') in 0.099082 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Scenes/RenderPipelin_Renderer.asset
+  artifactKey: Guid(ae89556b016830a44b0b1046c53a2c9a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Scenes/RenderPipelin_Renderer.asset using Guid(ae89556b016830a44b0b1046c53a2c9a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '5468ba6147e069137e812b112786b84b') in 0.282110 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000086 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0023.png
+  artifactKey: Guid(d6d557231a9b11548a6a4ce11ab1f784) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0023.png using Guid(d6d557231a9b11548a6a4ce11ab1f784) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '46e92817b82466a008481a41ebc294ed') in 0.466579 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.010319 seconds.
+  path: Assets/Mathfs-master/LICENSE.txt
+  artifactKey: Guid(e2a7f2371f43d4faca3cdab60b7679a7) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Mathfs-master/LICENSE.txt using Guid(e2a7f2371f43d4faca3cdab60b7679a7) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'ccbf2f44f4ddd04fb93f1937a9f77cbe') in 0.157862 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0018.png
+  artifactKey: Guid(510a50ad951498545a74e01ac8116a57) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0018.png using Guid(510a50ad951498545a74e01ac8116a57) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'd4953b248b3068fdc4d4e635d11f38d6') in 0.360743 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.002331 seconds.
+  path: Assets/kenney_tinydungeon/Tilesheet.txt
+  artifactKey: Guid(22841d2d88a96bb4d91cccc8acc7fb8b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tilesheet.txt using Guid(22841d2d88a96bb4d91cccc8acc7fb8b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '8e1dc6375317c50677150990ba7faacd') in 0.126571 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000176 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0028.png
+  artifactKey: Guid(1be4dbe2b6e16154f9a41f547fc3e1ac) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0028.png using Guid(1be4dbe2b6e16154f9a41f547fc3e1ac) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '84138057ef98860568c47aa48529b530') in 0.331496 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000502 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0019.png
+  artifactKey: Guid(c5a2d03e42c633a42b1fb14ed67f682f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0019.png using Guid(c5a2d03e42c633a42b1fb14ed67f682f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'a51ea7dceeb02534e57ce46c9e574f67') in 0.282796 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000047 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0013.png
+  artifactKey: Guid(6ba882c5ed432d94ea4d21de9bd1792a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0013.png using Guid(6ba882c5ed432d94ea4d21de9bd1792a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '2e0ba3070c80b41460f384842031fa3d') in 0.202580 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000385 seconds.
+  path: Assets/Scripts/ManisDataStructures.dll
+  artifactKey: Guid(79a7abe23b38cdf40aa7cfa34f70a6ed) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Scripts/ManisDataStructures.dll using Guid(79a7abe23b38cdf40aa7cfa34f70a6ed) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '9162eef0795f1858ec66a3d1b1a9c009') in 0.073296 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000112 seconds.
+  path: Assets/kenney_tinydungeon/Tilemap/tilemap_packed.png
+  artifactKey: Guid(00e920bee6f1c5e4e8c291425b94e5d0) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tilemap/tilemap_packed.png using Guid(00e920bee6f1c5e4e8c291425b94e5d0) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '345b99c8be63a324be4f3747d4f11fee') in 0.222069 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000094 seconds.
+  path: Assets/Prefabs/Block.prefab
+  artifactKey: Guid(c2a66e2c7b781ae409c757021abc0f3b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Prefabs/Block.prefab using Guid(c2a66e2c7b781ae409c757021abc0f3b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '9bb295a72c3be8cc104017afc0387dce') in 0.123816 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
+========================================================================
+Received Import Request.
+  Time since last request: 0.000139 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0053.png
+  artifactKey: Guid(9d935acc0eddbf445b404d920e3dfc69) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0053.png using Guid(9d935acc0eddbf445b404d920e3dfc69) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '6ab77e2b3429c82e29586c1fed84f1dd') in 0.279517 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000081 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0076.png
+  artifactKey: Guid(287d45f07e8dba04e8e22049d6ceadc5) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0076.png using Guid(287d45f07e8dba04e8e22049d6ceadc5) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '11c2a9329f070827584149cb1916aeb0') in 0.356292 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000126 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0085.png
+  artifactKey: Guid(d005df34181a8cb4fbf0cf1f4301dd4d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0085.png using Guid(d005df34181a8cb4fbf0cf1f4301dd4d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '75d1f33b40b9c596aeaeca091d97edf7') in 0.583380 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000056 seconds.
+  path: Assets/kenney_tinydungeon/License.txt
+  artifactKey: Guid(ab0b939f85f2f794db035ab107d45f83) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/License.txt using Guid(ab0b939f85f2f794db035ab107d45f83) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '5bcb39590c08c486919fd2ef7d474ec7') in 0.113174 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000059 seconds.
+  path: Assets/Scripts/Corridor.cs
+  artifactKey: Guid(e3f1965b0d2a14b4198ac17ff52e70db) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Scripts/Corridor.cs using Guid(e3f1965b0d2a14b4198ac17ff52e70db) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '72c2d3a1252cf6121a40917091867fb8') in 0.069846 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000174 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0075.png
+  artifactKey: Guid(2386022d170c18a45af71dfef8e062bc) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0075.png using Guid(2386022d170c18a45af71dfef8e062bc) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'ca8af0e3f8090ccc751a88f0ed19f53c') in 0.215637 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000122 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0062.png
+  artifactKey: Guid(38469b2045f88df4fb6276a4a8a11a62) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0062.png using Guid(38469b2045f88df4fb6276a4a8a11a62) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'ac67a676ce1d8f32d5d4e74f8b14d0dc') in 0.217485 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000106 seconds.
+  path: Assets/Mathfs-master/package.json
+  artifactKey: Guid(2b5953667ba52bc47bb20558274637f2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Mathfs-master/package.json using Guid(2b5953667ba52bc47bb20558274637f2) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'e3dee0b1b8b2935fa8cb38d2a37bb374') in 0.073816 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000234 seconds.
+  path: Assets/Mathfs-master/README.md
+  artifactKey: Guid(c12d18034743d4bd7b7992ffada185ec) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Mathfs-master/README.md using Guid(c12d18034743d4bd7b7992ffada185ec) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'cb2abe4389c7351c504237b6bab1f084') in 0.095761 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000043 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0051.png
+  artifactKey: Guid(1046d9edde1f61c4895d536dacc7062f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0051.png using Guid(1046d9edde1f61c4895d536dacc7062f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'a5aa8549d702d527eb00970acc7bfc6f') in 0.289041 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000164 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0033.png
+  artifactKey: Guid(2503909151f2a454f82c25993280b224) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0033.png using Guid(2503909151f2a454f82c25993280b224) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '4fef996e1937db751960f5eb05b4a8be') in 0.282907 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0034.png
+  artifactKey: Guid(d131b3c8a863cbd4088fe7bbe6028c13) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0034.png using Guid(d131b3c8a863cbd4088fe7bbe6028c13) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '5741cc063ff3f584766fadf1e6532dd7') in 0.210788 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000061 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0004.png
+  artifactKey: Guid(995bf45bd827eb54f94334bfbf5dae71) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0004.png using Guid(995bf45bd827eb54f94334bfbf5dae71) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '67afa3475c82effc7d72499b17ea387d') in 0.252564 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0039.png
+  artifactKey: Guid(1477d58998c49fb4993bee41d020ab68) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0039.png using Guid(1477d58998c49fb4993bee41d020ab68) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'f5d555f49f2a70683ab5fa7663c5ac74') in 0.241179 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000123 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0063.png
+  artifactKey: Guid(cb670eff195d21d46b4c5685fdd107c3) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0063.png using Guid(cb670eff195d21d46b4c5685fdd107c3) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '5e0e86ad714ddf879ac7680f7d2b88df') in 0.259281 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000051 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0056.png
+  artifactKey: Guid(b7d87b0a149b37c429f9c845a710ed70) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0056.png using Guid(b7d87b0a149b37c429f9c845a710ed70) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '00276729b74d0d823ce918e48071a2ba') in 0.253246 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000057 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0031.png
+  artifactKey: Guid(d3b255d517795224d9604cf0aff2a393) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0031.png using Guid(d3b255d517795224d9604cf0aff2a393) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '70392eec29ac8fa572e71287801878fa') in 0.245028 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000070 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0009.png
+  artifactKey: Guid(3c71aa24ec663cf4084893b7c7e8921f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0009.png using Guid(3c71aa24ec663cf4084893b7c7e8921f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'f9dafead9a6429686a1d997d0d83e85c') in 0.249429 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000164 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0093.png
+  artifactKey: Guid(025c30f093842a343a9662418fa05266) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0093.png using Guid(025c30f093842a343a9662418fa05266) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'd80da98f92c491e0c7e4723fd8c9eae1') in 0.360772 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000076 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0005.png
+  artifactKey: Guid(f42b19659002113459b39edbec0c4a93) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0005.png using Guid(f42b19659002113459b39edbec0c4a93) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '001632ccdf8c5b9c4250888e9d4731c6') in 0.273273 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000073 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0064.png
+  artifactKey: Guid(320c02b1a98f79a4f81f6283811038ae) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0064.png using Guid(320c02b1a98f79a4f81f6283811038ae) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '329629c52d1f7f11ddd904032b8d0d9c') in 0.509417 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000291 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0104.png
+  artifactKey: Guid(991237aee83b67446b8b5f787f1fc67f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0104.png using Guid(991237aee83b67446b8b5f787f1fc67f) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'a5a62d7d70faa9ecd3185b1b7415a7fd') in 0.481554 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000099 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0119.png
+  artifactKey: Guid(4e41f21a04662e940ad23d57364bde76) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0119.png using Guid(4e41f21a04662e940ad23d57364bde76) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '40cf73731a7ff7d9605a05c17665d21e') in 0.515123 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000603 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0128.png
+  artifactKey: Guid(150b1aa38f504474bb2fa593e568ab6a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0128.png using Guid(150b1aa38f504474bb2fa593e568ab6a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '0f3339761ebcd4b6fa79283bf8f211b3') in 0.361654 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000290 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0120.png
+  artifactKey: Guid(e832ba5d1f037e04487ff8950fe82e0e) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0120.png using Guid(e832ba5d1f037e04487ff8950fe82e0e) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'e8727bd317f35b16212da7a5068f98d1') in 0.359989 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/kenney_tinydungeon/tiles_unity/tile_0010.asset
+  artifactKey: Guid(e3a90447196b871489659a1d8bb74e8d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/tiles_unity/tile_0010.asset using Guid(e3a90447196b871489659a1d8bb74e8d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '64d9ddbed2cc05bce96615bd9c614239') in 0.193984 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000111 seconds.
+  path: Assets/kenney_tinydungeon/tiles_unity/tile_0000_1.asset
+  artifactKey: Guid(5bc3b9b5efdb7774fb1bc97f1beaaa9b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/tiles_unity/tile_0000_1.asset using Guid(5bc3b9b5efdb7774fb1bc97f1beaaa9b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'c998ca3a89083e38fe4875c751a91dd3') in 0.173881 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000103 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0131.png
+  artifactKey: Guid(ce322f2742668334fb23cebca18e2c3b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0131.png using Guid(ce322f2742668334fb23cebca18e2c3b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'e2b385b9774c11bd8133eef2c4170dc2') in 0.280420 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000175 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0115.png
+  artifactKey: Guid(08232d6b5d4c97549b93624ba11dc577) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0115.png using Guid(08232d6b5d4c97549b93624ba11dc577) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '2df80dba804f140020848b53f1871719') in 0.337321 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000071 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0124.png
+  artifactKey: Guid(7ed352b4a6dbca042bef9a4481020bd5) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0124.png using Guid(7ed352b4a6dbca042bef9a4481020bd5) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '039aac6714c5a6a326958bc8067eb32e') in 0.236117 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000064 seconds.
+  path: Assets/kenney_tinydungeon/tiles_unity/tile_0005.asset
+  artifactKey: Guid(cabcf73ebde9ba94ea95783e2e5c0f73) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/tiles_unity/tile_0005.asset using Guid(cabcf73ebde9ba94ea95783e2e5c0f73) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '62b9d83aded6a487e5397b96ff4a759a') in 0.117211 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000272 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0118.png
+  artifactKey: Guid(adc2b458098b8994a8c6d15b772724fb) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0118.png using Guid(adc2b458098b8994a8c6d15b772724fb) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'c7677eb67e77ae61c7b048b639cd1115') in 0.424367 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000096 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0097.png
+  artifactKey: Guid(d4cfb8b803ca36f4e9c3ca0a1545d30b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0097.png using Guid(d4cfb8b803ca36f4e9c3ca0a1545d30b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'd513d99a9db6cb94112004c4463ffffd') in 0.392131 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000115 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0098.png
+  artifactKey: Guid(921b210a56550bb4ea97f876646a0916) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0098.png using Guid(921b210a56550bb4ea97f876646a0916) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'cbbc612aaf1c972b1de01953ad584126') in 0.345958 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000086 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0044.png
+  artifactKey: Guid(65a3b68a67e575946a23c98a5dfc8a8e) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0044.png using Guid(65a3b68a67e575946a23c98a5dfc8a8e) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '13d3e28e8b4eb07268b563a7c4f6c8cf') in 0.267961 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000096 seconds.
+  path: Assets/kenney_tinydungeon/tiles_unity/tile_0021.asset
+  artifactKey: Guid(da016c4524f2dc544940078bf4d38790) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/tiles_unity/tile_0021.asset using Guid(da016c4524f2dc544940078bf4d38790) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '8ffcae64b8875fb02595f21d59276a98') in 0.450738 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000062 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0074.png
+  artifactKey: Guid(0375d52ff3d228b40ad0c84d19d6d7ed) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0074.png using Guid(0375d52ff3d228b40ad0c84d19d6d7ed) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '9364fc305122973802cfdfc1ff97de66') in 0.348757 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000180 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0060.png
+  artifactKey: Guid(233d0f890f504ce47be5338cb6c61f6d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0060.png using Guid(233d0f890f504ce47be5338cb6c61f6d) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '7955812ddae887ac1c6a22bdf9c4f567') in 0.434333 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000158 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0012.png
+  artifactKey: Guid(102bb40c4e3ccde458b2f1de400ff060) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0012.png using Guid(102bb40c4e3ccde458b2f1de400ff060) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'f38bc66a01113745bfffd4b9a0815b4f') in 0.343576 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000271 seconds.
+  path: Assets/kenney_tinydungeon/tiles_unity/tile_0037.asset
+  artifactKey: Guid(ac81e0c255b8db84fa546c86fbaff31b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/tiles_unity/tile_0037.asset using Guid(ac81e0c255b8db84fa546c86fbaff31b) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '30955110f4cee54568f08576837ea4b7') in 0.238913 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000103 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0061.png
+  artifactKey: Guid(a3b726c4d0477d549a40f155673389d3) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0061.png using Guid(a3b726c4d0477d549a40f155673389d3) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '3ab57cd51c30f9dbf917c7a331654a61') in 0.315895 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000068 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0109.png
+  artifactKey: Guid(c8bf42e6a3c84fd4bafaccf5c06349c5) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0109.png using Guid(c8bf42e6a3c84fd4bafaccf5c06349c5) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '06733775645577e93f6de468d42a2a7e') in 0.462734 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000110 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0073.png
+  artifactKey: Guid(d9beb3573260aab4e9902fd76be264c1) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0073.png using Guid(d9beb3573260aab4e9902fd76be264c1) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'a47a9eef3b5d247b759e820a965c8fd9') in 0.353405 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000223 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0066.png
+  artifactKey: Guid(618abcd40299ded4098afba7d5349e53) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0066.png using Guid(618abcd40299ded4098afba7d5349e53) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'be1f23e5fea053c95dcb88e459f9d846') in 0.393881 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000357 seconds.
+  path: Assets/kenney_tinydungeon/tiles_unity/tile_0046.asset
+  artifactKey: Guid(67be295b61858dd4ba1f98f26dc2eac0) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/tiles_unity/tile_0046.asset using Guid(67be295b61858dd4ba1f98f26dc2eac0) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '2992b82ab8caccce1b7da492cf680466') in 0.380251 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000767 seconds.
+  path: Assets/kenney_tinydungeon/tiles_unity/tile_0029.asset
+  artifactKey: Guid(e7c4685eb0ed8f746b03b644b55fe8cb) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/tiles_unity/tile_0029.asset using Guid(e7c4685eb0ed8f746b03b644b55fe8cb) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '79b0959ae0100aae408e101e2a83fcd6') in 0.324286 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.019085 seconds.
+  path: Assets/Mathfs-master/Editor/CodeGenerator.cs
+  artifactKey: Guid(809f3c22dc3524a428c8cea98678b5da) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Mathfs-master/Editor/CodeGenerator.cs using Guid(809f3c22dc3524a428c8cea98678b5da) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '3fbfee9652a70eb4059d5548f2a28860') in 0.179229 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000191 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0057.png
+  artifactKey: Guid(25c3b784dea9a4148bd5c25098c82b57) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0057.png using Guid(25c3b784dea9a4148bd5c25098c82b57) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'b4e515b372411157dab4fee0849fdb4b') in 0.355328 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 0.000120 seconds.
+  path: Assets/Mathfs-master/Editor/Mathfs.Editor.asmdef
+  artifactKey: Guid(e310b6bc7297442988d0ba2f3b166f3a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Mathfs-master/Editor/Mathfs.Editor.asmdef using Guid(e310b6bc7297442988d0ba2f3b166f3a) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: 'dca802a8de118a551380e7e4ea987731') in 0.121187 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000081 seconds.
+  path: Assets/Scripts/CellType.cs
+  artifactKey: Guid(3b42ec323e953f84fb2e2a1d079733ff) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/Scripts/CellType.cs using Guid(3b42ec323e953f84fb2e2a1d079733ff) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '4d9f60bf63646d9e8f1a3eaeea7c5ad3') in 0.058031 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 0.000320 seconds.
+  path: Assets/kenney_tinydungeon/Tiles/tile_0080.png
+  artifactKey: Guid(aa569d8821971c2429aca9e5f3401524) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23)
+Start importing Assets/kenney_tinydungeon/Tiles/tile_0080.png using Guid(aa569d8821971c2429aca9e5f3401524) Importer(2089858483,0ecaa5967403d082aa24f35e1b516d23) Generated GUIDs only implemented for interfaces!
+ -> (artifact id: '51e00963b42d00dda45e939b815361fc') in 0.479186 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Prepare
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
 Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-- Loaded All Assemblies, in  3.117 seconds
-Refreshing native plugins compatible for Editor in 15.10 ms, found 4 plugins.
+- Loaded All Assemblies, in  3.154 seconds
+Refreshing native plugins compatible for Editor in 5.80 ms, found 4 plugins.
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in 47.274 seconds
-Domain Reload Profiling: 50385ms
-	BeginReloadAssembly (742ms)
+- Finished resetting the current domain, in  2.224 seconds
+Domain Reload Profiling: 5362ms
+	BeginReloadAssembly (1224ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (68ms)
+		DisableScriptedObjects (112ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (200ms)
-	RebuildCommonClasses (67ms)
-	RebuildNativeTypeToScriptingClass (34ms)
-	initialDomainReloadingComplete (69ms)
-	LoadAllAssembliesAndSetupDomain (2197ms)
-		LoadAssemblies (1150ms)
+		CreateAndSetChildDomain (324ms)
+	RebuildCommonClasses (256ms)
+	RebuildNativeTypeToScriptingClass (98ms)
+	initialDomainReloadingComplete (199ms)
+	LoadAllAssembliesAndSetupDomain (1360ms)
+		LoadAssemblies (1363ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (1436ms)
-			TypeCache.Refresh (1374ms)
-				TypeCache.ScanAssembly (1302ms)
-			ScanForSourceGeneratedMonoScriptInfo (1ms)
-			ResolveRequiredComponents (61ms)
-	FinalizeReload (47276ms)
+		AnalyzeDomain (602ms)
+			TypeCache.Refresh (575ms)
+				TypeCache.ScanAssembly (550ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (27ms)
+	FinalizeReload (2225ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1532ms)
+		SetupLoadedEditorAssemblies (971ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (39ms)
-			SetLoadedEditorAssemblies (56ms)
+			InitializePlatformSupportModulesInManaged (11ms)
+			SetLoadedEditorAssemblies (11ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (493ms)
-			ProcessInitializeOnLoadAttributes (741ms)
-			ProcessInitializeOnLoadMethodAttributes (185ms)
-			AfterProcessingInitializeOnLoad (17ms)
+			BeforeProcessingInitializeOnLoad (307ms)
+			ProcessInitializeOnLoadAttributes (500ms)
+			ProcessInitializeOnLoadMethodAttributes (129ms)
+			AfterProcessingInitializeOnLoad (12ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (34ms)
-Refreshing native plugins compatible for Editor in 10.24 ms, found 4 plugins.
+		AwakeInstancesAfterBackupRestoration (20ms)
+Refreshing native plugins compatible for Editor in 8.18 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 5645 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 48 unused Assets / (320.8 KB). Loaded Objects now: 6269.
-Memory consumption went from 192.3 MB to 192.0 MB.
-Total: 27.335300 ms (FindLiveObjects: 1.466900 ms CreateObjectMapping: 2.340200 ms MarkObjects: 22.618800 ms  DeleteObjects: 0.906900 ms)
+Memory consumption went from 192.2 MB to 191.9 MB.
+Total: 4.632400 ms (FindLiveObjects: 0.482200 ms CreateObjectMapping: 0.318000 ms MarkObjects: 3.673100 ms  DeleteObjects: 0.157400 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
@@ -231,192 +847,7 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-- Loaded All Assemblies, in  3.600 seconds
-Refreshing native plugins compatible for Editor in 19.77 ms, found 4 plugins.
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  5.338 seconds
-Domain Reload Profiling: 8925ms
-	BeginReloadAssembly (859ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (66ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (227ms)
-	RebuildCommonClasses (173ms)
-	RebuildNativeTypeToScriptingClass (52ms)
-	initialDomainReloadingComplete (117ms)
-	LoadAllAssembliesAndSetupDomain (2385ms)
-		LoadAssemblies (1516ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (1326ms)
-			TypeCache.Refresh (1253ms)
-				TypeCache.ScanAssembly (1195ms)
-			ScanForSourceGeneratedMonoScriptInfo (26ms)
-			ResolveRequiredComponents (47ms)
-	FinalizeReload (5339ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (2056ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (81ms)
-			SetLoadedEditorAssemblies (48ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (564ms)
-			ProcessInitializeOnLoadAttributes (1054ms)
-			ProcessInitializeOnLoadMethodAttributes (290ms)
-			AfterProcessingInitializeOnLoad (18ms)
-			EditorAssembliesLoaded (1ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (64ms)
-Refreshing native plugins compatible for Editor in 12.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5645 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 48 unused Assets / (320.9 KB). Loaded Objects now: 6274.
-Memory consumption went from 192.3 MB to 192.0 MB.
-Total: 12.010500 ms (FindLiveObjects: 0.693900 ms CreateObjectMapping: 0.441000 ms MarkObjects: 10.657100 ms  DeleteObjects: 0.216200 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-- Loaded All Assemblies, in  3.343 seconds
-Refreshing native plugins compatible for Editor in 9.13 ms, found 4 plugins.
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  6.032 seconds
-Domain Reload Profiling: 9363ms
-	BeginReloadAssembly (710ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (47ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (153ms)
-	RebuildCommonClasses (141ms)
-	RebuildNativeTypeToScriptingClass (57ms)
-	initialDomainReloadingComplete (111ms)
-	LoadAllAssembliesAndSetupDomain (2312ms)
-		LoadAssemblies (1408ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (1306ms)
-			TypeCache.Refresh (1267ms)
-				TypeCache.ScanAssembly (1216ms)
-			ScanForSourceGeneratedMonoScriptInfo (1ms)
-			ResolveRequiredComponents (38ms)
-	FinalizeReload (6033ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (2468ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (26ms)
-			SetLoadedEditorAssemblies (33ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (714ms)
-			ProcessInitializeOnLoadAttributes (1313ms)
-			ProcessInitializeOnLoadMethodAttributes (323ms)
-			AfterProcessingInitializeOnLoad (59ms)
-			EditorAssembliesLoaded (1ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (66ms)
-Refreshing native plugins compatible for Editor in 15.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5645 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 48 unused Assets / (321.0 KB). Loaded Objects now: 6279.
-Memory consumption went from 192.3 MB to 192.0 MB.
-Total: 10.638600 ms (FindLiveObjects: 0.816900 ms CreateObjectMapping: 0.624400 ms MarkObjects: 8.940600 ms  DeleteObjects: 0.253400 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image D:\Unity\MyGames\PCG-Dungeon\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-- Loaded All Assemblies, in  3.689 seconds
-Refreshing native plugins compatible for Editor in 4.62 ms, found 4 plugins.
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  2.212 seconds
-Domain Reload Profiling: 5885ms
-	BeginReloadAssembly (1499ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (309ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (257ms)
-	RebuildCommonClasses (311ms)
-	RebuildNativeTypeToScriptingClass (54ms)
-	initialDomainReloadingComplete (132ms)
-	LoadAllAssembliesAndSetupDomain (1676ms)
-		LoadAssemblies (1759ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (720ms)
-			TypeCache.Refresh (679ms)
-				TypeCache.ScanAssembly (658ms)
-			ScanForSourceGeneratedMonoScriptInfo (17ms)
-			ResolveRequiredComponents (24ms)
-	FinalizeReload (2213ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (984ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (11ms)
-			SetLoadedEditorAssemblies (10ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (255ms)
-			ProcessInitializeOnLoadAttributes (536ms)
-			ProcessInitializeOnLoadMethodAttributes (155ms)
-			AfterProcessingInitializeOnLoad (17ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (29ms)
-Refreshing native plugins compatible for Editor in 5.72 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5645 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 48 unused Assets / (320.9 KB). Loaded Objects now: 6284.
-Memory consumption went from 192.3 MB to 192.0 MB.
-Total: 4.094000 ms (FindLiveObjects: 0.427600 ms CreateObjectMapping: 0.270200 ms MarkObjects: 3.270400 ms  DeleteObjects: 0.124400 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
   custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 

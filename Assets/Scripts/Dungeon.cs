@@ -21,6 +21,7 @@ public class Dungeon : Sample
     public Graph<Room> roomGraph;
     public Grid<GridObject> grid;
     public DungeonParameters dungeonParameters;
+    public Bound bound;
 
     public Dungeon(int roomCount = -1)
     {
@@ -39,6 +40,7 @@ public class Dungeon : Sample
             width = parms.width,
             height = parms.height
         };
+        bound = new Bound(0, 0, dungeonParameters.width, dungeonParameters.height);
         AddRandomRooms();
         optimalFitnessValue = rooms.Count;
     }
@@ -48,6 +50,7 @@ public class Dungeon : Sample
         dungeonParameters = d.dungeonParameters;
         rooms = new List<Room>(d.rooms);
         roomGraph = d.roomGraph;
+        bound = d.bound;
     }
 
     private void AddRandomRooms(int count = -1)
@@ -105,7 +108,7 @@ public class Dungeon : Sample
             startTile.Type = CellType.Door;
             endTile.Type = CellType.Door;
 
-            BreadthFirstSearch astar = new BreadthFirstSearch(grid, startTile, endTile);
+            AStarAlgorithm astar = new AStarAlgorithm(grid, startTile, endTile);
             astar.PathFindingSearch();
             foreach (var gridObject in astar.path)
             {
@@ -139,11 +142,38 @@ public class Dungeon : Sample
     {
         for (var i = 0; i < rooms.Count; i++)
         {
+            Vector2 newStartPoint = default;
+            if (DoesCollideWithOtherRooms(rooms[i]))
+            {
+                newStartPoint = new Vector2(Random.Range(rooms[i].bound.w / 2f, dungeonParameters.width - rooms[i].bound.w / 2f),
+                    Random.Range(rooms[i].bound.h / 2f, dungeonParameters.height - rooms[i].bound.h / 2f));
+            }
+            else
+            {
+                newStartPoint = rooms[i].startPoint + (bound.Center - rooms[i].Center).normalized * 2;
+            }
+            Room newRoom = new Room(rooms[i]);
+            newRoom.ChangePosition(newStartPoint);
+            rooms[i] = newRoom;
+        }
+        /* for (var i = 0; i < rooms.Count; i++)
+        {
             Vector2 startPointOffset = new Vector2(Random.Range(-2, 3), Random.Range(-2, 3));
             Room newRoom = new Room(rooms[i]);
             newRoom.ChangePosition(newRoom.startPoint + startPointOffset);
             rooms[i] = newRoom;
+        } */
+    }
+
+    private bool DoesCollideWithOtherRooms(Room room)
+    {
+        foreach (var r in rooms)
+        {
+            if (Bound.Collide(room.bound, r.bound))
+                return true;
         }
+
+        return false;
     }
 
     public override float Evaluate()

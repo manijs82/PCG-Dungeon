@@ -19,11 +19,8 @@ public class Generator : MonoBehaviour
     private void GenerateDungeon()
     {
         Dungeon d;
-        do
-        {
-            Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
-            d = (Dungeon)e.samples[0];
-        } while (d.fitnessValue < 0);
+        Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
+        d = (Dungeon)e.samples[0];
 
         d.OnMakeGrids += () => OnDungeonGenerated?.Invoke(d);
         

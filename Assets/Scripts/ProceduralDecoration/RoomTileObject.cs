@@ -13,11 +13,6 @@ public class RoomTileObject : TileGridObject
     {
         return new Rect(x, y, 1, 1);
     }
-
-    public override bool IsBlocked
-    {
-        get => false;
-    }
 }
 
 public enum TileState

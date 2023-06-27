@@ -175,11 +175,11 @@ public class Grid<TGridObject> where TGridObject : GridObject
         }
 
         foreach (var p in temp)
-            if (p != null)
-            {
-                if (!p.IsBlocked)
-                    output.Add(p);
-            }
+        {
+            if (p == null) continue;
+            if (!p.IsBlocked)
+                output.Add(p);
+        }
 
         return output;
     }
