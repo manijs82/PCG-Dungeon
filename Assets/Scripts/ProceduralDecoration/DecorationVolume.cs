@@ -66,27 +66,6 @@ public class DecorationVolume
     #if UNITY_EDITOR
     public void DrawGizmos()
     {
-        Handles.color = Color.white;
-        Color color = Color.black;
-        
-        foreach (var obj in partition.GridObjects)
-        {
-            switch (obj.tileState)
-            {
-                case TileState.Free:
-                    color = Color.white / 2;
-                    break;
-                case TileState.Ready:
-                    color = Color.green / 2;
-                    break;
-                case TileState.Occupied:
-                    color = Color.red / 2;
-                    break;
-            }    
-            
-            Handles.DrawSolidRectangleWithOutline(new Rect(Origin.x + obj.x, Origin.y + obj.y, 1, 1), color, color);
-        }
-        
         partition.DrawGizmos(tile =>
         {
             return tile.tileState switch
