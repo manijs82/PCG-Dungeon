@@ -7,5 +7,10 @@ namespace Editor
         public DecorationObject settings;
         public string GUID;
         public bool entryPoint;
+
+        public DecorationNode()
+        {
+            settings = new DecorationObject();
+        }
     }
 }
