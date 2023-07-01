@@ -3,18 +3,27 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
+[System.Serializable]
 public class DecorationVolume
 {
     public EnvironmentType environmentType;
     public ContentType contentType;
-    public DecorationObjectSource decorationObjectSource;
+    public PlacementSettings currentPlacementSettings;
 
     private Grid<RoomTileObject> partition;
-    private PlacementSettings currentPlacementSettings;
+    private DecorationObjectSource decorationObjectSource;
 
     public Vector3 Origin => partition.Origin;
 
-    public DecorationVolume(Room room)
+    public DecorationVolume()
+    {
+    }
+
+    public DecorationVolume(DecorationVolume decorationVolume, Grid<RoomTileObject> partition)
+    {
+    }
+
+    public void Init(Room room)
     {
         decorationObjectSource = Resources.Load<DecorationObjectSource>("ObjectSource");
         partition = new Grid<RoomTileObject>(room.bound.w - 2, room.bound.h - 2, 1f, GetDefaultTileObject,
@@ -37,10 +46,6 @@ public class DecorationVolume
         var neighbors = partition.GetNeighbors(tile.x, tile.y, currentPlacementSettings.padding);
         foreach (var neighbor in neighbors) 
             neighbor.tileState = TileState.Ready;
-    }
-
-    public DecorationVolume(DecorationVolume decorationVolume, Grid<RoomTileObject> partition)
-    {
     }
 
     private RoomTileObject GetDefaultTileObject(Grid<RoomTileObject> grid, int x, int y)

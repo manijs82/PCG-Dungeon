@@ -1,4 +1,5 @@
-﻿using UnityEditor.Experimental.GraphView;
+﻿using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 
 namespace Editor
 {
@@ -11,6 +12,11 @@ namespace Editor
         public DecorationNode()
         {
             settings = new DecorationObject();
+        }
+        
+        public override void OnSelected()
+        {
+            base.OnSelected();
         }
     }
 }

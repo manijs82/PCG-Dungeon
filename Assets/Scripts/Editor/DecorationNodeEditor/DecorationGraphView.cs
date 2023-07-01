@@ -92,20 +92,18 @@ namespace Editor
                 for (var i = list.Count - 1; i >= 0; i--)
                 {
                     var socket = list[i];
-                    if (socket is Port port)
+                    if (socket is not Port port) continue;
+                    
+                    var connectedEdge = edges
+                        .FirstOrDefault(x => x.output == port);
+                    if (connectedEdge == null) continue;
+                    
+                    connectedEdge.input.Disconnect(connectedEdge);
+                    OnGraphChange(new GraphViewChange()
                     {
-                        var connectedEdge = edges
-                            .FirstOrDefault(x => x.output == port);
-                        if (connectedEdge != null)
-                        {
-                            connectedEdge.input.Disconnect(connectedEdge);
-                            OnGraphChange(new GraphViewChange()
-                            {
-                                elementsToRemove = new List<GraphElement> { connectedEdge }
-                            });
-                            RemoveElement(connectedEdge);
-                        }
-                    }
+                        elementsToRemove = new List<GraphElement> { connectedEdge }
+                    });
+                    RemoveElement(connectedEdge);
                 }
             }
         }
@@ -118,10 +116,8 @@ namespace Editor
                 GUID = Guid.NewGuid().ToString()
             };
 
-            var outPort = AddPort(parentNode, Direction.Output);
-            var inPort = AddPort(decorationNode, Direction.Input);
-            var edge = outPort.ConnectTo(inPort);
-            
+            var edge = ConnectNodes(parentNode, decorationNode);
+
             PositionChildNodes(parentNode);
             
             var button = new Button(() => CreateNode(decorationNode, "CHILD"))
@@ -135,6 +131,58 @@ namespace Editor
             return decorationNode;
         }
 
+        public void LoadNode(NodeData nodeData)
+        {
+            var decorationNode = new DecorationNode()
+            {
+                title = "CHILD",
+                GUID = nodeData.guid,
+                entryPoint = nodeData.isEntry
+            };
+            decorationNode.SetPosition(nodeData.position);
+            
+            if(decorationNode.entryPoint)
+            {
+                decorationNode.title = "START";
+                decorationNode.capabilities -= Capabilities.Deletable;
+            }
+            
+            var button = new Button(() => CreateNode(decorationNode, "CHILD"))
+            {
+                text = "Add Child"
+            };
+            decorationNode.titleButtonContainer.Add(button);
+            
+            AddElement(decorationNode);
+        }
+
+        public void LoadEdges(NodeLinkData linkData)
+        {
+            var fromNode = GetNode(linkData.startNodeGuid);
+            var toNode = GetNode(linkData.endNodeGuid);
+            var edge = ConnectNodes(fromNode, toNode);
+            
+            AddElement(edge);
+        }
+
+        private Node GetNode(string guid)
+        {
+            foreach (var node in nodes)
+            {
+                if(node is not DecorationNode decorationNode) continue;
+                if (decorationNode.GUID == guid) return node;
+            }
+
+            return null;
+        }
+
+        private UnityEditor.Experimental.GraphView.Edge ConnectNodes(Node from, Node to)
+        {
+            var outPort = AddPort(from, Direction.Output);
+            var inPort = AddPort(to, Direction.Input);
+            return outPort.ConnectTo(inPort);
+        }
+
         private void PositionChildNodes(DecorationNode parentNode)
         {
             var list = parentNode.outputContainer.Children().ToList();
@@ -142,15 +190,15 @@ namespace Editor
             {
                 if (list[i] is Port port)
                 {
-                    var node = port.connections.ToList()[0].input;
-                    var yOffset = list.Count == 1 ? 0 : Mathf.Lerp(-list.Count/2f * 150, list.Count/2f * 150, i / (float)(list.Count - 1));
+                    var node = port.connections.ToList()[0].input.node;
+                    var yOffset = list.Count == 1 ? 0 : Mathf.Lerp(-list.Count/2f * 100, list.Count/2f * 100, i / (float)(list.Count - 1));
                     node.SetPosition(new Rect(parentNode.GetPosition().position + Vector2.right * 300 + Vector2.up * yOffset, DefaultNodeSize));
+                    
                 }
             }
-
         }
 
-        private Port AddPort(DecorationNode node, Direction portDirection)
+        private Port AddPort(Node node, Direction portDirection)
         {
             var port = node.InstantiatePort(Orientation.Horizontal, portDirection, Port.Capacity.Multi, typeof(float));
             port.portName = portDirection.ToString();

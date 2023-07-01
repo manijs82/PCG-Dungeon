@@ -1,0 +1,169 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00b770dd834402bbb9366dbf46fda9b, type: 3}
+  m_Name: DecorationVolume
+  m_EditorClassIdentifier: 
+  graphViewData:
+    nodes:
+    - guid: 565e6d35-e039-409e-8c34-27218d69a538
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 44
+      isEntry: 1
+    - guid: 0a639e7a-2ee2-4a1a-b814-ecf87a6111e8
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 53
+      isEntry: 1
+    - guid: fb76128d-4b0f-473e-924b-302ffe3a7117
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 53
+      isEntry: 1
+    - guid: 633c7940-4692-45f0-9681-025992fe7f49
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 53
+      isEntry: 1
+    - guid: d03ab5c5-3cea-49d8-a3ba-fc8fbf0fe6df
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 53
+      isEntry: 1
+    - guid: 988c8300-7431-446c-aece-f7e262dc0250
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 53
+      isEntry: 1
+    - guid: 559ce67e-587e-4225-944b-e7ac24fd4dfc
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 53
+      isEntry: 1
+    - guid: 76b47cb7-1b79-4369-b1b1-512c159c8ab2
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 53
+      isEntry: 1
+    - guid: 335b9d7d-600f-476e-9fb9-aa4ddf9eca10
+      position:
+        serializedVersion: 2
+        x: 100
+        y: 200
+        width: 158
+        height: 101
+      isEntry: 1
+    - guid: a24ff4b1-a0b9-485e-ab94-fe04353b9b6b
+      position:
+        serializedVersion: 2
+        x: 400
+        y: 50
+        width: 156
+        height: 101
+      isEntry: 0
+    - guid: 2f939299-8fcb-48bf-aac1-814c8cf23ad7
+      position:
+        serializedVersion: 2
+        x: 700
+        y: 50
+        width: 156
+        height: 125
+      isEntry: 0
+    - guid: e8474d5b-90b3-47b1-a2a7-930e8ac58a5e
+      position:
+        serializedVersion: 2
+        x: 1000
+        y: -100
+        width: 156
+        height: 77
+      isEntry: 0
+    - guid: 01c8f215-82a9-487b-9d25-dcd3e18e9c78
+      position:
+        serializedVersion: 2
+        x: 1000
+        y: 50
+        width: 156
+        height: 77
+      isEntry: 0
+    - guid: cc36be95-b86c-4316-bc29-1dc81c0bc5fa
+      position:
+        serializedVersion: 2
+        x: 1000
+        y: 200
+        width: 156
+        height: 77
+      isEntry: 0
+    - guid: e631d8b9-515a-4d2e-812f-d9084502b78e
+      position:
+        serializedVersion: 2
+        x: 700
+        y: 405
+        width: 156
+        height: 77
+      isEntry: 0
+    - guid: 7bde8b1a-7354-47a9-8506-4f4a6d68c67d
+      position:
+        serializedVersion: 2
+        x: 244
+        y: 444
+        width: 156
+        height: 77
+      isEntry: 0
+    - guid: f7e41eb6-497d-49a8-b915-a83b50f3bef4
+      position:
+        serializedVersion: 2
+        x: 503
+        y: 506
+        width: 156
+        height: 77
+      isEntry: 0
+    links:
+    - startNodeGuid: 335b9d7d-600f-476e-9fb9-aa4ddf9eca10
+      endNodeGuid: a24ff4b1-a0b9-485e-ab94-fe04353b9b6b
+    - startNodeGuid: 335b9d7d-600f-476e-9fb9-aa4ddf9eca10
+      endNodeGuid: 7bde8b1a-7354-47a9-8506-4f4a6d68c67d
+    - startNodeGuid: a24ff4b1-a0b9-485e-ab94-fe04353b9b6b
+      endNodeGuid: 2f939299-8fcb-48bf-aac1-814c8cf23ad7
+    - startNodeGuid: a24ff4b1-a0b9-485e-ab94-fe04353b9b6b
+      endNodeGuid: e631d8b9-515a-4d2e-812f-d9084502b78e
+    - startNodeGuid: 2f939299-8fcb-48bf-aac1-814c8cf23ad7
+      endNodeGuid: e8474d5b-90b3-47b1-a2a7-930e8ac58a5e
+    - startNodeGuid: 2f939299-8fcb-48bf-aac1-814c8cf23ad7
+      endNodeGuid: 01c8f215-82a9-487b-9d25-dcd3e18e9c78
+    - startNodeGuid: 2f939299-8fcb-48bf-aac1-814c8cf23ad7
+      endNodeGuid: cc36be95-b86c-4316-bc29-1dc81c0bc5fa
+    - startNodeGuid: 7bde8b1a-7354-47a9-8506-4f4a6d68c67d
+      endNodeGuid: f7e41eb6-497d-49a8-b915-a83b50f3bef4
