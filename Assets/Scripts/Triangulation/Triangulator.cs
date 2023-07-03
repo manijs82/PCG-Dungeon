@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ManisDataStructures;
-using ManisDataStructures.Graph;
+using Mani;
+using Mani.Graph;
 using UnityEngine;
 
 public static class Triangulator

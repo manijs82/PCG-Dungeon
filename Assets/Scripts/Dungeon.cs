@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using ManisDataStructures.Graph;
+using Mani.Graph;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

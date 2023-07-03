@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ManisDataStructures.Hierarchy;
+using Mani.Hierarchy;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DecorationVolume", menuName = "Decoration Volume", order = 0)]

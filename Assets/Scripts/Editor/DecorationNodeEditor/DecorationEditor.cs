@@ -1,4 +1,4 @@
-﻿using ManisDataStructures.Hierarchy;
+﻿using Mani.Hierarchy;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -12,6 +12,7 @@ namespace Editor
         private DecorationGraphView graphView;
         private Toolbar toolbar;
         private ObjectField objectField;
+        private VisualElement detailPanel;
 
         [MenuItem("PCG_Dungeon/DecorationEditor")]
         private static void ShowWindow()
@@ -24,11 +25,14 @@ namespace Editor
         private void OnEnable()
         {
             InitializeGraphView();
-            GenerateToolbar();
+            InitializeToolbar();
+            InitializeDetailPanel();
+            
             var hierarchyAsset = AssetDatabase.LoadAssetAtPath<DecorationVolumeHierarchy>(EditorPrefs.GetString("ObjectPath"));
             objectField.SetValueWithoutNotify(hierarchyAsset);
-            
-            LoadGraph(hierarchyAsset);
+
+            if(hierarchyAsset != null)
+                LoadGraph(hierarchyAsset);
         }
 
         private void OnGUI()
@@ -38,9 +42,9 @@ namespace Editor
 
         private void OnDisable()
         {
+            SaveGraph();
             rootVisualElement.Remove(graphView);
             rootVisualElement.Remove(toolbar);
-            SaveGraph();
         }
 
         private void InitializeGraphView()
@@ -52,8 +56,8 @@ namespace Editor
             graphView.StretchToParentSize();
             rootVisualElement.Add(graphView);
         }
-        
-        private void GenerateToolbar()
+
+        private void InitializeToolbar()
         {
             toolbar = new Toolbar();
 
@@ -67,8 +71,24 @@ namespace Editor
             rootVisualElement.Add(toolbar);
         }
 
+        private void InitializeDetailPanel()
+        {
+            detailPanel = new VisualElement();
+            rootVisualElement.Add(detailPanel);
+            detailPanel.PlaceInFront(graphView);
+            detailPanel.style.position = new StyleEnum<Position>(Position.Absolute);
+            detailPanel.style.left = new StyleLength(2);
+            detailPanel.style.top = new StyleLength(15);
+            detailPanel.style.backgroundColor = new StyleColor(EditorGUIUtility.isProSkin
+                ? new Color32(56, 56, 56, 255)
+                : new Color32(194, 194, 194, 255));
+            detailPanel.style.width = new StyleLength(300);
+            detailPanel.style.height = new StyleLength(600);
+        }
+
         private void SaveGraph()
         {
+            if(hierarchy == null) return;
             var graphViewData = new GraphViewData();
             foreach (var node in graphView.nodes)
             {

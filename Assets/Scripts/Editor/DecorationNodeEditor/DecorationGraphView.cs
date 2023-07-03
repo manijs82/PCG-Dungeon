@@ -32,25 +32,25 @@ namespace Editor
 
         private GraphElement CreateEntryPointNode()
         {
-            var entryPoint = new DecorationNode()
+            entryPointNode = new DecorationNode()
             {
                 title = "START",
                 GUID = Guid.NewGuid().ToString(),
                 entryPoint = true
             };
             
-            entryPoint.capabilities -= Capabilities.Deletable;
+            entryPointNode.capabilities -= Capabilities.Deletable;
             
-            entryPoint.RefreshExpandedState();
-            entryPoint.SetPosition(new Rect(new Vector2(100, 200), DefaultNodeSize));
+            entryPointNode.RefreshExpandedState();
+            entryPointNode.SetPosition(new Rect(new Vector2(100, 200), DefaultNodeSize));
 
-            var button = new Button(() => CreateNode(entryPoint, "CHILD"))
+            var button = new Button(() => CreateNode(entryPointNode, "CHILD"))
             {
                 text = "Add Child"
             };
-            entryPoint.titleButtonContainer.Add(button);
+            entryPointNode.titleButtonContainer.Add(button);
 
-            return entryPoint;
+            return entryPointNode;
         }
         
         private GraphViewChange OnGraphChange(GraphViewChange change)
