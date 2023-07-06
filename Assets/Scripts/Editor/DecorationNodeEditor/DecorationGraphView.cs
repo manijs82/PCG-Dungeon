@@ -9,6 +9,10 @@ namespace Editor
 {
     public class DecorationGraphView : GraphView
     {
+        public event Action<DecorationNode> OnNodeRemoved;
+        public event Action<DecorationNode> OnNodeCreated;
+        public event Action<DecorationNode> OnEntryNodeCreated;
+        public event Action<DecorationNode> OnEntryNodeLoaded;
         public static readonly Vector2 DefaultNodeSize = new Vector2(200, 150);
 
         public DecorationNode entryPointNode;
@@ -35,9 +39,9 @@ namespace Editor
             entryPointNode = new DecorationNode()
             {
                 title = "START",
-                GUID = Guid.NewGuid().ToString(),
-                entryPoint = true
+                GUID = Guid.NewGuid().ToString()
             };
+            SetEntryPoint(entryPointNode);
             
             entryPointNode.capabilities -= Capabilities.Deletable;
             
@@ -105,12 +109,14 @@ namespace Editor
                     });
                     RemoveElement(connectedEdge);
                 }
+                
+                OnNodeRemoved?.Invoke(node as DecorationNode);
             }
         }
 
         private DecorationNode CreateNode(DecorationNode parentNode, string nodeName)
         {
-            var decorationNode = new DecorationNode()
+            var decorationNode = new DecorationNode(parentNode)
             {
                 title = nodeName,
                 GUID = Guid.NewGuid().ToString()
@@ -128,6 +134,7 @@ namespace Editor
             AddElement(decorationNode);
             AddElement(edge);
 
+            OnNodeCreated?.Invoke(decorationNode);
             return decorationNode;
         }
 
@@ -136,9 +143,10 @@ namespace Editor
             var decorationNode = new DecorationNode()
             {
                 title = "CHILD",
-                GUID = nodeData.guid,
-                entryPoint = nodeData.isEntry
+                GUID = nodeData.guid
             };
+            if (nodeData.isEntry) SetEntryPoint(decorationNode, false);
+            
             decorationNode.SetPosition(nodeData.position);
             
             if(decorationNode.entryPoint)
@@ -156,21 +164,32 @@ namespace Editor
             AddElement(decorationNode);
         }
 
+        private void SetEntryPoint(DecorationNode decorationNode, bool created = true)
+        {
+            if(entryPointNode != null)
+                RemoveElement(entryPointNode);
+            entryPointNode = decorationNode;
+            decorationNode.SetEntry();
+            if(created) OnEntryNodeCreated?.Invoke(decorationNode);
+            else OnEntryNodeLoaded?.Invoke(decorationNode);
+        }
+
         public void LoadEdges(NodeLinkData linkData)
         {
             var fromNode = GetNode(linkData.startNodeGuid);
             var toNode = GetNode(linkData.endNodeGuid);
             var edge = ConnectNodes(fromNode, toNode);
+            toNode.parent = fromNode;
             
             AddElement(edge);
         }
 
-        private Node GetNode(string guid)
+        private DecorationNode GetNode(string guid)
         {
             foreach (var node in nodes)
             {
                 if(node is not DecorationNode decorationNode) continue;
-                if (decorationNode.GUID == guid) return node;
+                if (decorationNode.GUID == guid) return decorationNode;
             }
 
             return null;
@@ -213,6 +232,13 @@ namespace Editor
             node.RefreshExpandedState();
             node.RefreshPorts();
             return port;
+        }
+
+        public DecorationNode GetChildAt(DecorationNode node, int index)
+        {
+            var port = node.outputContainer.ElementAt(index) as Port;
+            var child = edges.FirstOrDefault(e => e.output == port)?.input.node as DecorationNode;
+            return child;
         }
     }
 }

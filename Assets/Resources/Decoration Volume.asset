@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00b770dd834402bbb9366dbf46fda9b, type: 3}
+  m_Name: Decoration Volume
+  m_EditorClassIdentifier: 
+  volumeHierarchy:
+    Root:
+      Value:
+        environmentType: 1
+        contentType: 0
+        currentPlacementSettings:
+          positioningType: 0
+          padding:
+            x: 0
+            y: 0
+            w: 0
+            h: 0
+          isUnique: 0
+      HasParent: 0
+      IsRoot: 0
+      Children:
+      - Value:
+          environmentType: 0
+          contentType: 0
+          currentPlacementSettings:
+            positioningType: 0
+            padding:
+              x: 0
+              y: 0
+              w: 0
+              h: 0
+            isUnique: 0
+        HasParent: 1
+        IsRoot: 0
+        Children: []
+      - Value:
+          environmentType: 0
+          contentType: 0
+          currentPlacementSettings:
+            positioningType: 0
+            padding:
+              x: 0
+              y: 0
+              w: 0
+              h: 0
+            isUnique: 0
+        HasParent: 1
+        IsRoot: 0
+        Children: []
+    IsBinaryTree: 0
+  graphViewData:
+    nodes:
+    - guid: 5cc5194b-e98e-42f3-9539-618048b27287
+      position:
+        serializedVersion: 2
+        x: 703
+        y: 429
+        width: 156
+        height: 77
+      isEntry: 0
+    - guid: 22cddb98-0fd6-4e8c-afd6-d9433b77152b
+      position:
+        serializedVersion: 2
+        x: 403
+        y: 329
+        width: 158
+        height: 101
+      isEntry: 1
+    - guid: 2c9f77ea-dfc5-4b5e-92ba-47dd98a35981
+      position:
+        serializedVersion: 2
+        x: 703
+        y: 229
+        width: 156
+        height: 77
+      isEntry: 0
+    links:
+    - startNodeGuid: 22cddb98-0fd6-4e8c-afd6-d9433b77152b
+      endNodeGuid: 2c9f77ea-dfc5-4b5e-92ba-47dd98a35981
+    - startNodeGuid: 22cddb98-0fd6-4e8c-afd6-d9433b77152b
+      endNodeGuid: 5cc5194b-e98e-42f3-9539-618048b27287

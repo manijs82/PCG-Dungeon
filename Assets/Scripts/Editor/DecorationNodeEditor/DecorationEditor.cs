@@ -12,7 +12,8 @@ namespace Editor
         private DecorationGraphView graphView;
         private Toolbar toolbar;
         private ObjectField objectField;
-        private VisualElement detailPanel;
+        private VisualElement detailPanelElement;
+        private VolumeDetailPanel detailPanel;
 
         [MenuItem("PCG_Dungeon/DecorationEditor")]
         private static void ShowWindow()
@@ -26,13 +27,8 @@ namespace Editor
         {
             InitializeGraphView();
             InitializeToolbar();
+            LoadHierarchyAsset();
             InitializeDetailPanel();
-            
-            var hierarchyAsset = AssetDatabase.LoadAssetAtPath<DecorationVolumeHierarchy>(EditorPrefs.GetString("ObjectPath"));
-            objectField.SetValueWithoutNotify(hierarchyAsset);
-
-            if(hierarchyAsset != null)
-                LoadGraph(hierarchyAsset);
         }
 
         private void OnGUI()
@@ -43,18 +39,30 @@ namespace Editor
         private void OnDisable()
         {
             SaveGraph();
+            graphView.OnNodeCreated -= OnAddNode;
+            graphView.OnEntryNodeCreated -= OnCreateRootNode;
             rootVisualElement.Remove(graphView);
             rootVisualElement.Remove(toolbar);
         }
 
         private void InitializeGraphView()
         {
+            if(rootVisualElement.Contains(graphView))
+            {
+                rootVisualElement.Remove(graphView);
+                graphView.OnNodeCreated -= OnAddNode;
+                graphView.OnEntryNodeCreated -= OnCreateRootNode;
+            }
             graphView = new DecorationGraphView()
             {
                 name = "Decoration Graph"
             };
             graphView.StretchToParentSize();
             rootVisualElement.Add(graphView);
+            graphView.SendToBack();
+            graphView.OnNodeCreated += OnAddNode;
+            graphView.OnEntryNodeCreated += OnCreateRootNode;
+            graphView.OnNodeRemoved += OnRemoveNode;
         }
 
         private void InitializeToolbar()
@@ -71,19 +79,53 @@ namespace Editor
             rootVisualElement.Add(toolbar);
         }
 
+        private void LoadHierarchyAsset()
+        {
+            var hierarchyAsset = AssetDatabase.LoadAssetAtPath<DecorationVolumeHierarchy>(EditorPrefs.GetString("ObjectPath"));
+            objectField.SetValueWithoutNotify(hierarchyAsset);
+
+            if (hierarchyAsset != null)
+                LoadGraph(hierarchyAsset);
+        }
+
         private void InitializeDetailPanel()
         {
-            detailPanel = new VisualElement();
-            rootVisualElement.Add(detailPanel);
-            detailPanel.PlaceInFront(graphView);
-            detailPanel.style.position = new StyleEnum<Position>(Position.Absolute);
-            detailPanel.style.left = new StyleLength(2);
-            detailPanel.style.top = new StyleLength(15);
-            detailPanel.style.backgroundColor = new StyleColor(EditorGUIUtility.isProSkin
+            detailPanelElement = new VisualElement();
+            rootVisualElement.Add(detailPanelElement);
+            detailPanelElement.PlaceInFront(graphView);
+            detailPanelElement.style.position = new StyleEnum<Position>(Position.Absolute);
+            detailPanelElement.style.left = new StyleLength(2);
+            detailPanelElement.style.top = new StyleLength(20);
+            detailPanelElement.style.backgroundColor = new StyleColor(EditorGUIUtility.isProSkin
                 ? new Color32(56, 56, 56, 255)
                 : new Color32(194, 194, 194, 255));
-            detailPanel.style.width = new StyleLength(300);
-            detailPanel.style.height = new StyleLength(600);
+            detailPanelElement.style.width = new StyleLength(300);
+            detailPanelElement.style.height = new StyleLength(600);
+
+            detailPanel = new VolumeDetailPanel(detailPanelElement, hierarchy);
+        }
+
+        private void OnAddNode(DecorationNode node)
+        {
+            if (hierarchy == null) return;
+            if (node.parent == null) return;
+            hierarchy.volumeHierarchy.AddChild(node.parent.volume, node.volume);
+            EditorUtility.SetDirty(hierarchy);
+        }
+
+        private void OnRemoveNode(DecorationNode node)
+        {
+            if (hierarchy == null) return;
+            if (node.volume.Parent == null) return;
+            node.volume.Parent.RemoveNeighbor(node.volume);
+            EditorUtility.SetDirty(hierarchy);
+        }
+
+        private void OnCreateRootNode(DecorationNode node)
+        {
+            if (hierarchy == null) return;
+            hierarchy.volumeHierarchy.Root = node.volume;
+            EditorUtility.SetDirty(hierarchy);
         }
 
         private void SaveGraph()
@@ -107,19 +149,37 @@ namespace Editor
             }
 
             hierarchy.graphViewData = graphViewData;
-            hierarchy.volumeHierarchy = new Hierarchy<DecorationVolume>(
-                new HierarchyNode<DecorationVolume>(new DecorationVolume()));
             EditorUtility.SetDirty(hierarchy);
             AssetDatabase.SaveAssetIfDirty(hierarchy);
+            LoadGraph(hierarchy);
         }
 
         private void LoadGraph(DecorationVolumeHierarchy hierarchy)
         {
+            InitializeGraphView();
             this.hierarchy = hierarchy;
             EditorPrefs.SetString("ObjectPath", AssetDatabase.GetAssetPath(hierarchy));
 
             foreach (var nodeData in hierarchy.graphViewData.nodes) graphView.LoadNode(nodeData);
             foreach (var link in hierarchy.graphViewData.links) graphView.LoadEdges(link);
+            
+            SyncHierarchyData();
+        }
+
+        private void SyncHierarchyData()
+        {
+            SyncChildrenNodeValue(graphView.entryPointNode, hierarchy.volumeHierarchy.Root);
+            graphView.entryPointNode.volume = hierarchy.volumeHierarchy.Root;
+        }
+
+        private void SyncChildrenNodeValue(DecorationNode parentNode, HierarchyNode<DecorationVolume> parentVolume)
+        {
+            for (int i = 0; i < parentVolume.ChildCount; i++)
+            {
+                var child = graphView.GetChildAt(parentNode, i);
+                child.volume = parentVolume.Children[i];
+                SyncChildrenNodeValue(child, child.volume);
+            }
         }
     }
 }

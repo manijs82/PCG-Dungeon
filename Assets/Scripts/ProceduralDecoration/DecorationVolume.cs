@@ -1,9 +1,8 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-[System.Serializable]
+[Serializable]
 public class DecorationVolume
 {
     public EnvironmentType environmentType;
