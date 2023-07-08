@@ -1,4 +1,5 @@
 ﻿public enum ContentType
 {
-    Tree       
+    Object,
+    Partition
 }

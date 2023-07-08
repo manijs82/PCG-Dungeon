@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GizmoVisual : DungeonVisualizer
 {
+    [SerializeField] private DecorationVolumeHierarchy volumeHierarchy;
+    [Space]
     [SerializeField] private bool showRoomGraphPath;
     [SerializeField] private Color graphColor = Color.black;
     [SerializeField] private bool showRoomIndex;
@@ -25,9 +27,9 @@ public class GizmoVisual : DungeonVisualizer
     
     protected override void Visualize(Dungeon dungeon)
     {
-        volumes = new List<DecorationVolume>();
-        foreach (var room in dungeon.rooms) 
-            volumes.Add(RoomDecorator.DecorateRoom(room, EnvironmentType.Forest));
+        //volumes = new List<DecorationVolume>();
+        //foreach (var room in dungeon.rooms) 
+        //    volumes.Add(RoomDecorator.DecorateRoom(room, volumeHierarchy));
         
         this.dungeon = dungeon;
     }

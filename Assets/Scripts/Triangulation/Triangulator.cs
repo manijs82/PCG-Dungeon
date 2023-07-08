@@ -14,14 +14,14 @@ public static class Triangulator
         
         var triangles = new List<Triangle>();
         var superTris = GetSuperTriangle();
-        triangles.Add(superTris);
+        triangles.Add(superTris); // initialise with super triangle
 
         foreach (var room in rooms) 
-            TriangulatePoint(room.Center, triangles);
+            TriangulatePoint(room.Center, triangles); // add each vertex and retriangulate
 
         var outerTris = new List<Triangle>(triangles.Where(t => ShareEdges(superTris, t)));
         foreach (var triangle in outerTris) 
-            triangles.Remove(triangle);
+            triangles.Remove(triangle); // remove super triangle and its connections
 
         foreach (var triangle in triangles)
         {
@@ -31,7 +31,7 @@ public static class Triangulator
             graph.AddEdge(node1, node2)?.SetCost(Vector2.Distance(node1.Value.Center, node2.Value.Center));
             graph.AddEdge(node2, node3)?.SetCost(Vector2.Distance(node2.Value.Center, node3.Value.Center));
             graph.AddEdge(node3, node1)?.SetCost(Vector2.Distance(node3.Value.Center, node1.Value.Center));
-        }
+        } // construct triangles into graph
         
         return graph;
     }
@@ -68,11 +68,14 @@ public static class Triangulator
     private static List<Edge> RemoveDuplicate(List<Edge> edges)
     {
         var o = new List<Edge>();
-        for (var i = 0; i < edges.Count; ++i) {
+        for (var i = 0; i < edges.Count; ++i) 
+        {
             var isUnique = true;
 
-            for (var j = 0; j < edges.Count; ++j) {
-                if (i != j && AreTheSameEdge(edges[i], edges[j])) {
+            for (var j = 0; j < edges.Count; ++j) 
+            {
+                if (i != j && AreTheSameEdge(edges[i], edges[j])) 
+                {
                     isUnique = false;
                     break;
                 }

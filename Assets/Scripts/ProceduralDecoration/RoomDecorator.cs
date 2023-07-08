@@ -1,14 +1,13 @@
-﻿public static class RoomDecorator
-{
-    public static DecorationVolume DecorateRoom(Room room, EnvironmentType environmentType)
-    {
-        DecorationVolume pdv = new DecorationVolume()
-        {
-            environmentType = EnvironmentType.Forest,
-            contentType = ContentType.Tree
-        };
-        pdv.Init(room);
+﻿using UnityEngine;
 
-        return pdv;
+public static class RoomDecorator
+{
+    public static DecorationVolume DecorateRoom(Room room, DecorationVolumeHierarchy volumeHierarchy)
+    {
+        var clone = Object.Instantiate(volumeHierarchy);
+        var rootPdv = clone.volumeHierarchy.Root.Value;
+        rootPdv.Init(room);
+
+        return rootPdv;
     }
 }

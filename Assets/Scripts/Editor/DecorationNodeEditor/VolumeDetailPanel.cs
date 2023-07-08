@@ -25,7 +25,7 @@ namespace Editor
         private void SetNode(DecorationNode node)
         {
             if(node == null) return;
-            UnSetNode(currentNode);
+            UnSetNode();
             currentNode = node;
             panel.Add(environmentSettingsElement);
 
@@ -33,7 +33,7 @@ namespace Editor
             environmentSettingsElement.SetValueWithoutNotify(currentNode.volume.Value.environmentType);
         }
 
-        private void UnSetNode(DecorationNode node)
+        private void UnSetNode()
         {
             currentNode = null;
             

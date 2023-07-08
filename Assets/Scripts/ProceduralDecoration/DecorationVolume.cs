@@ -18,10 +18,6 @@ public class DecorationVolume
     {
     }
 
-    public DecorationVolume(DecorationVolume decorationVolume, Grid<RoomTileObject> partition)
-    {
-    }
-
     public void Init(Room room)
     {
         decorationObjectSource = Resources.Load<DecorationObjectSource>("ObjectSource");

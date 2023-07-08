@@ -27,7 +27,7 @@ public class Dungeon : Sample
     {
         rooms = new List<Room>();
         AddRandomRooms();
-        optimalFitnessValue = 1;
+        optimalFitnessValue = rooms.Count / 2f;
     }
 
     public Dungeon(SampleParameters parameters)
@@ -42,7 +42,7 @@ public class Dungeon : Sample
         };
         bound = new Bound(0, 0, dungeonParameters.width, dungeonParameters.height);
         AddRandomRooms();
-        optimalFitnessValue = rooms.Count;
+        optimalFitnessValue = rooms.Count / 2f;
     }
 
     public Dungeon(Dungeon d)
@@ -51,6 +51,7 @@ public class Dungeon : Sample
         rooms = new List<Room>(d.rooms);
         roomGraph = d.roomGraph;
         bound = d.bound;
+        optimalFitnessValue = d.optimalFitnessValue;
     }
 
     private void AddRandomRooms(int count = -1)
@@ -81,10 +82,10 @@ public class Dungeon : Sample
         grid = new Grid<GridObject>(dungeonParameters.width, dungeonParameters.height, 1,
             (_, x, y) => new TileGridObject(x, y, CellType.Empty));
 
-        foreach (var room in rooms)
+        foreach (var roomNode in roomGraph.Nodes)
         {
-            room.InitializeGrid();
-            grid.PlaceGridOnGrid(room.bound.x, room.bound.y, room.grid);
+            roomNode.Value.InitializeGrid();
+            grid.PlaceGridOnGrid(roomNode.Value.bound.x, roomNode.Value.bound.y, roomNode.Value.grid);
         }
 
         AddPathsToConnectedRooms();
@@ -142,7 +143,7 @@ public class Dungeon : Sample
     {
         for (var i = 0; i < rooms.Count; i++)
         {
-            Vector2 newStartPoint = default;
+            Vector2 newStartPoint;
             if (DoesCollideWithOtherRooms(rooms[i]))
             {
                 newStartPoint = new Vector2(Random.Range(rooms[i].bound.w / 2f, dungeonParameters.width - rooms[i].bound.w / 2f),
@@ -154,7 +155,8 @@ public class Dungeon : Sample
             }
             Room newRoom = new Room(rooms[i]);
             newRoom.ChangePosition(newStartPoint);
-            rooms[i] = newRoom;
+            if(!DoesCollideWithOtherRooms(newRoom, rooms[i]))
+                rooms[i] = newRoom;
         }
         /* for (var i = 0; i < rooms.Count; i++)
         {
@@ -165,11 +167,11 @@ public class Dungeon : Sample
         } */
     }
 
-    private bool DoesCollideWithOtherRooms(Room room)
+    private bool DoesCollideWithOtherRooms(Room room, Room ignoreRoom = null)
     {
         foreach (var r in rooms)
         {
-            if (Bound.Collide(room.bound, r.bound))
+            if (Bound.Collide(room.bound, r.bound) && r != room && r != ignoreRoom)
                 return true;
         }
 

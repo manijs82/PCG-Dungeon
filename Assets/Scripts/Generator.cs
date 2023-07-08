@@ -25,13 +25,26 @@ public class Generator : MonoBehaviour
         d.OnMakeGrids += () => OnDungeonGenerated?.Invoke(d);
         
         d.roomGraph = Triangulator.Triangulate(d.rooms);
-        
         d.roomGraph = MST.GetMST(d.roomGraph);
         d.RemoveUnusedRooms();
         d.MakeGridOutOfRooms();
         candidateDungeon = d;
-
         print(candidateDungeon.fitnessValue);
+
+        //print(GetAverageFitnessValueOfGenerator());
+    }
+
+    private float GetAverageFitnessValueOfGenerator()
+    {
+        float sum = 0f;
+        int iterationCount = 1000;
+        for (int i = 0; i < iterationCount; i++)
+        {
+            Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
+            sum += ((Dungeon)e.samples[0]).fitnessValue;
+        }
+
+        return sum / iterationCount;
     }
 
     [ContextMenu("VDD")]
