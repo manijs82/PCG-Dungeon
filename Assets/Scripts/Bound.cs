@@ -26,10 +26,10 @@ public struct Bound
     public Vector2 ClosestPointInside(Vector2 point)
     {
         Box2D box = new Box2D() { center = Center, extents = Extents };
-        Line2D line = new Line2D(point, Center - point);
-        var intersect = box.Intersect(line);
+        Line2D line2D = new Line2D(Center, Center - point);
+        var intersect = box.Intersect(line2D);
 
-        if (Mathfs.Wedge(Vector2.up, point - Center) < 0)
+        if (Vector2.Dot(Center - point, Center - intersect.a) > 0)
             return intersect.a;
         return intersect.b;
     }

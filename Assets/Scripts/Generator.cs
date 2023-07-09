@@ -18,20 +18,31 @@ public class Generator : MonoBehaviour
 
     private void GenerateDungeon()
     {
-        Dungeon d;
-        Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
-        d = (Dungeon)e.samples[0];
-
-        d.OnMakeGrids += () => OnDungeonGenerated?.Invoke(d);
+        FindBestDungeon();
+        ConstructDungeonGraph();
         
-        d.roomGraph = Triangulator.Triangulate(d.rooms);
-        d.roomGraph = MST.GetMST(d.roomGraph);
-        d.RemoveUnusedRooms();
-        d.MakeGridOutOfRooms();
-        candidateDungeon = d;
+        candidateDungeon.OnMakeGrids += () => OnDungeonGenerated?.Invoke(candidateDungeon);
+        candidateDungeon.RemoveUnusedRooms();
+        candidateDungeon.MakeGridOutOfRooms();
+        
         print(candidateDungeon.fitnessValue);
 
         //print(GetAverageFitnessValueOfGenerator());
+    }
+
+    private Dungeon FindBestDungeon()
+    {
+        Dungeon d;
+        Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
+        d = (Dungeon)e.samples[0];
+        candidateDungeon = d;
+        return d;
+    }
+
+    private void ConstructDungeonGraph()
+    {
+        candidateDungeon.roomGraph = Triangulator.Triangulate(candidateDungeon.rooms);
+        candidateDungeon.roomGraph = MST.GetMST(candidateDungeon.roomGraph);
     }
 
     private float GetAverageFitnessValueOfGenerator()
@@ -41,7 +52,7 @@ public class Generator : MonoBehaviour
         for (int i = 0; i < iterationCount; i++)
         {
             Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
-            sum += ((Dungeon)e.samples[0]).fitnessValue;
+            sum += ((Dungeon)e.samples[0]).fitnessValue / ((Dungeon)e.samples[0]).optimalFitnessValue;
         }
 
         return sum / iterationCount;
