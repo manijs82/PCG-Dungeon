@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Mani;
+using Mani.Graph;
 using UnityEngine;
 
 public class Generator : MonoBehaviour
@@ -30,18 +32,18 @@ public class Generator : MonoBehaviour
         //print(GetAverageFitnessValueOfGenerator());
     }
 
-    private Dungeon FindBestDungeon()
+    private void FindBestDungeon()
     {
-        Dungeon d;
         Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
-        d = (Dungeon)e.samples[0];
+        var d = (Dungeon)e.samples[0];
         candidateDungeon = d;
-        return d;
     }
 
     private void ConstructDungeonGraph()
     {
-        candidateDungeon.roomGraph = Triangulator.Triangulate(candidateDungeon.rooms);
+        candidateDungeon.roomGraph = new Graph<Room>();
+        foreach (var room in candidateDungeon.rooms) candidateDungeon.roomGraph.AddNode(new Node<Room>(room));
+        candidateDungeon.roomGraph.TriangulateDelaunay(node => node.Value.Center.ToPoint());
         candidateDungeon.roomGraph = MST.GetMST(candidateDungeon.roomGraph);
     }
 

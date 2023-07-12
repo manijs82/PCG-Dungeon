@@ -647,7 +647,7 @@ MonoBehaviour:
   volumeHierarchy: {fileID: 0}
   showRoomGraphPath: 1
   graphColor: {r: 1, g: 1, b: 1, a: 1}
-  showRoomIndex: 0
+  showRoomIndex: 1
   textColor: {r: 0.98039216, g: 0.93333334, b: 0.03137255, a: 1}
   showRoomArrayPath: 0
   arrayColor: {r: 0, g: 1, b: 0, a: 1}
