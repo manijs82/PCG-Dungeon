@@ -44,7 +44,7 @@ public class Generator : MonoBehaviour
         candidateDungeon.roomGraph = new Graph<Room>();
         foreach (var room in candidateDungeon.rooms) candidateDungeon.roomGraph.AddNode(new Node<Room>(room));
         candidateDungeon.roomGraph.TriangulateDelaunay(node => node.Value.Center.ToPoint());
-        candidateDungeon.roomGraph = MST.GetMST(candidateDungeon.roomGraph);
+        candidateDungeon.roomGraph = candidateDungeon.roomGraph.GetPrimsMinimumSpanningTree();
     }
 
     private float GetAverageFitnessValueOfGenerator()

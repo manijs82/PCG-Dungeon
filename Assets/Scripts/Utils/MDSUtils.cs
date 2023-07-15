@@ -53,8 +53,12 @@ public static class MDSUtils
         foreach (var connection in graph.Edges)
         {
             Handles.DrawAAPolyLine(connection.Start.Value, connection.End.Value);
-            Handles.DrawSolidDisc(connection.Start.Value, Vector3.back, .2f);
-            Handles.DrawSolidDisc(connection.End.Value, Vector3.back, .2f);
+        }
+
+        foreach (var node in graph.Nodes)
+        {
+            Handles.DrawSolidDisc(node.Value, Vector3.back, .5f);
+            Handles.DrawSolidDisc(node.Value, Vector3.back, .5f);
         }
     }
 #endif

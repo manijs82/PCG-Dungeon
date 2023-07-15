@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Mani;
 using Mani.Geometry;
 using Mani.Graph;
-using UnityEditor;
 using UnityEngine;
 using Triangle = Mani.Geometry.Triangle;
 
@@ -34,8 +32,13 @@ public class Tests : MonoBehaviour
 
         TriangulationTest();
 
-        if(lv1 == null || lv2 == null || lv3 == null || lv4 == null) return;
-        List<Mani.Geometry.Triangle> tris = new List<Mani.Geometry.Triangle>()
+        UniqueEdgeTest();
+    }
+
+    private void UniqueEdgeTest()
+    {
+        if (lv1 == null || lv2 == null || lv3 == null || lv4 == null) return;
+        List<Triangle> tris = new List<Triangle>()
         {
             new(lv1.position.ToPoint(), lv2.position.ToPoint(), lv3.position.ToPoint()),
             new(lv3.position.ToPoint(), lv4.position.ToPoint(), lv1.position.ToPoint()),
@@ -46,115 +49,61 @@ public class Tests : MonoBehaviour
         }
     }
 
-    private Func<Node<Vector3>, Point> posFunc;
-    private Graph<Vector3> graph;
-    private Mani.Geometry.Triangle superTriangle;
-    private List<Mani.Geometry.Triangle> triangles;
-    private List<Point> points;
-    private int lastIndex;
-
-    private void Start()
-    {
-        if (nodes == null) return;
-        if (nodes.Count <= 3) return;
-        Graph<Vector3> g = new Graph<Vector3>();
-        graph = g;
-        foreach (var node in nodes)
-        {
-            graph.AddNode(new Node<Vector3>(node.position));
-        }
-
-        TriangulateDelaunay(node => node.Value.ToPoint());
-    }
-
     private void TriangulationTest()
     {
         Graph<Vector3> g = new Graph<Vector3>();
         foreach (var node in nodes) g.AddNode(new Node<Vector3>(node.position));
         g.TriangulateDelaunay(node => node.Value.ToPoint());
+        g = GetPrimsMinimumSpanningTree(g);
         g.DrawGizmos();
-
-        if(triangles == null) return;
-        superTriangle.DrawGizmos();
-        foreach (var triangle in triangles)
-        {
-            triangle.DrawGizmos();
-            triangle.CircumCircle.DrawGizmos(true);
-        }
-        //graph.DrawGizmos();
     }
-
-    private void TriangulateDelaunay(Func<Node<Vector3>, Point> getNodePos)
+    
+    public Graph<Vector3> GetPrimsMinimumSpanningTree(Graph<Vector3> graph)
     {
-        posFunc = getNodePos;
-        points = new List<Point>();
-        foreach (var node in graph.Nodes) points.Add(getNodePos(node));
+        var mst = new Graph<Vector3>();
 
-        // initialise with super triangle
-        superTriangle = TriangleUtils.GetSuperTriangle(points);
-        triangles = new List<Mani.Geometry.Triangle>
-        {
-            superTriangle
-        };
-        
-    }
+        // Initialize tree with arbitrary start node
+        var start = graph.Nodes[0];
+        var includedVertices = new List<Node<Vector3>>();
+        var nextEdges = new List<Edge<Vector3>>();
+        includedVertices.Add(start);
+        nextEdges.AddRange(graph.GetAllConnectedEdges(start));
 
-    [ContextMenu("Move")]
-    private void Move()
-    {
-        if(lastIndex == points.Count)
+        while (mst.NodeCount != nodes.Count) // loop until all nodes are included
         {
-            var trianglesConnectedToSuperTriangle =
-                new List<Mani.Geometry.Triangle>(triangles.Where(t => TriangleUtils.ShareVertex(t, superTriangle)));
-            foreach (var triangle in trianglesConnectedToSuperTriangle)
+            // find lowest cost next edge
+            float lowestCost = float.PositiveInfinity;
+            Edge<Vector3> lowestCostEdge = null;
+            foreach (var edge in nextEdges)
             {
-                triangles.Remove(triangle);
+                if (edge.Cost > lowestCost) continue;
+                lowestCost = edge.Cost;
+                lowestCostEdge = edge;
             }
 
-            foreach (var triangle in triangles)
+            includedVertices.Add(lowestCostEdge.Start);
+            includedVertices.Add(lowestCostEdge.End);
+            mst.AddEdge(lowestCostEdge);
+            nextEdges.Remove(lowestCostEdge);
+
+            foreach (var edge in graph.GetAllConnectedEdges(lowestCostEdge))
             {
-                AddTriangleToGraph(triangle, posFunc);
+                if(nextEdges.Contains(edge)) continue;
+                if(mst.ContainEdge(edge)) continue;
+                if(mst.Nodes.Contains(edge.Start) && mst.Nodes.Contains(edge.End)) continue;
+                nextEdges.Add(edge);
             }
-
-            lastIndex++;
-            return;
-        }
-        
-        var p = points[lastIndex];
-        var invalidTriangles = new List<Mani.Geometry.Triangle>(triangles.Where(t => t.IsPointInsideCircumCircle(p)));
-        var connectingLines = new List<LineSegment>();
-        foreach (var triangle in invalidTriangles)
-        {
-            connectingLines.AddRange(TriangleUtils.GetUniqueEdges(invalidTriangles));
-            triangles.Remove(triangle);
         }
 
-        foreach (var line in connectingLines)
-        {
-            triangles.Add(new Mani.Geometry.Triangle(line.Start, line.End, p));
-        }
-
-        lastIndex++;
-    }
-
-    private void AddTriangleToGraph(Mani.Geometry.Triangle triangle, Func<Node<Vector3>, Point> getNodePos,
-        bool setCosts = true)
-    {
-        var node0 = graph.Nodes.FirstOrDefault(n => getNodePos(n) == triangle.Vertex0);
-        var node1 = graph.Nodes.FirstOrDefault(n => getNodePos(n) == triangle.Vertex1);
-        var node2 = graph.Nodes.FirstOrDefault(n => getNodePos(n) == triangle.Vertex2);
-
-        graph.AddEdge(node0, node1, setCosts ? Point.Distance(getNodePos(node0), getNodePos(node1)) : 0);
-        graph.AddEdge(node1, node2, setCosts ? Point.Distance(getNodePos(node1), getNodePos(node2)) : 0);
-        graph.AddEdge(node1, node0, setCosts ? Point.Distance(getNodePos(node2), getNodePos(node0)) : 0);
+        return mst;
     }
 
     private void CircumCircleTest()
     {
         if (v1 == null || v2 == null || v3 == null || point == null) return;
 
-        Mani.Geometry.Triangle triangle =
-            new Mani.Geometry.Triangle(v1.position.ToPoint(), v2.position.ToPoint(), v3.position.ToPoint());
+        Triangle triangle =
+            new Triangle(v1.position.ToPoint(), v2.position.ToPoint(), v3.position.ToPoint());
         triangle.DrawGizmos();
         triangle.CircumCircle.DrawGizmos();
         if (triangle.IsPointInsideCircumCircle(point.position.ToPoint()))

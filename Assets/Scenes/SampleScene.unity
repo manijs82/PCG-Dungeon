@@ -613,10 +613,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
   dungeonParameters:
-    roomCountRange: {x: 8, y: 8}
+    roomCountRange: {x: 30, y: 30}
     roomWidthRange: {x: 10, y: 15}
-    width: 65
-    height: 65
+    width: 200
+    height: 200
 --- !u!4 &1518624284
 Transform:
   m_ObjectHideFlags: 0
