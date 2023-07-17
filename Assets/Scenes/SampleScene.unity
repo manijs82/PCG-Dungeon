@@ -613,10 +613,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
   dungeonParameters:
-    roomCountRange: {x: 30, y: 30}
-    roomWidthRange: {x: 10, y: 15}
-    width: 200
-    height: 200
+    roomCountRange: {x: 50, y: 50}
+    roomWidthRange: {x: 10, y: 20}
+    width: 150
+    height: 150
 --- !u!4 &1518624284
 Transform:
   m_ObjectHideFlags: 0
@@ -647,7 +647,7 @@ MonoBehaviour:
   volumeHierarchy: {fileID: 0}
   showRoomGraphPath: 1
   graphColor: {r: 1, g: 1, b: 1, a: 1}
-  showRoomIndex: 1
+  showRoomIndex: 0
   textColor: {r: 0.98039216, g: 0.93333334, b: 0.03137255, a: 1}
   showRoomArrayPath: 0
   arrayColor: {r: 0, g: 1, b: 0, a: 1}

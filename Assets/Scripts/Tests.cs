@@ -54,48 +54,8 @@ public class Tests : MonoBehaviour
         Graph<Vector3> g = new Graph<Vector3>();
         foreach (var node in nodes) g.AddNode(new Node<Vector3>(node.position));
         g.TriangulateDelaunay(node => node.Value.ToPoint());
-        g = GetPrimsMinimumSpanningTree(g);
+        g = g.GetPrimsMinimumSpanningTree();
         g.DrawGizmos();
-    }
-    
-    public Graph<Vector3> GetPrimsMinimumSpanningTree(Graph<Vector3> graph)
-    {
-        var mst = new Graph<Vector3>();
-
-        // Initialize tree with arbitrary start node
-        var start = graph.Nodes[0];
-        var includedVertices = new List<Node<Vector3>>();
-        var nextEdges = new List<Edge<Vector3>>();
-        includedVertices.Add(start);
-        nextEdges.AddRange(graph.GetAllConnectedEdges(start));
-
-        while (mst.NodeCount != nodes.Count) // loop until all nodes are included
-        {
-            // find lowest cost next edge
-            float lowestCost = float.PositiveInfinity;
-            Edge<Vector3> lowestCostEdge = null;
-            foreach (var edge in nextEdges)
-            {
-                if (edge.Cost > lowestCost) continue;
-                lowestCost = edge.Cost;
-                lowestCostEdge = edge;
-            }
-
-            includedVertices.Add(lowestCostEdge.Start);
-            includedVertices.Add(lowestCostEdge.End);
-            mst.AddEdge(lowestCostEdge);
-            nextEdges.Remove(lowestCostEdge);
-
-            foreach (var edge in graph.GetAllConnectedEdges(lowestCostEdge))
-            {
-                if(nextEdges.Contains(edge)) continue;
-                if(mst.ContainEdge(edge)) continue;
-                if(mst.Nodes.Contains(edge.Start) && mst.Nodes.Contains(edge.End)) continue;
-                nextEdges.Add(edge);
-            }
-        }
-
-        return mst;
     }
 
     private void CircumCircleTest()

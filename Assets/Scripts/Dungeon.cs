@@ -158,6 +158,13 @@ public class Dungeon : Sample
             if(!DoesCollideWithOtherRooms(newRoom, rooms[i]))
                 rooms[i] = newRoom;
         }
+        /* for (var i = 0; i < rooms.Count; i++)
+        {
+            Vector2 startPointOffset = new Vector2(Random.Range(-2, 3), Random.Range(-2, 3));
+            Room newRoom = new Room(rooms[i]);
+            newRoom.ChangePosition(newRoom.startPoint + startPointOffset);
+            rooms[i] = newRoom;
+        } */
     }
 
     private bool DoesCollideWithOtherRooms(Room room, Room ignoreRoom = null)
