@@ -19,10 +19,21 @@ public class Room
         this.startPoint = startPoint;
         this.width = width;
         this.height = height;
-        doors = new List<Vector2>();
-        bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
 
+        bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
+        doors = new List<Vector2>();
         environmentType = EnvironmentType.Forest;
+    }
+    
+    public Room(Bound bound, EnvironmentType environmentType)
+    {
+        startPoint = new Vector2(bound.x, bound.y);
+        width = bound.w;
+        height = bound.h;
+        this.bound = bound;
+        this.environmentType = environmentType;
+        
+        doors = new List<Vector2>();
     }
 
     public Room(Room room)
@@ -30,6 +41,7 @@ public class Room
         startPoint = room.startPoint;
         width = room.width;
         height = room.height;
+        
         doors = new List<Vector2>();
         bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
         environmentType = room.environmentType;

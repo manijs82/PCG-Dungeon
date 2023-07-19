@@ -21,6 +21,13 @@ public class Dungeon : Sample
         optimalFitnessValue = rooms.Count / 2f;
     }
 
+    public Dungeon(DungeonParameters parameters, List<Room> rooms, Graph<Room> graph)
+    {
+        this.rooms = rooms;
+        roomGraph = graph;
+        dungeonParameters = parameters;
+    }
+
     public Dungeon(SampleParameters parameters)
     {
         var parms = parameters as DungeonParameters;

@@ -19,18 +19,25 @@ public class Generator : MonoBehaviour
         GenerateDungeon();
     }
 
-    private void GenerateDungeon()
+    public void GenerateDungeon()
     {
         FindBestDungeon();
         ConstructDungeonGraph();
         
-        candidateDungeon.OnMakeGrids += () => OnDungeonGenerated?.Invoke(candidateDungeon);
         candidateDungeon.RemoveUnusedRooms();
         candidateDungeon.MakeGridOutOfRooms();
+        OnDungeonGenerated?.Invoke(candidateDungeon);
         
         print(candidateDungeon.fitnessValue);
 
         //print(GetAverageFitnessValueOfGenerator());
+    }
+
+    public void SetDungeon(Dungeon dungeon)
+    {
+        candidateDungeon = dungeon;
+        candidateDungeon.MakeGridOutOfRooms();
+        OnDungeonGenerated?.Invoke(candidateDungeon);
     }
 
     private void FindBestDungeon()
