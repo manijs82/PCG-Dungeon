@@ -6,7 +6,7 @@ public class DijkstrasAlgorithm : BreadthFirstSearch
 {
 
     protected Dictionary<GridObject, float> frontiersPriorityQueue;
-    protected Dictionary<GridObject, int> costs;
+    protected Dictionary<GridObject, float> costs;
 
     public DijkstrasAlgorithm(Grid<GridObject> pathGrid, GridObject start, GridObject goal) : base(pathGrid, start, goal)
     {
@@ -18,7 +18,7 @@ public class DijkstrasAlgorithm : BreadthFirstSearch
         frontiersPriorityQueue.Add(start, 0);
         searched = new Dictionary<GridObject, GridObject>();
         searched.Add(start, start);
-        costs = new Dictionary<GridObject, int>();
+        costs = new Dictionary<GridObject, float>();
         costs.Add(start, 0);
 
         while (frontiersPriorityQueue.Count > 0)
@@ -32,7 +32,7 @@ public class DijkstrasAlgorithm : BreadthFirstSearch
 
             foreach (var gridObj in pathGrid.Get4Neighbors(current))
             {
-                int nextCost = costs[current] + current.Cost + gridObj.Cost;
+                float nextCost = costs[current] + current.Cost + gridObj.Cost;
                 if (!costs.ContainsKey(gridObj) || nextCost < costs[gridObj])
                 {
                     if(costs.ContainsKey(gridObj))
@@ -54,7 +54,7 @@ public class DijkstrasAlgorithm : BreadthFirstSearch
         SetPath();
     }
 
-    protected virtual float GetPriority(int costSoFar, Vector2 nextPos) => costSoFar;
+    protected virtual float GetPriority(float costSoFar, Vector2 nextPos) => costSoFar;
 
     protected GridObject GetHighestPriority()
     {

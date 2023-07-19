@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     private void PlacePlayer(Dungeon dungeon)
     {
-        var roomPos = dungeon.rooms[0].Center + new Vector2(dungeon.dungeonParameters.width + 5, 0);
+        var roomPos = dungeon.roomGraph.Nodes[0].Value.Center;
         player.transform.position = roomPos;
     }
 }

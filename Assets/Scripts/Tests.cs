@@ -23,7 +23,7 @@ public class Tests : MonoBehaviour
     [SerializeField] private Transform lv4;
     
 
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         IntersectionTest();
@@ -54,7 +54,7 @@ public class Tests : MonoBehaviour
         Graph<Vector3> g = new Graph<Vector3>();
         foreach (var node in nodes) g.AddNode(new Node<Vector3>(node.position));
         g.TriangulateDelaunay(node => node.Value.ToPoint());
-        g = g.GetPrimsMinimumSpanningTree();
+        //g = g.GetPrimsMinimumSpanningTree();
         g.DrawGizmos();
     }
 
@@ -87,4 +87,5 @@ public class Tests : MonoBehaviour
             point.DrawGizmos();
         }
     }
+#endif
 }

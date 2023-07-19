@@ -7,6 +7,7 @@ public class Room
     public Vector2 startPoint;
     public List<Vector2> doors;
     public Bound bound;
+    public EnvironmentType environmentType;
 
     private int width;
     private int height;
@@ -20,6 +21,8 @@ public class Room
         this.height = height;
         doors = new List<Vector2>();
         bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
+
+        environmentType = EnvironmentType.Forest;
     }
 
     public Room(Room room)
@@ -29,6 +32,7 @@ public class Room
         height = room.height;
         doors = new List<Vector2>();
         bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
+        environmentType = room.environmentType;
     }
 
     public void ChangePosition(Vector2 newPos)
@@ -41,7 +45,7 @@ public class Room
     public void InitializeGrid()
     {
         grid = new Grid<GridObject>(bound.w, bound.h, 1,
-            (_, x, y) => new RoomTileObject(x, y, CellType.Empty, TileState.Free), startPoint);
+            (_, x, y) => new RoomTileObject(x, y, CellType.Empty), startPoint);
 
         for (int x = 0; x < bound.w; x++)
         {
@@ -49,7 +53,7 @@ public class Room
             {
                 var isWall = x == 0 || y == 0 || x == bound.w - 1 || y == bound.h - 1;
                 grid.SetValue(x, y, new RoomTileObject(x + bound.x, y + bound.y,
-                    isWall ? CellType.Wall : CellType.Ground, TileState.Free));
+                    isWall ? CellType.Wall : CellType.Ground, TileState.Free, environmentType));
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Mani;
 using Mani.Graph;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Generator : MonoBehaviour
 {
@@ -44,7 +45,14 @@ public class Generator : MonoBehaviour
         candidateDungeon.roomGraph = new Graph<Room>();
         foreach (var room in candidateDungeon.rooms) candidateDungeon.roomGraph.AddNode(new Node<Room>(room));
         candidateDungeon.roomGraph.TriangulateDelaunay(node => node.Value.Center.ToPoint());
-        candidateDungeon.roomGraph = candidateDungeon.roomGraph.GetPrimsMinimumSpanningTree(true, 0.2f, dungeonParameters.width / 6);
+        candidateDungeon.roomGraph = candidateDungeon.roomGraph.GetPrimsMinimumSpanningTree(true, 0.4f, dungeonParameters.width / 6);
+
+        var node1 = candidateDungeon.roomGraph.Nodes[0];
+        var node2 = candidateDungeon.roomGraph.Nodes[30];
+        foreach (var node in candidateDungeon.roomGraph.DijkstraShortestPath(node1, node2))
+        {
+            node.Value.environmentType = EnvironmentType.Room;
+        }
     }
 
     private float GetAverageFitnessValueOfGenerator()

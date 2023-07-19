@@ -4,15 +4,6 @@ using Mani.Graph;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[Serializable]
-public class DungeonParameters : SampleParameters
-{
-    public Vector2Int roomCountRange;
-    public Vector2Int roomWidthRange;
-    public int width;
-    public int height;
-}
-
 public class Dungeon : Sample
 {
     public event Action OnMakeGrids;

@@ -17,7 +17,7 @@ public static class MDSUtils
         Handles.color = Color.white;
     }
     
-    public static void DrawGizmos(this Mani.Geometry.Triangle triangle)
+    public static void DrawGizmos(this Triangle triangle)
     {
         Handles.color = Color.white;
         foreach (var lineSegment in TriangleUtils.GetLineSegments(triangle))

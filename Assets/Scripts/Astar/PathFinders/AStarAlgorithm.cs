@@ -6,9 +6,9 @@ public class AStarAlgorithm : DijkstrasAlgorithm
     {
     }
 
-    protected override float GetPriority(int costSoFar, Vector2 nextPos)
+    protected override float GetPriority(float costSoFar, Vector2 nextPos)
     {
-        return costSoFar + GetManhattanDist(goal.Point, nextPos);
+        return costSoFar + GetDist(goal.Point, nextPos);
     }
 
     private float GetDist(Vector2 a, Vector2 b)

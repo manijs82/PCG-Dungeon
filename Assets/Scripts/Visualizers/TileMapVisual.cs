@@ -5,10 +5,9 @@ using UnityEngine.Tilemaps;
 public class TileMapVisual : DungeonVisualizer
 {
     [SerializeField] private int scale = 1;
-    [SerializeField] private TileBase outLine;
-    [SerializeField] private TileBase ground;
-    [SerializeField] private TileBase filler;
-    [SerializeField] private TileBase door;
+    [SerializeField] private TileSet dungeonSet;
+    [SerializeField] private TileSet environmentSet;
+    [SerializeField] private TileSet hallwaySet;
     
     private Tilemap tilemap;
     
@@ -25,28 +24,15 @@ public class TileMapVisual : DungeonVisualizer
         {
             for (int x = 0; x < dungeon.grid.Width * scale; x++)
             {
-                tilemap.SetTile(new Vector3Int(x, y)
-                    , GetTile(((TileGridObject)dungeon.grid.GetValue(x / scale, y / scale)).Type));
+                var tile = (TileGridObject)dungeon.grid.GetValue(x / scale, y / scale);
+                if (tile is RoomTileObject roomTile)
+                {
+                    tilemap.SetTile(new Vector3Int(x, y), 
+                        roomTile.environmentType == EnvironmentType.Room ? dungeonSet.GetTile(tile.Type) : environmentSet.GetTile(tile.Type));    
+                    continue;
+                }
+                tilemap.SetTile(new Vector3Int(x, y), hallwaySet.GetTile(tile.Type));
             }
         }
-    }
-
-    private TileBase GetTile(CellType cellType)
-    {
-        switch (cellType)
-        {
-            case CellType.Empty:
-                return filler;
-            case CellType.Wall:
-            case CellType.HallwayWall:
-                return outLine;
-            case CellType.Ground:
-            case CellType.HallwayGround:    
-                return ground;
-            case CellType.Door:
-                return door;
-        }
-
-        return filler;
     }
 }

@@ -250,6 +250,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &261701028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 261701029}
+  - component: {fileID: 261701030}
+  m_Layer: 0
+  m_Name: 3d visual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &261701029
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261701028}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &261701030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261701028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 319d364a5a6a463c88f2b6c886a10ed8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wall: {fileID: 2345814065369375408, guid: 44a72450446336c4ebe3ca6a3836315b, type: 3}
+  ground: {fileID: 8457802115334920595, guid: aad2c5b34d7c5e244a6e3a72ed36ad60, type: 3}
+  door: {fileID: 8457802115334920595, guid: aad2c5b34d7c5e244a6e3a72ed36ad60, type: 3}
 --- !u!1 &330073919
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,10 +522,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scale: 1
-  outLine: {fileID: 11400000, guid: f5786cf0eb9e5a5489d788e19d6c1f0e, type: 2}
-  ground: {fileID: 11400000, guid: 424210d9d70b5f544ba600d4389fdf27, type: 2}
-  filler: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-  door: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
+  dungeonSet:
+    emptySet:
+    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+    wallSet:
+    - {fileID: 11400000, guid: f5786cf0eb9e5a5489d788e19d6c1f0e, type: 2}
+    groundSet:
+    - {fileID: 11400000, guid: 424210d9d70b5f544ba600d4389fdf27, type: 2}
+    doorSet:
+    - {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
+  environmentSet:
+    emptySet:
+    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+    wallSet:
+    - {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
+    - {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
+    - {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
+    - {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
+    - {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+    groundSet:
+    - {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
+    - {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
+    - {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
+    - {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
+    - {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+    doorSet:
+    - {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
+    - {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
+    - {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
+    - {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
+    - {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+  hallwaySet:
+    emptySet:
+    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+    wallSet:
+    - {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
+    - {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
+    - {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
+    - {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
+    groundSet:
+    - {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
+    - {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
+    - {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
+    - {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
+    doorSet:
+    - {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
 --- !u!19719996 &752770667
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -571,6 +659,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4570362699888172094, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
+      propertyPath: orthographic size
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -613,7 +705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
   dungeonParameters:
-    roomCountRange: {x: 50, y: 50}
+    roomCountRange: {x: 35, y: 35}
     roomWidthRange: {x: 10, y: 20}
     width: 150
     height: 150
@@ -654,7 +746,7 @@ MonoBehaviour:
   showDoors: 0
   doorColor: {r: 1, g: 0, b: 0, a: 1}
   showDungeonOutline: 0
-  showRoomOutline: 0
+  showRoomOutline: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   showPDV: 0
   showGridTiles: 0
@@ -742,10 +834,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scale: 1
-  outLine: {fileID: 11400000, guid: 076008ed7d7205d4eb30f2925ef29479, type: 2}
-  ground: {fileID: 11400000, guid: 5ddb494459cd51b42b2b7b4c53876fd7, type: 2}
-  filler: {fileID: 11400000, guid: 8e6170a839c966642b92dc11d7ad0819, type: 2}
-  door: {fileID: 11400000, guid: 11ac8a9129ed5e142af213036297f8c7, type: 2}
+  dungeonSet:
+    emptySet: []
+    wallSet: []
+    groundSet: []
+    doorSet: []
+  environmentSet:
+    emptySet: []
+    wallSet: []
+    groundSet: []
+    doorSet: []
+  hallwaySet:
+    emptySet: []
+    wallSet: []
+    groundSet: []
+    doorSet: []
 --- !u!483693784 &2071118049
 TilemapRenderer:
   m_ObjectHideFlags: 0
