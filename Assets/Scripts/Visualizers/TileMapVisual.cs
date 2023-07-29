@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -25,14 +26,37 @@ public class TileMapVisual : DungeonVisualizer
             for (int x = 0; x < dungeon.grid.Width * scale; x++)
             {
                 var tile = (TileGridObject)dungeon.grid.GetValue(x / scale, y / scale);
-                if (tile is RoomTileObject roomTile)
-                {
-                    tilemap.SetTile(new Vector3Int(x, y), 
-                        roomTile.environmentType == EnvironmentType.Room ? dungeonSet.GetTile(tile.Type) : environmentSet.GetTile(tile.Type));    
-                    continue;
-                }
-                tilemap.SetTile(new Vector3Int(x, y), hallwaySet.GetTile(tile.Type));
+                tilemap.SetTile(GetTileData(new Vector3Int(x, y), tile), true);
             }
         }
+        tilemap.RefreshAllTiles();
+    }
+
+    private TileChangeData GetTileData(Vector3Int pos, TileGridObject tile)
+    {
+        TileChangeData data = new TileChangeData();
+        data.position = pos;
+        if (tile is RoomTileObject roomTile)
+        {
+            switch (roomTile.environmentType)
+            {
+                case EnvironmentType.Forest:
+                    data.tile = environmentSet.GetTile(tile.Type);
+                    break;
+                case EnvironmentType.Room:
+                    data.tile = dungeonSet.GetTile(tile.Type);
+                    break;
+            }
+        }
+        else
+        {
+            data.tile = hallwaySet.GetTile(tile.Type);
+        }
+        
+        data.color = Color.white;
+
+        data.transform = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
+
+        return data;
     }
 }

@@ -19,20 +19,17 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-       // Gives a value between -1 and 1
-       horizontal = Input.GetAxisRaw("Horizontal"); // -1 is left
-       vertical = Input.GetAxisRaw("Vertical"); // -1 is down
+       horizontal = Input.GetAxisRaw("Horizontal");
+       vertical = Input.GetAxisRaw("Vertical");
+       
     }
-    
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
-       if (horizontal != 0 && vertical != 0) // Check for diagonal movement
-       {
-          // limit movement speed diagonally, so you move at 70% speed
-          horizontal *= moveLimiter;
-          vertical *= moveLimiter;
-       } 
-    
-       body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        var moveDir = new Vector2(horizontal, vertical);
+        moveDir.Normalize();
+        var moveVector = moveDir * (runSpeed);
+
+        body.velocity = moveVector;
     }
 }

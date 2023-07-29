@@ -28,10 +28,8 @@ public class Simple3DVisual : DungeonVisualizer
             case CellType.Empty:
                 return null;
             case CellType.Wall:
-            case CellType.HallwayWall:
                 return wall;
             case CellType.Ground:
-            case CellType.HallwayGround:    
                 return ground;
             case CellType.Door:
                 return door;

@@ -96,8 +96,6 @@ public class GizmoVisual : DungeonVisualizer
                     CellType.Wall => Color.blue / 2,
                     CellType.Ground => Color.white / 2,
                     CellType.Door => Color.red / 2,
-                    CellType.HallwayGround => Color.gray / 2,
-                    CellType.HallwayWall => Color.cyan / 2,
                     _ => throw new ArgumentOutOfRangeException()
                 };
             });

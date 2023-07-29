@@ -1,14 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using Mani;
 using Mani.Graph;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 public class Generator : MonoBehaviour
 {
-    public static event Action<Dungeon> OnDungeonGenerated; 
+    public static Random tileRnd;
+    public static Random dungeonRnd;
+    
+    public static event Action<Dungeon> OnDungeonGenerated;
 
+    [SerializeField] private bool randomSeed;
+    [Range(100000, 1000000000)]
+    [SerializeField] private int seed = 123454321;
     [SerializeField] private GameObject block;
     [SerializeField] private DungeonParameters dungeonParameters;
 
@@ -16,6 +21,11 @@ public class Generator : MonoBehaviour
 
     private void Start()
     {
+        if (randomSeed)
+            seed = UnityEngine.Random.Range(100000, 1000000000);
+        
+        dungeonRnd = new Random(seed - 50);
+        tileRnd = new Random(seed + 50);
         GenerateDungeon();
     }
 
@@ -35,6 +45,8 @@ public class Generator : MonoBehaviour
 
     public void SetDungeon(Dungeon dungeon)
     {
+        dungeonRnd = new Random(seed - 50);
+        tileRnd = new Random(seed + 50);
         candidateDungeon = dungeon;
         candidateDungeon.MakeGridOutOfRooms();
         OnDungeonGenerated?.Invoke(candidateDungeon);
@@ -104,10 +116,8 @@ public class Generator : MonoBehaviour
         switch (roomCell)
         {
             case CellType.Ground:
-            case CellType.HallwayGround:
                 return Color.white;
             case CellType.Wall:
-            case CellType.HallwayWall:
                 return Color.blue;
             case CellType.Door:
                 return Color.black;

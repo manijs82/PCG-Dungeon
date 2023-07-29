@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Mani.Graph;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Dungeon : Sample
 {
@@ -57,12 +56,12 @@ public class Dungeon : Sample
         rooms = new List<Room>();
         int roomCount = count;
         if(roomCount == -1)
-            roomCount = Random.Range(dungeonParameters.roomCountRange.x, dungeonParameters.roomCountRange.y);
+            roomCount = Generator.dungeonRnd.Next(dungeonParameters.roomCountRange.x, dungeonParameters.roomCountRange.y);
         for (int i = 0; i < roomCount; i++)
         {
-            Vector2 point = new Vector2(Random.Range(0, dungeonParameters.width), Random.Range(0, dungeonParameters.height));
-            Room room = new Room(point, Random.Range(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y),
-                Random.Range(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y));
+            Vector2 point = new Vector2(Generator.dungeonRnd.Next(0, dungeonParameters.width), Generator.dungeonRnd.Next(0, dungeonParameters.height));
+            Room room = new Room(point, Generator.dungeonRnd.Next(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y),
+                Generator.dungeonRnd.Next(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y));
 
             rooms.Add(room);
         }
@@ -112,11 +111,11 @@ public class Dungeon : Sample
             foreach (var gridObject in astar.path)
             {
                 var tile = (TileGridObject)gridObject;
-                tile.Type = CellType.HallwayGround;
+                tile.Type = CellType.Ground;
                 foreach (var neighbor in grid.Get8Neighbors(tile))
                 {
                     var n = (TileGridObject)neighbor;
-                    if (n.Type == CellType.Empty) n.Type = CellType.HallwayWall;
+                    if (n.Type == CellType.Empty) n.Type = CellType.Wall;
                 }
             }
             
@@ -144,8 +143,8 @@ public class Dungeon : Sample
             Vector2 newStartPoint;
             if (DoesCollideWithOtherRooms(rooms[i]))
             {
-                newStartPoint = new Vector2(Random.Range(rooms[i].bound.w / 2f, dungeonParameters.width - rooms[i].bound.w / 2f),
-                    Random.Range(rooms[i].bound.h / 2f, dungeonParameters.height - rooms[i].bound.h / 2f));
+                newStartPoint = new Vector2Int(Generator.dungeonRnd.Next(rooms[i].bound.w / 2, dungeonParameters.width - rooms[i].bound.w / 2),
+                    Generator.dungeonRnd.Next(rooms[i].bound.h / 2, dungeonParameters.height - rooms[i].bound.h / 2));
             }
             else
             {

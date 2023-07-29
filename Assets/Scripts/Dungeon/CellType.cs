@@ -4,6 +4,4 @@ public enum CellType
     Wall,
     Ground,
     Door,
-    HallwayGround,
-    HallwayWall
 }

@@ -3,6 +3,7 @@
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    [SerializeField] private Transform cam;
     
     private void Start()
     {

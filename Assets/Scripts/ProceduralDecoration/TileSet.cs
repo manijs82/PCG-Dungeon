@@ -17,10 +17,8 @@ public class TileSet
             case CellType.Empty:
                 return GetRandomTile(emptySet);
             case CellType.Wall:
-            case CellType.HallwayWall:
                 return GetRandomTile(wallSet);
             case CellType.Ground:
-            case CellType.HallwayGround:    
                 return GetRandomTile(groundSet);
             case CellType.Door:
                 return GetRandomTile(doorSet);
@@ -29,6 +27,6 @@ public class TileSet
 
     private TileBase GetRandomTile(TileBase[] set)
     {
-        return set[Random.Range(0, set.Length)];
+        return set[Generator.tileRnd.Next(0, set.Length)];
     }
 }
