@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,6 +7,8 @@ public class TileMapVisual : DungeonVisualizer
     [SerializeField] private int scale = 1;
     [SerializeField] private TileSet dungeonSet;
     [SerializeField] private TileSet environmentSet;
+    [SerializeField] private TileSet sideSet;
+    [SerializeField] private TileSet sideTwoSet;
     [SerializeField] private TileSet hallwaySet;
     
     private Tilemap tilemap;
@@ -45,6 +46,12 @@ public class TileMapVisual : DungeonVisualizer
                     break;
                 case EnvironmentType.Room:
                     data.tile = dungeonSet.GetTile(tile.Type);
+                    break;
+                case EnvironmentType.Set:
+                    data.tile = sideSet.GetTile(tile.Type);
+                    break;
+                case EnvironmentType.SetTwo:
+                    data.tile = sideTwoSet.GetTile(tile.Type);
                     break;
             }
         }

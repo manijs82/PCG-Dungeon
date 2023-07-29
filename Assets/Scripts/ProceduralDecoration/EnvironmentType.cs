@@ -1,5 +1,7 @@
 ﻿public enum EnvironmentType
 {
     Forest,
-    Room
+    Room,
+    Set,
+    SetTwo
 }

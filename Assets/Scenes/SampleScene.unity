@@ -750,7 +750,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1155,6 +1155,28 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
     - {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
     - {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+  sideSet:
+    emptySet:
+    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+    wallSet:
+    - {fileID: 11400000, guid: cd07a864be09c1041b01a99dd0513dfc, type: 2}
+    - {fileID: 11400000, guid: 25251204d0306e74ea74e85b66bdeecd, type: 2}
+    - {fileID: 11400000, guid: 7e9bd2b93e9b3c74fbc8f25a8f8fc94d, type: 2}
+    groundSet:
+    - {fileID: 11400000, guid: 005fa5e1751ac224e8911d63bff15f03, type: 2}
+    - {fileID: 11400000, guid: f186b2835c8a29e4f8eab6de1779f432, type: 2}
+    doorSet:
+    - {fileID: 11400000, guid: 67ca6bd0046935b4c8652e60078d1e4c, type: 2}
+  sideTwoSet:
+    emptySet:
+    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+    wallSet:
+    - {fileID: 11400000, guid: 853d79cbc8de85242ac85c02f04216a5, type: 2}
+    - {fileID: 11400000, guid: 54c1349fc7062a14ea0b0cfbbbc6920b, type: 2}
+    groundSet:
+    - {fileID: 11400000, guid: cb878489afd507b409e01f0a79cc0f3f, type: 2}
+    doorSet:
+    - {fileID: 11400000, guid: 17e61b33f1dbfd6489ec7353db3e8bfd, type: 2}
   hallwaySet:
     emptySet:
     - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
@@ -2075,6 +2097,16 @@ MonoBehaviour:
     groundSet: []
     doorSet: []
   environmentSet:
+    emptySet: []
+    wallSet: []
+    groundSet: []
+    doorSet: []
+  sideSet:
+    emptySet: []
+    wallSet: []
+    groundSet: []
+    doorSet: []
+  sideTwoSet:
     emptySet: []
     wallSet: []
     groundSet: []

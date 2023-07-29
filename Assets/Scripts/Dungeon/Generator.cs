@@ -66,11 +66,23 @@ public class Generator : MonoBehaviour
         candidateDungeon.roomGraph.TriangulateDelaunay(node => node.Value.Center.ToPoint());
         candidateDungeon.roomGraph = candidateDungeon.roomGraph.GetPrimsMinimumSpanningTree(true, 0.4f, dungeonParameters.width / 6);
 
+        Graph<Room> copy = new Graph<Room>(candidateDungeon.roomGraph);
+        
         var node1 = candidateDungeon.roomGraph.Nodes[0];
         var node2 = candidateDungeon.roomGraph.Nodes[30];
-        foreach (var node in candidateDungeon.roomGraph.DijkstraShortestPath(node1, node2))
+        var path =  candidateDungeon.roomGraph.DijkstraShortestPath(node1, node2);
+        foreach (var node in path)
         {
             node.Value.environmentType = EnvironmentType.Room;
+            copy.RemoveNode(node);
+        }
+
+        foreach (var island in copy.GetIslands(false))
+        {
+            foreach (var node in island.Nodes)
+            {
+                node.Value.environmentType = dungeonRnd.Next(0, 10) > 5 ? EnvironmentType.Set : EnvironmentType.SetTwo;
+            }
         }
     }
 
