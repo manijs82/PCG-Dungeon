@@ -4,9 +4,10 @@ Research project on procedural dungeon generation done in unity.
 In this project I am using various algorithms to generate a rough-like dungeon.
 
 ## Current Output
-![Screenshot 2023-07-31 145706](https://github.com/manijs82/PCG-Dungeon/assets/57400375/63639277-7ddb-4abd-b198-151e6b7d61d2)
+| ![Screenshot 2023-07-31 145706](https://github.com/manijs82/PCG-Dungeon/assets/57400375/63639277-7ddb-4abd-b198-151e6b7d61d2) | 
+|:--:| 
 35 rooms in a 150x150 rooms <br>
-each rooms width and height is between 10 and 20 cells
+Each room has a width and height between 10 and 20 cells
 - 4 different room types
   - Main path has its own room type
   - branches of the main path have their own type (randomized between 2 types)
