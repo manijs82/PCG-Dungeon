@@ -11,7 +11,7 @@ Each room has a width and height between 10 and 20 cells
 - 4 different room types
   - Main path has its own room type
   - branches of the main path have their own type (randomized between 2 types)
-  - Alone rooms have their own room type
+  - Alone rooms have their own room type (green rooms)
 
 ## Steps of the algorithm
 
