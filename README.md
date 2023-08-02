@@ -3,6 +3,13 @@
 Research project on procedural dungeon generation done in unity.
 In this project I am using various algorithms to generate a rough-like dungeon.
 
+## Current Output
+![Screenshot 2023-07-31 145706](https://github.com/manijs82/PCG-Dungeon/assets/57400375/63639277-7ddb-4abd-b198-151e6b7d61d2)
+- 4 different room types
+  - Main path has its own room type
+  - branches of the main path have their own type (randomized between 2 types)
+  - Alon rooms have their own room type
+
 ## Steps of the algorithm
 
 1- Evolution strategy for generating rooms
@@ -18,7 +25,7 @@ Rooms are then connected with A* path finding. <br>
 3- Tweeking the graph to a Minimum-Spanning-Tree
 With the Prim's algorithm which makes a Minimum-Spanning-Tree out of the created room graph. After this step every room will only acessible one way.
 You can add some of the connections back so it has some variation. <br>
-<img src="https://user-images.githubusercontent.com/57400375/230924829-3094effd-a2b4-4390-8a94-62cfe7b3dccf.png" alt="step2" width="600"/> <br>
+<img src="https://user-images.githubusercontent.com/57400375/230924829-3094effd-a2b4-4390-8a94-62cfe7b3dccf.png" alt="step3" width="600"/> <br>
 
 4- Visualize <br>
-<img src="https://user-images.githubusercontent.com/57400375/230924879-4f9c1de1-1f9b-4ebf-a5a8-1ee8db7efa78.png" alt="step2" width="600"/> <br>
+<img src="https://user-images.githubusercontent.com/57400375/230924879-4f9c1de1-1f9b-4ebf-a5a8-1ee8db7efa78.png" alt="final" width="600"/> <br>
