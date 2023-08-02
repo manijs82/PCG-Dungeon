@@ -15,18 +15,18 @@ Each room has a width and height between 10 and 20 cells
 
 ## Steps of the algorithm
 
-1- Evolution strategy for generating rooms
-Using a evaluation function I can give a fitness value to a completely radomly generated room placement.
+1- Evolution strategy for generating rooms <br>
+Using a evaluation function I can give a fitness value to a completely radomly generated room placement. <br>
 By mutating the best samples over and over until getting a sample that has a good score you will get a suitable sample to generate a dungeon for. <br> 
 <img src="https://user-images.githubusercontent.com/57400375/230924478-20ff97cc-2c19-4dea-9e35-ea9ddccb3064.png" alt="step1" width="600"/> <br>
 
-2- Making a graph out of the rooms with a Triangulation algorithm
-With the bowyer-watson algorithm which does a Delaunay triangulation I connect the rooms in a way that it looks like paths between rooms.
+2- Making a graph out of the rooms with a Triangulation algorithm <br>
+With the bowyer-watson algorithm which does a Delaunay triangulation I connect the rooms in a way that it looks like paths between rooms. <br>
 Rooms are then connected with A* path finding. <br>
 <img src="https://user-images.githubusercontent.com/57400375/230924690-4fd772ca-e73c-4b05-80e6-71799fba1f91.png" alt="step2" width="600"/> <br>
 
-3- Tweeking the graph to a Minimum-Spanning-Tree
-With the Prim's algorithm which makes a Minimum-Spanning-Tree out of the created room graph. After this step every room will only acessible one way.
+3- Tweeking the graph to a Minimum-Spanning-Tree <br>
+With the Prim's algorithm which makes a Minimum-Spanning-Tree out of the created room graph. After this step every room will only acessible one way. <br>
 You can add some of the connections back so it has some variation. <br>
 <img src="https://user-images.githubusercontent.com/57400375/230924829-3094effd-a2b4-4390-8a94-62cfe7b3dccf.png" alt="step3" width="600"/> <br>
 
