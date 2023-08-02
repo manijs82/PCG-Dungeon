@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private void PlacePlayer(Dungeon dungeon)
     {
-        var roomPos = dungeon.roomGraph.Nodes[0].Value.Center;
+        var roomPos = dungeon.startRoom.Center;
         player.transform.position = roomPos;
     }
 }

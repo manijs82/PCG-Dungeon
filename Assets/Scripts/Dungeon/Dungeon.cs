@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Mani;
 using Mani.Graph;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Dungeon : Sample
     public event Action OnMakeGrids;
     
     public List<Room> rooms;
+    public Room startRoom;
     public Graph<Room> roomGraph;
     public Grid<GridObject> grid;
     public DungeonParameters dungeonParameters;
@@ -134,6 +136,24 @@ public class Dungeon : Sample
         door2 += (room2.Center - door2).normalized / 5;
         room1.doors.Add(door1 - room1.startPoint);
         room2.doors.Add(door2 - room2.startPoint);
+    }
+
+    public Node<Room> GetClosestRoomToPos(Vector2 pos)
+    {
+        float shortestDist = float.PositiveInfinity;
+        Node<Room> closestRoom = null;
+
+        foreach (var node in roomGraph.Nodes)
+        {
+            float dist = Vector2.Distance(pos, node.Value.Center);
+            if (dist < shortestDist)
+            {
+                shortestDist = dist;
+                closestRoom = node;
+            }
+        }
+
+        return closestRoom;
     }
 
     public override void Mutate()

@@ -34,12 +34,10 @@ public class Generator : MonoBehaviour
         FindBestDungeon();
         ConstructDungeonGraph();
         
-        //candidateDungeon.RemoveUnusedRooms();
         candidateDungeon.MakeGridOutOfRooms();
         OnDungeonGenerated?.Invoke(candidateDungeon);
         
         print(candidateDungeon.fitnessValue);
-
         //print(GetAverageFitnessValueOfGenerator());
     }
 
@@ -66,9 +64,8 @@ public class Generator : MonoBehaviour
         candidateDungeon.roomGraph.TriangulateDelaunay(node => node.Value.Center.ToPoint());
         candidateDungeon.roomGraph = candidateDungeon.roomGraph.GetPrimsMinimumSpanningTree(true, 0.2f, dungeonParameters.width / 6);
 
-        
-        var node1 = candidateDungeon.roomGraph.Nodes[0];
-        var node2 = candidateDungeon.roomGraph.Nodes[30];
+        var node1 = candidateDungeon.GetClosestRoomToPos(Vector2.zero);
+        var node2 = candidateDungeon.GetClosestRoomToPos(new Vector2(dungeonParameters.width, dungeonParameters.height));
         var path =  candidateDungeon.roomGraph.DijkstraShortestPath(node1, node2);
         
         Graph<Room> copy = new Graph<Room>(candidateDungeon.roomGraph);
@@ -87,6 +84,7 @@ public class Generator : MonoBehaviour
             }
         }
 
+        candidateDungeon.startRoom = node1.Value;
         candidateDungeon.roomGraph = copy;
     }
 
@@ -102,45 +100,4 @@ public class Generator : MonoBehaviour
 
         return sum / iterationCount;
     }
-
-    [ContextMenu("VDD")]
-    private void VisualizeDebugDungeon()
-    {
-        if(transform.childCount == 1)
-        {
-            Destroy(transform.GetChild(0).gameObject);
-        }
-        var parent = new GameObject("Dun").transform;
-        parent.SetParent(transform);
-        
-        var dungeon = candidateDungeon;
-        dungeon.MakeGridOutOfRooms();
-        for (int y = 0; y < dungeon.grid.Height; y++)
-        {
-            for (int x = 0; x < dungeon.grid.Width; x++)
-            {
-                var go = Instantiate(block, new Vector2(x, y),
-                    Quaternion.identity, parent);
-                SpriteRenderer sprite = go.GetComponentInChildren<SpriteRenderer>();
-                sprite.color = GetColor(((TileGridObject)dungeon.grid.GetValue(x, y)).Type);
-            }
-        }
-    }
-
-    private Color GetColor(CellType roomCell)
-    {
-        switch (roomCell)
-        {
-            case CellType.Ground:
-                return Color.white;
-            case CellType.Wall:
-                return Color.blue;
-            case CellType.Door:
-                return Color.black;
-        }
-
-        return Color.gray;
-    }
-
-
 }
