@@ -34,7 +34,7 @@ public class Generator : MonoBehaviour
         FindBestDungeon();
         ConstructDungeonGraph();
         
-        candidateDungeon.RemoveUnusedRooms();
+        //candidateDungeon.RemoveUnusedRooms();
         candidateDungeon.MakeGridOutOfRooms();
         OnDungeonGenerated?.Invoke(candidateDungeon);
         
@@ -64,26 +64,30 @@ public class Generator : MonoBehaviour
         candidateDungeon.roomGraph = new Graph<Room>();
         foreach (var room in candidateDungeon.rooms) candidateDungeon.roomGraph.AddNode(new Node<Room>(room));
         candidateDungeon.roomGraph.TriangulateDelaunay(node => node.Value.Center.ToPoint());
-        candidateDungeon.roomGraph = candidateDungeon.roomGraph.GetPrimsMinimumSpanningTree(true, 0.4f, dungeonParameters.width / 6);
+        candidateDungeon.roomGraph = candidateDungeon.roomGraph.GetPrimsMinimumSpanningTree(true, 0.2f, dungeonParameters.width / 6);
 
-        Graph<Room> copy = new Graph<Room>(candidateDungeon.roomGraph);
         
         var node1 = candidateDungeon.roomGraph.Nodes[0];
         var node2 = candidateDungeon.roomGraph.Nodes[30];
         var path =  candidateDungeon.roomGraph.DijkstraShortestPath(node1, node2);
+        
+        Graph<Room> copy = new Graph<Room>(candidateDungeon.roomGraph);
         foreach (var node in path)
         {
             node.Value.environmentType = EnvironmentType.Room;
-            copy.RemoveNode(node);
+            candidateDungeon.roomGraph.RemoveNode(node);
         }
 
-        foreach (var island in copy.GetIslands(false))
+        foreach (var island in candidateDungeon.roomGraph.GetIslands(false))
         {
+            EnvironmentType islandType = dungeonRnd.Next(0, 10) > 5 ? EnvironmentType.Set : EnvironmentType.SetTwo;
             foreach (var node in island.Nodes)
             {
-                node.Value.environmentType = dungeonRnd.Next(0, 10) > 5 ? EnvironmentType.Set : EnvironmentType.SetTwo;
+                node.Value.environmentType = islandType;
             }
         }
+
+        candidateDungeon.roomGraph = copy;
     }
 
     private float GetAverageFitnessValueOfGenerator()

@@ -104,13 +104,15 @@ public class GizmoVisual : DungeonVisualizer
     private void DrawRoomsGraph()
     {
         if (!showRoomGraphPath) return;
-        
+
         Handles.color = graphColor;
+        foreach (var node in dungeon.roomGraph.Nodes)
+        {
+            Handles.DrawSolidDisc(node.Value.Center, Vector3.back, 2f);
+        }
         foreach (var connection in dungeon.roomGraph.Edges)
         {
             Handles.DrawAAPolyLine(connection.Start.Value.Center, connection.End.Value.Center);
-            Handles.DrawSolidDisc(connection.Start.Value.Center, Vector3.back, 2f);
-            Handles.DrawSolidDisc(connection.End.Value.Center, Vector3.back, 2f);
         }
     }
 

@@ -1175,6 +1175,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 54c1349fc7062a14ea0b0cfbbbc6920b, type: 2}
     groundSet:
     - {fileID: 11400000, guid: cb878489afd507b409e01f0a79cc0f3f, type: 2}
+    - {fileID: 11400000, guid: 4af68ae69499b3b49beeb8c864038b1b, type: 2}
     doorSet:
     - {fileID: 11400000, guid: 17e61b33f1dbfd6489ec7353db3e8bfd, type: 2}
   hallwaySet:
@@ -1947,7 +1948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 0
-  seed: 123454321
+  seed: 487133254
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
   dungeonParameters:
     roomCountRange: {x: 35, y: 35}
@@ -1991,7 +1992,7 @@ MonoBehaviour:
   showDoors: 0
   doorColor: {r: 1, g: 0, b: 0, a: 1}
   showDungeonOutline: 0
-  showRoomOutline: 1
+  showRoomOutline: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   showPDV: 0
   showGridTiles: 0
