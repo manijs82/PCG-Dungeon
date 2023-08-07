@@ -826,7 +826,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1346,7 +1346,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 17e61b33f1dbfd6489ec7353db3e8bfd, type: 2}
   hallwaySet:
     emptySet:
-    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+    - {fileID: 11400000, guid: a5292c2c18b9a7c4bb95488aaa529178, type: 2}
     wallSet:
     - {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
     - {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
@@ -1359,6 +1359,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
     doorSet:
     - {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
+  color1: {r: 0, g: 0, b: 0, a: 1}
+  color2: {r: 0.26415092, g: 0.05357778, b: 0.05357778, a: 1}
 --- !u!19719996 &752770667
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2283,6 +2285,8 @@ MonoBehaviour:
     wallSet: []
     groundSet: []
     doorSet: []
+  color1: {r: 0, g: 0, b: 0, a: 0}
+  color2: {r: 0, g: 0, b: 0, a: 0}
 --- !u!483693784 &2071118049
 TilemapRenderer:
   m_ObjectHideFlags: 0

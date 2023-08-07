@@ -10,6 +10,9 @@ public class TileMapVisual : DungeonVisualizer
     [SerializeField] private TileSet sideSet;
     [SerializeField] private TileSet sideTwoSet;
     [SerializeField] private TileSet hallwaySet;
+
+    [SerializeField] private Color color1;
+    [SerializeField] private Color color2;
     
     private Tilemap tilemap;
     
@@ -30,7 +33,7 @@ public class TileMapVisual : DungeonVisualizer
                 tilemap.SetTile(GetTileData(new Vector3Int(x, y), tile), true);
             }
         }
-        tilemap.RefreshAllTiles();
+        //tilemap.RefreshAllTiles();
     }
 
     private TileChangeData GetTileData(Vector3Int pos, TileGridObject tile)
@@ -54,13 +57,22 @@ public class TileMapVisual : DungeonVisualizer
                     data.tile = sideTwoSet.GetTile(tile.Type);
                     break;
             }
+            data.color = Color.white;
         }
         else
         {
             data.tile = hallwaySet.GetTile(tile.Type);
+            if (tile.Type == CellType.Empty)
+            {
+                float noise = Mathf.PerlinNoise(tile.x * 0.1f, tile.y * 0.1f);
+                
+                data.color = Color.Lerp(color1, color2, noise);
+            }
+            else
+            {
+                data.color = Color.white;
+            }
         }
-        
-        data.color = Color.white;
 
         data.transform = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
 
