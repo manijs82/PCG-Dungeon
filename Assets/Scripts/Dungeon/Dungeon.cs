@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Mani;
 using Mani.Graph;
 using UnityEngine;
@@ -105,9 +106,9 @@ public class Dungeon : Sample
 
             if (startTile == null || endTile == null) return;
             
-            startTile.Type = CellType.Door;
             endTile.Type = CellType.Door;
-
+            endTile.Type = CellType.Door;
+            
             AStarAlgorithm astar = new AStarAlgorithm(grid, startTile, endTile);
             astar.PathFindingSearch();
             foreach (var gridObject in astar.path)
@@ -121,8 +122,8 @@ public class Dungeon : Sample
                 }
             }
             
-            startTile.Type = CellType.Door;
-            endTile.Type = CellType.Door;
+            SetAsDoor(startTile);
+            SetAsDoor(endTile);
         }
         
         OnMakeGrids?.Invoke();
@@ -136,6 +137,15 @@ public class Dungeon : Sample
         door2 += (room2.Center - door2).normalized / 5;
         room1.doors.Add(door1 - room1.startPoint);
         room2.doors.Add(door2 - room2.startPoint);
+    }
+
+    private void SetAsDoor(TileGridObject tile)
+    {
+        tile.Type = CellType.Door;
+
+        var walls = grid.Get4Neighbors(tile, true).Where(t => ((TileGridObject)t).Type == CellType.Wall && t is RoomTileObject).ToList();
+        var secondDoor = (TileGridObject) walls[Generator.dungeonRnd.Next(0, walls.Count - 1)];
+        secondDoor.Type = CellType.Door;
     }
 
     public Node<Room> GetClosestRoomToPos(Vector2 pos)

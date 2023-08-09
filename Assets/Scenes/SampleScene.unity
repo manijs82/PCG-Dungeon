@@ -826,7 +826,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1411,13 +1411,13 @@ MonoBehaviour:
     groundTileSet:
       list:
       - element: {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
-        probability: 0.25
+        probability: 0.1
       - element: {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
-        probability: 0.25
+        probability: 0.5
       - element: {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
-        probability: 0.25
+        probability: 0.2
       - element: {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
-        probability: 0.25
+        probability: 0.2
     doorTileSet:
       list:
       - element: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
@@ -2181,7 +2181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 0
-  seed: 487133254
+  seed: 257102400
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
   dungeonParameters:
     roomCountRange: {x: 35, y: 35}

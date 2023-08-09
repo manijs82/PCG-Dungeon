@@ -152,7 +152,7 @@ public class Grid<TGridObject> where TGridObject : GridObject
     public List<TGridObject> Get4Neighbors(int x, int y) =>
         Get4Neighbors(gridArray[x, y]);
 
-    public List<TGridObject> Get4Neighbors(TGridObject center)
+    public List<TGridObject> Get4Neighbors(TGridObject center, bool ignoreBlocked = false)
     {
         var output = new List<TGridObject>();
         var temp = new List<TGridObject>();
@@ -177,8 +177,8 @@ public class Grid<TGridObject> where TGridObject : GridObject
         foreach (var p in temp)
         {
             if (p == null) continue;
-            if (!p.IsBlocked)
-                output.Add(p);
+            if (p.IsBlocked && !ignoreBlocked) continue;
+            output.Add(p);
         }
 
         return output;
