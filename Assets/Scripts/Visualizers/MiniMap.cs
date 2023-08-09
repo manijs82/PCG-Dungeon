@@ -8,6 +8,8 @@ namespace DefaultNamespace
     {
         [SerializeField] private Transform player;
         [SerializeField] private Transform playerMinimap;
+        [SerializeField] private Color backColor;
+        [SerializeField] private Color forColor;
         
         private void Update()
         {
@@ -24,7 +26,7 @@ namespace DefaultNamespace
                 for (int x = 0; x < dungeon.grid.Width; x++)
                 {
                     var tile = (TileGridObject)dungeon.grid.GetValue(x, y);
-                    Color color = tile.Type == CellType.Empty ? Color.cyan : Color.blue;
+                    Color color = tile.Type == CellType.Empty ? backColor : forColor;
                     minimap.SetPixel(x, y, color);  
                 }
             }

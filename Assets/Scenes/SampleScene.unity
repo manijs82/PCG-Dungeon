@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -425,6 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 153867249}
   - component: {fileID: 153867248}
+  - component: {fileID: 153867250}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -446,6 +447,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1296659070}
   cam: {fileID: 0}
+  generator: {fileID: 1518624283}
+  HasKey: 0
 --- !u!4 &153867249
 Transform:
   m_ObjectHideFlags: 0
@@ -461,6 +464,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &153867250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153867247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859f9f088a744266ae2caee9b840852f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: {fileID: 5252034097917913748, guid: cda5d98db4010c947bca7f2c5b89c027, type: 3}
+  portal: {fileID: 2126392627091993311, guid: 212ca4fa9e5ec6341bf49bd137f205d0, type: 3}
 --- !u!1 &261701028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1296659074}
   playerMinimap: {fileID: 139370686}
+  backColor: {r: 0.21798015, g: 0.081167676, b: 0.3018868, a: 1}
+  forColor: {r: 0.74166566, g: 0.1715023, b: 0.7735849, a: 1}
 --- !u!1 &658487203
 GameObject:
   m_ObjectHideFlags: 0

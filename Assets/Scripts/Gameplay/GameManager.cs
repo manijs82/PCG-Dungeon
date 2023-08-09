@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject player;
     [SerializeField] private Transform cam;
+    [SerializeField] private Generator generator;
+    
+    public bool HasKey;
     
     private void Start()
     {
@@ -14,5 +17,16 @@ public class GameManager : MonoBehaviour
     {
         var roomPos = dungeon.startRoom.Center;
         player.transform.position = roomPos;
+    }
+
+    public void GoToNewDungeon()
+    {
+        if(HasKey)
+            generator.GenerateDungeon();
+    }
+
+    public PlayerController GetPlayer()
+    {
+        return player.GetComponent<PlayerController>();
     }
 }

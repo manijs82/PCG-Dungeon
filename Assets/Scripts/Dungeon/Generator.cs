@@ -85,6 +85,7 @@ public class Generator : MonoBehaviour
         }
 
         candidateDungeon.startRoom = node1.Value;
+        candidateDungeon.endRoom = node2.Value;
         candidateDungeon.roomGraph = copy;
     }
 

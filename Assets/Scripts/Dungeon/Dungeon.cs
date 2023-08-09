@@ -11,6 +11,7 @@ public class Dungeon : Sample
     
     public List<Room> rooms;
     public Room startRoom;
+    public Room endRoom;
     public Graph<Room> roomGraph;
     public Grid<GridObject> grid;
     public DungeonParameters dungeonParameters;
