@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
+using Utils;
 
 [System.Serializable]
 public class TileSet
 {
-    public TileBase[] emptySet;
-    public TileBase[] wallSet;
-    public TileBase[] groundSet;
-    public TileBase[] doorSet;
+    public ProbabilityList<TileBase> emptyTileSet;
+    public ProbabilityList<TileBase> wallTileSet;
+    public ProbabilityList<TileBase> groundTileSet;
+    public ProbabilityList<TileBase> doorTileSet;
     
     public TileBase GetTile(CellType cellType)
     {
@@ -15,18 +17,18 @@ public class TileSet
         {
             default:
             case CellType.Empty:
-                return GetRandomTile(emptySet);
+                return GetRandomTile(emptyTileSet);
             case CellType.Wall:
-                return GetRandomTile(wallSet);
+                return GetRandomTile(wallTileSet);
             case CellType.Ground:
-                return GetRandomTile(groundSet);
+                return GetRandomTile(groundTileSet);
             case CellType.Door:
-                return GetRandomTile(doorSet);
+                return GetRandomTile(doorTileSet);
         }
     }
 
-    private TileBase GetRandomTile(TileBase[] set)
+    private TileBase GetRandomTile(ProbabilityList<TileBase> set)
     {
-        return set[Generator.tileRnd.Next(0, set.Length)];
+        return set.GetWeightedRandomElement();
     }
 }

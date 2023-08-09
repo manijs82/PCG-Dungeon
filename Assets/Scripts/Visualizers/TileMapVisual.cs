@@ -1,3 +1,4 @@
+using Freya;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -13,7 +14,10 @@ public class TileMapVisual : DungeonVisualizer
 
     [SerializeField] private Color color1;
     [SerializeField] private Color color2;
+    [SerializeField] private float perlinSnapInterval = 0.2f;
+    [SerializeField] private float perlinScale = 0.1f;
     
+    private float perlinOffset;
     private Tilemap tilemap;
     
     protected override void Awake()
@@ -25,6 +29,7 @@ public class TileMapVisual : DungeonVisualizer
 
     protected override void Visualize(Dungeon dungeon)
     {
+        perlinOffset = Generator.tileRnd.Next(0, 2000);
         for (int y = 0; y < dungeon.grid.Height * scale; y++)
         {
             for (int x = 0; x < dungeon.grid.Width * scale; x++)
@@ -64,8 +69,8 @@ public class TileMapVisual : DungeonVisualizer
             data.tile = hallwaySet.GetTile(tile.Type);
             if (tile.Type == CellType.Empty)
             {
-                float noise = Mathf.PerlinNoise(tile.x * 0.1f, tile.y * 0.1f);
-                
+                float noise = Mathf.PerlinNoise((tile.x + perlinOffset) * perlinScale, (tile.y + perlinOffset) * perlinScale);
+                noise = Mathf.Round(noise / perlinSnapInterval) * perlinSnapInterval;
                 data.color = Color.Lerp(color1, color2, noise);
             }
             else

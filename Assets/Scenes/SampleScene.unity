@@ -801,7 +801,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.12941177, g: 0.02745098, b: 0.02745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -826,7 +826,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 15
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1292,75 +1292,140 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: 1
   dungeonSet:
-    emptySet:
-    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-    wallSet:
-    - {fileID: 11400000, guid: f5786cf0eb9e5a5489d788e19d6c1f0e, type: 2}
-    groundSet:
-    - {fileID: 11400000, guid: 424210d9d70b5f544ba600d4389fdf27, type: 2}
-    doorSet:
-    - {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
+    emptyTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+        probability: 1
+    wallTileSet:
+      list:
+      - element: {fileID: 11400000, guid: f5786cf0eb9e5a5489d788e19d6c1f0e, type: 2}
+        probability: 1
+    groundTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 424210d9d70b5f544ba600d4389fdf27, type: 2}
+        probability: 1
+    doorTileSet:
+      list:
+      - element: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
+        probability: 1
   environmentSet:
-    emptySet:
-    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-    wallSet:
-    - {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
-    - {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
-    - {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
-    - {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
-    - {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
-    groundSet:
-    - {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
-    - {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
-    - {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
-    - {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
-    - {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
-    doorSet:
-    - {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
-    - {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
-    - {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
-    - {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
-    - {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+    emptyTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+        probability: 1
+    wallTileSet:
+      list:
+      - element: {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+        probability: 0.2
+    groundTileSet:
+      list:
+      - element: {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+        probability: 0.2
+    doorTileSet:
+      list:
+      - element: {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+        probability: 0.2
   sideSet:
-    emptySet:
-    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-    wallSet:
-    - {fileID: 11400000, guid: cd07a864be09c1041b01a99dd0513dfc, type: 2}
-    - {fileID: 11400000, guid: 25251204d0306e74ea74e85b66bdeecd, type: 2}
-    - {fileID: 11400000, guid: 7e9bd2b93e9b3c74fbc8f25a8f8fc94d, type: 2}
-    groundSet:
-    - {fileID: 11400000, guid: 005fa5e1751ac224e8911d63bff15f03, type: 2}
-    - {fileID: 11400000, guid: f186b2835c8a29e4f8eab6de1779f432, type: 2}
-    doorSet:
-    - {fileID: 11400000, guid: 67ca6bd0046935b4c8652e60078d1e4c, type: 2}
+    emptyTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+        probability: 1
+    wallTileSet:
+      list:
+      - element: {fileID: 11400000, guid: cd07a864be09c1041b01a99dd0513dfc, type: 2}
+        probability: 0.33
+      - element: {fileID: 11400000, guid: 25251204d0306e74ea74e85b66bdeecd, type: 2}
+        probability: 0.33
+      - element: {fileID: 11400000, guid: 7e9bd2b93e9b3c74fbc8f25a8f8fc94d, type: 2}
+        probability: 0.34
+    groundTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 005fa5e1751ac224e8911d63bff15f03, type: 2}
+        probability: 0.5
+      - element: {fileID: 11400000, guid: f186b2835c8a29e4f8eab6de1779f432, type: 2}
+        probability: 0.5
+    doorTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 67ca6bd0046935b4c8652e60078d1e4c, type: 2}
+        probability: 1
   sideTwoSet:
-    emptySet:
-    - {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-    wallSet:
-    - {fileID: 11400000, guid: 853d79cbc8de85242ac85c02f04216a5, type: 2}
-    - {fileID: 11400000, guid: 54c1349fc7062a14ea0b0cfbbbc6920b, type: 2}
-    groundSet:
-    - {fileID: 11400000, guid: cb878489afd507b409e01f0a79cc0f3f, type: 2}
-    - {fileID: 11400000, guid: 4af68ae69499b3b49beeb8c864038b1b, type: 2}
-    doorSet:
-    - {fileID: 11400000, guid: 17e61b33f1dbfd6489ec7353db3e8bfd, type: 2}
+    emptyTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+        probability: 1
+    wallTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 853d79cbc8de85242ac85c02f04216a5, type: 2}
+        probability: 0.5
+      - element: {fileID: 11400000, guid: 54c1349fc7062a14ea0b0cfbbbc6920b, type: 2}
+        probability: 0.5
+    groundTileSet:
+      list:
+      - element: {fileID: 11400000, guid: cb878489afd507b409e01f0a79cc0f3f, type: 2}
+        probability: 0.5
+      - element: {fileID: 11400000, guid: 4af68ae69499b3b49beeb8c864038b1b, type: 2}
+        probability: 0.5
+    doorTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 17e61b33f1dbfd6489ec7353db3e8bfd, type: 2}
+        probability: 1
   hallwaySet:
-    emptySet:
-    - {fileID: 11400000, guid: a5292c2c18b9a7c4bb95488aaa529178, type: 2}
-    wallSet:
-    - {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
-    - {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
-    - {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
-    - {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
-    groundSet:
-    - {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
-    - {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
-    - {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
-    - {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
-    doorSet:
-    - {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
+    emptyTileSet:
+      list:
+      - element: {fileID: 11400000, guid: a5292c2c18b9a7c4bb95488aaa529178, type: 2}
+        probability: 1
+    wallTileSet:
+      list:
+      - element: {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
+        probability: 0.1
+      - element: {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
+        probability: 0.5
+      - element: {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
+        probability: 0.2
+      - element: {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
+        probability: 0.2
+    groundTileSet:
+      list:
+      - element: {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
+        probability: 0.25
+      - element: {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
+        probability: 0.25
+      - element: {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
+        probability: 0.25
+      - element: {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
+        probability: 0.25
+    doorTileSet:
+      list:
+      - element: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
+        probability: 1
   color1: {r: 0, g: 0, b: 0, a: 1}
   color2: {r: 0.26415092, g: 0.05357778, b: 0.05357778, a: 1}
+  perlinSnapInterval: 0.25
+  perlinScale: 0.1
 --- !u!19719996 &752770667
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2261,32 +2326,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: 1
   dungeonSet:
-    emptySet: []
-    wallSet: []
-    groundSet: []
-    doorSet: []
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
   environmentSet:
-    emptySet: []
-    wallSet: []
-    groundSet: []
-    doorSet: []
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
   sideSet:
-    emptySet: []
-    wallSet: []
-    groundSet: []
-    doorSet: []
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
   sideTwoSet:
-    emptySet: []
-    wallSet: []
-    groundSet: []
-    doorSet: []
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
   hallwaySet:
-    emptySet: []
-    wallSet: []
-    groundSet: []
-    doorSet: []
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
   color1: {r: 0, g: 0, b: 0, a: 0}
   color2: {r: 0, g: 0, b: 0, a: 0}
+  perlinSnapInterval: 0.2
+  perlinScale: 0.1
 --- !u!483693784 &2071118049
 TilemapRenderer:
   m_ObjectHideFlags: 0
