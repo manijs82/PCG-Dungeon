@@ -58,7 +58,7 @@ public class GizmoVisual : DungeonVisualizer
         if(showDungeonOutline)
             DrawOutline(dungeon.grid.GetBound());
 
-        int count = 1;
+        int count = 0;
         foreach (var node in dungeon.roomGraph.Nodes)
         {
             var room = node.Value;
