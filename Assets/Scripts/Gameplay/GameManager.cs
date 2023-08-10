@@ -3,8 +3,8 @@
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject player;
-    [SerializeField] private Transform cam;
     [SerializeField] private Generator generator;
+    [SerializeField] private ItemDataBase itemDataBase;
     
     public bool HasKey;
     
@@ -28,5 +28,10 @@ public class GameManager : Singleton<GameManager>
     public PlayerController GetPlayer()
     {
         return player.GetComponent<PlayerController>();
+    }
+
+    public ItemDataBase GetItemDB()
+    {
+        return itemDataBase;
     }
 }

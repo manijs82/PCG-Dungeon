@@ -446,8 +446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1296659070}
-  cam: {fileID: 0}
   generator: {fileID: 1518624283}
+  itemDataBase: {fileID: 11400000, guid: e4d526e3206d3af47981287bedae0e51, type: 2}
   HasKey: 0
 --- !u!4 &153867249
 Transform:
@@ -476,8 +476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859f9f088a744266ae2caee9b840852f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: {fileID: 5252034097917913748, guid: cda5d98db4010c947bca7f2c5b89c027, type: 3}
-  portal: {fileID: 2126392627091993311, guid: 212ca4fa9e5ec6341bf49bd137f205d0, type: 3}
 --- !u!1 &261701028
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +841,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 0
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
