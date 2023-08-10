@@ -5,7 +5,7 @@ public class Room
 {
     public Grid<GridObject> grid;
     public Vector2 startPoint;
-    public List<Vector2> doors;
+    public List<RoomTileObject> doorTiles;
     public Bound bound;
     public EnvironmentType environmentType;
 
@@ -21,7 +21,6 @@ public class Room
         this.height = height;
 
         bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
-        doors = new List<Vector2>();
         environmentType = EnvironmentType.Forest;
     }
     
@@ -32,8 +31,6 @@ public class Room
         height = bound.h;
         this.bound = bound;
         this.environmentType = environmentType;
-        
-        doors = new List<Vector2>();
     }
 
     public Room(Room room)
@@ -42,7 +39,6 @@ public class Room
         width = room.width;
         height = room.height;
         
-        doors = new List<Vector2>();
         bound = new Bound((int)startPoint.x, (int)startPoint.y, width, height);
         environmentType = room.environmentType;
     }

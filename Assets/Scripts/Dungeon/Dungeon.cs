@@ -100,17 +100,14 @@ public class Dungeon : Sample
             var room1 = connection.Start.Value;
             var room2 = connection.End.Value;
             
-            AddDoorsBetweenRooms(room1, room2, out Vector2 door1, out Vector2 door2);
-
-            var startTile = (TileGridObject) grid.GetValue(door1);
-            var endTile = (TileGridObject) grid.GetValue(door2);
-
-            if (startTile == null || endTile == null) return;
+            AddDoorsBetweenRooms(room1, room2, out RoomTileObject door1, out RoomTileObject door2);
             
-            endTile.Type = CellType.Door;
-            endTile.Type = CellType.Door;
+            if (door1 == null || door2 == null) return;
             
-            AStarAlgorithm astar = new AStarAlgorithm(grid, startTile, endTile);
+            door1.Type = CellType.Door;
+            door2.Type = CellType.Door;
+            
+            AStarAlgorithm astar = new AStarAlgorithm(grid, door1, door2);
             astar.PathFindingSearch();
             foreach (var gridObject in astar.path)
             {
@@ -123,21 +120,22 @@ public class Dungeon : Sample
                 }
             }
             
-            SetAsDoor(startTile);
-            SetAsDoor(endTile);
+            SetAsDoor(door1);
+            SetAsDoor(door2);
         }
         
         OnMakeGrids?.Invoke();
     }
 
-    private void AddDoorsBetweenRooms(Room room1, Room room2, out Vector2 door1, out Vector2 door2)
+    private void AddDoorsBetweenRooms(Room room1, Room room2, out RoomTileObject door1, out RoomTileObject door2)
     {
-        door1 = room1.bound.ClosestPointInside(room2.Center);
-        door1 += (room1.Center - door1).normalized / 5;
-        door2 = room2.bound.ClosestPointInside(room1.Center);
-        door2 += (room2.Center - door2).normalized / 5;
-        room1.doors.Add(door1 - room1.startPoint);
-        room2.doors.Add(door2 - room2.startPoint);
+        var door1Pos = room1.bound.ClosestPointInside(room2.Center);
+        door1Pos += (room1.Center - door1Pos).normalized / 5;
+        var door2Pos = room2.bound.ClosestPointInside(room1.Center);
+        door2Pos += (room2.Center - door2Pos).normalized / 5;
+
+        door1 = (RoomTileObject) grid.GetValue(door1Pos);
+        door2 = (RoomTileObject) grid.GetValue(door2Pos);
     }
 
     private void SetAsDoor(TileGridObject tile)
