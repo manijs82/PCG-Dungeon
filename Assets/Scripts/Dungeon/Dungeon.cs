@@ -34,13 +34,7 @@ public class Dungeon : Sample
     public Dungeon(SampleParameters parameters)
     {
         var parms = parameters as DungeonParameters;
-        dungeonParameters = new DungeonParameters
-        {
-            roomCountRange = parms.roomCountRange,
-            roomWidthRange = parms.roomWidthRange,
-            width = parms.width,
-            height = parms.height
-        };
+        dungeonParameters = parms;
         bound = new Bound(0, 0, dungeonParameters.width, dungeonParameters.height);
         AddRandomRooms();
         optimalFitnessValue = rooms.Count / 2f;
@@ -63,9 +57,11 @@ public class Dungeon : Sample
             roomCount = Generator.dungeonRnd.Next(dungeonParameters.roomCountRange.x, dungeonParameters.roomCountRange.y);
         for (int i = 0; i < roomCount; i++)
         {
-            Vector2 point = new Vector2(Generator.dungeonRnd.Next(0, dungeonParameters.width), Generator.dungeonRnd.Next(0, dungeonParameters.height));
-            Room room = new Room(point, Generator.dungeonRnd.Next(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y),
+            Room room = new Room(Vector2.zero, Generator.dungeonRnd.Next(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y),
                 Generator.dungeonRnd.Next(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y));
+            Vector2 point = new Vector2Int(Generator.dungeonRnd.Next(0, dungeonParameters.width - room.bound.w / 2),
+                Generator.dungeonRnd.Next(0, dungeonParameters.height - room.bound.h / 2));;
+            room.ChangePosition(point);
 
             rooms.Add(room);
         }
@@ -172,8 +168,8 @@ public class Dungeon : Sample
             Vector2 newStartPoint;
             if (DoesCollideWithOtherRooms(rooms[i]))
             {
-                newStartPoint = new Vector2Int(Generator.dungeonRnd.Next(rooms[i].bound.w / 2, dungeonParameters.width - rooms[i].bound.w / 2),
-                    Generator.dungeonRnd.Next(rooms[i].bound.h / 2, dungeonParameters.height - rooms[i].bound.h / 2));
+                newStartPoint = new Vector2Int(Generator.dungeonRnd.Next(0, dungeonParameters.width - rooms[i].bound.w / 2),
+                    Generator.dungeonRnd.Next(0, dungeonParameters.height - rooms[i].bound.h / 2));
             }
             else
             {
@@ -202,6 +198,12 @@ public class Dungeon : Sample
         }
 
         return false;
+    }
+    
+    private bool IsOutsideDungeon(Room room)
+    {
+        return !Bound.Inside(room.bound,
+            new Bound(0, 0, dungeonParameters.width, dungeonParameters.height));
     }
 
     public override float Evaluate()
