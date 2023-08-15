@@ -43,6 +43,9 @@ public class TileMapVisual : DungeonVisualizer
 
     private TileChangeData GetTileData(Vector3Int pos, TileGridObject tile)
     {
+        float noise = Mathf.PerlinNoise((tile.x + perlinOffset) * perlinScale, (tile.y + perlinOffset) * perlinScale);
+        noise = Mathf.Round(noise / perlinSnapInterval) * perlinSnapInterval;
+        
         TileChangeData data = new TileChangeData();
         data.position = pos;
         if (tile is RoomTileObject roomTile)
@@ -50,27 +53,28 @@ public class TileMapVisual : DungeonVisualizer
             switch (roomTile.environmentType)
             {
                 case EnvironmentType.Forest:
+                    data.color = tile.Type == CellType.Wall ? Color.white : Color.Lerp(color1, color2, noise);
                     data.tile = environmentSet.GetTile(tile.Type);
                     break;
                 case EnvironmentType.Room:
+                    data.color = Color.white;
                     data.tile = dungeonSet.GetTile(tile.Type);
                     break;
                 case EnvironmentType.Set:
+                    data.color = Color.white;
                     data.tile = sideSet.GetTile(tile.Type);
                     break;
                 case EnvironmentType.SetTwo:
+                    data.color = Color.white;
                     data.tile = sideTwoSet.GetTile(tile.Type);
                     break;
             }
-            data.color = Color.white;
         }
         else
         {
             data.tile = hallwaySet.GetTile(tile.Type);
             if (tile.Type == CellType.Empty)
             {
-                float noise = Mathf.PerlinNoise((tile.x + perlinOffset) * perlinScale, (tile.y + perlinOffset) * perlinScale);
-                noise = Mathf.Round(noise / perlinSnapInterval) * perlinSnapInterval;
                 data.color = Color.Lerp(color1, color2, noise);
             }
             else

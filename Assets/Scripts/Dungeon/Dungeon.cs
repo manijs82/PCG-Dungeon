@@ -59,8 +59,8 @@ public class Dungeon : Sample
         {
             Room room = new Room(Vector2.zero, Generator.dungeonRnd.Next(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y),
                 Generator.dungeonRnd.Next(dungeonParameters.roomWidthRange.x, dungeonParameters.roomWidthRange.y));
-            Vector2 point = new Vector2Int(Generator.dungeonRnd.Next(0, dungeonParameters.width - room.bound.w / 2),
-                Generator.dungeonRnd.Next(0, dungeonParameters.height - room.bound.h / 2));;
+            Vector2 point = new Vector2Int(Generator.dungeonRnd.Next(0, dungeonParameters.width - room.bound.w),
+                Generator.dungeonRnd.Next(0, dungeonParameters.height - room.bound.h));;
             room.ChangePosition(point);
 
             rooms.Add(room);
@@ -134,11 +134,13 @@ public class Dungeon : Sample
         door2 = (RoomTileObject) grid.GetValue(door2Pos);
     }
 
-    private void SetAsDoor(TileGridObject tile)
+    private void SetAsDoor(RoomTileObject tile)
     {
         tile.Type = CellType.Door;
 
-        var walls = grid.Get4Neighbors(tile, true).Where(t => ((TileGridObject)t).Type == CellType.Wall && t is RoomTileObject).ToList();
+        
+        var walls = grid.Get4Neighbors(tile, true).
+            Where(t => t is RoomTileObject { Type: CellType.Wall } tr && tr.room == tile.room).ToList();
         var secondDoor = (TileGridObject) walls[Generator.dungeonRnd.Next(0, walls.Count - 1)];
         secondDoor.Type = CellType.Door;
     }
@@ -168,8 +170,8 @@ public class Dungeon : Sample
             Vector2 newStartPoint;
             if (DoesCollideWithOtherRooms(rooms[i]))
             {
-                newStartPoint = new Vector2Int(Generator.dungeonRnd.Next(0, dungeonParameters.width - rooms[i].bound.w / 2),
-                    Generator.dungeonRnd.Next(0, dungeonParameters.height - rooms[i].bound.h / 2));
+                newStartPoint = new Vector2Int(Generator.dungeonRnd.Next(0, dungeonParameters.width - rooms[i].bound.w),
+                    Generator.dungeonRnd.Next(0, dungeonParameters.height - rooms[i].bound.h));
             }
             else
             {

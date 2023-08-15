@@ -816,7 +816,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.12941177, g: 0.02745098, b: 0.02745098, a: 0}
+  m_BackGroundColor: {r: 0.02745098, g: 0.13333334, b: 0.043137256, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -841,7 +841,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1332,39 +1332,33 @@ MonoBehaviour:
         weight: 1
     wallTileSet:
       list:
+      - element: {fileID: 11400000, guid: b782d9bbb2991204f95339cb97793b66, type: 2}
+        weight: 30
       - element: {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
         weight: 1
     groundTileSet:
       list:
-      - element: {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
+      - element: {fileID: 11400000, guid: 339fa39fe57b46943ac4846264484019, type: 2}
         weight: 1
-      - element: {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
+      - element: {fileID: 11400000, guid: 9f8846d7fd4df3e4f9717eca8d3cf2de, type: 2}
+        weight: 10
+      - element: {fileID: 11400000, guid: 690352e85a97005469f57c9c774c63e4, type: 2}
         weight: 1
-      - element: {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
+      - element: {fileID: 11400000, guid: f62dce75c232c71448208983f5e2162a, type: 2}
         weight: 1
-      - element: {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+      - element: {fileID: 11400000, guid: 3e2215d390a84d042831ee0065c43cf5, type: 2}
         weight: 1
     doorTileSet:
       list:
-      - element: {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
+      - element: {fileID: 11400000, guid: 339fa39fe57b46943ac4846264484019, type: 2}
         weight: 1
-      - element: {fileID: 11400000, guid: b52ad3945c7d3424598f3bdb6350cf02, type: 2}
+      - element: {fileID: 11400000, guid: 9f8846d7fd4df3e4f9717eca8d3cf2de, type: 2}
+        weight: 10
+      - element: {fileID: 11400000, guid: 690352e85a97005469f57c9c774c63e4, type: 2}
         weight: 1
-      - element: {fileID: 11400000, guid: 9e0d875835f51434a9bffaad1cdaa1f0, type: 2}
+      - element: {fileID: 11400000, guid: f62dce75c232c71448208983f5e2162a, type: 2}
         weight: 1
-      - element: {fileID: 11400000, guid: aa009f26f4d94bf48a025f661afac443, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: ab9e5f537f37edc4ab90ffebc7f23d9d, type: 2}
+      - element: {fileID: 11400000, guid: 3e2215d390a84d042831ee0065c43cf5, type: 2}
         weight: 1
   sideSet:
     emptyTileSet:
@@ -1413,7 +1407,29 @@ MonoBehaviour:
   hallwaySet:
     emptyTileSet:
       list:
-      - element: {fileID: 11400000, guid: a5292c2c18b9a7c4bb95488aaa529178, type: 2}
+      - element: {fileID: 11400000, guid: 339fa39fe57b46943ac4846264484019, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: 9f8846d7fd4df3e4f9717eca8d3cf2de, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: 690352e85a97005469f57c9c774c63e4, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: f62dce75c232c71448208983f5e2162a, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: 3e2215d390a84d042831ee0065c43cf5, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: 03b36f3333b43ca44b8ab05d95022042, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: 09117bc4ca5be8c4fa6230fed795761d, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: 5d9a4a2bd91623f4793cc1af3a94a0aa, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: fd10e8a245cdf994899c935e317f4d68, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: f04295e20dc46504cbcdbd49268642f3, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: d83c30488bd59f64087a0969917fec2b, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: 49844ab1f4935db4f9eb3e67cbae95c2, type: 2}
         weight: 1
     wallTileSet:
       list:
@@ -1440,7 +1456,7 @@ MonoBehaviour:
       - element: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
         weight: 1
   color1: {r: 0, g: 0, b: 0, a: 1}
-  color2: {r: 0.26415092, g: 0.05357778, b: 0.05357778, a: 1}
+  color2: {r: 0, g: 0.85098046, b: 0.11764707, a: 1}
   perlinSnapInterval: 0.25
   perlinScale: 0.1
 --- !u!19719996 &752770667
@@ -2202,7 +2218,7 @@ MonoBehaviour:
   block: {fileID: 1945557593758944803, guid: c2a66e2c7b781ae409c757021abc0f3b, type: 3}
   dungeonParameters:
     roomCountRange: {x: 35, y: 35}
-    roomWidthRange: {x: 10, y: 30}
+    roomWidthRange: {x: 10, y: 20}
     width: 150
     height: 150
     roomTypeLayout: 0

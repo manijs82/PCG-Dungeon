@@ -21,7 +21,7 @@ public class DecorationVolume
     public void Init(Room room)
     {
         decorationObjectSource = Resources.Load<DecorationObjectSource>("ObjectSource");
-        partition = new Grid<RoomTileObject>(room.bound.w - 2, room.bound.h - 2, 1f, GetDefaultTileObject,
+        partition = new Grid<RoomTileObject>(room.bound.w - 2, room.bound.h - 2, 1f, (_, x, y) => GetDefaultTileObject(x, y, room),
             room.startPoint + Vector2.one);
 
         currentPlacementSettings = decorationObjectSource.objects[0].placementSettings;
@@ -43,9 +43,9 @@ public class DecorationVolume
             neighbor.tileState = TileState.Ready;
     }
 
-    private RoomTileObject GetDefaultTileObject(Grid<RoomTileObject> grid, int x, int y)
+    private RoomTileObject GetDefaultTileObject(int x, int y, Room room)
     {
-        return new RoomTileObject(x, y, CellType.Ground, TileState.Free);
+        return new RoomTileObject(x, y, CellType.Ground, room);
     }
 
     private bool HasFreeNeighbors(Grid<RoomTileObject> grid, int x, int y)
