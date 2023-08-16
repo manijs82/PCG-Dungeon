@@ -14,7 +14,6 @@ public class Generator : MonoBehaviour
     [SerializeField] private bool randomSeed;
     [Range(100000, 1000000000)]
     [SerializeField] private int seed = 123454321;
-    [SerializeField] private GameObject block;
     [SerializeField] private DungeonParameters dungeonParameters;
 
     private Dungeon candidateDungeon;
