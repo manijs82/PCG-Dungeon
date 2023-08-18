@@ -10,4 +10,5 @@ public class DungeonParameters : SampleParameters
     public int height;
     [Space] 
     public RoomTypeLayout roomTypeLayout;
+    public RiverProperties riverProperties;
 }

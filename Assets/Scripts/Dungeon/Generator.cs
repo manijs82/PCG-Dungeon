@@ -33,6 +33,7 @@ public class Generator : MonoBehaviour
         FindBestDungeon();
         ConstructDungeonGraph();
         RoomDecorator.GenerateRoomTypes(candidateDungeon);
+        River.GenerateRiver(candidateDungeon, dungeonParameters.riverProperties);
         
         candidateDungeon.MakeGridOutOfRooms();
         OnDungeonGenerated?.Invoke(candidateDungeon);

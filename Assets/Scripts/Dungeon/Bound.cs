@@ -49,4 +49,10 @@ public struct Bound
                rect1.x >= rect2.x &&
                rect1.y >= rect2.y;
     }
+    
+    public static bool Inside(Vector2 point, Bound bound)
+    {
+        return point.x > bound.x && point.x < bound.XPW &&
+               point.y > bound.y && point.y < bound.YPH;
+    }
 }

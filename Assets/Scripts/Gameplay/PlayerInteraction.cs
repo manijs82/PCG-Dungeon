@@ -6,7 +6,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Interact();
+            //Interact();
         }
     }
 
