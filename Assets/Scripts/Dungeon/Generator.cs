@@ -33,9 +33,8 @@ public class Generator : MonoBehaviour
         FindBestDungeon();
         ConstructDungeonGraph();
         RoomDecorator.GenerateRoomTypes(candidateDungeon);
-        River.GenerateRiver(candidateDungeon, dungeonParameters.riverProperties);
         
-        candidateDungeon.MakeGridOutOfRooms();
+        candidateDungeon.MakeGrid();
         OnDungeonGenerated?.Invoke(candidateDungeon);
         
         print(candidateDungeon.fitnessValue);
@@ -47,7 +46,7 @@ public class Generator : MonoBehaviour
         dungeonRnd = new Random(seed - 50);
         tileRnd = new Random(seed + 50);
         candidateDungeon = dungeon;
-        candidateDungeon.MakeGridOutOfRooms();
+        candidateDungeon.MakeGrid();
         OnDungeonGenerated?.Invoke(candidateDungeon);
     }
 

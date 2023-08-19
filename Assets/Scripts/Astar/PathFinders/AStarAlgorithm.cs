@@ -21,4 +21,3 @@ public class AStarAlgorithm : DijkstrasAlgorithm
         return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
     }
 }
-    

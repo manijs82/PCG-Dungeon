@@ -40,7 +40,7 @@ namespace Editor
             if (!hasDungeon) return;
             if (GUILayout.Button("ReloadVisuals"))
             {
-                dungeon.MakeGridOutOfRooms();
+                dungeon.MakeGrid();
             }
 
             if (GUILayout.Button("Edit Rooms"))

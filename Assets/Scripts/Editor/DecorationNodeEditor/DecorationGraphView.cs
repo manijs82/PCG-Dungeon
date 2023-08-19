@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using PortDirection = UnityEditor.Experimental.GraphView.Direction;
 
 namespace Editor
 {
@@ -195,10 +196,10 @@ namespace Editor
             return null;
         }
 
-        private UnityEditor.Experimental.GraphView.Edge ConnectNodes(Node from, Node to)
+        private Edge ConnectNodes(Node from, Node to)
         {
-            var outPort = AddPort(from, Direction.Output);
-            var inPort = AddPort(to, Direction.Input);
+            var outPort = AddPort(from, PortDirection.Output);
+            var inPort = AddPort(to, PortDirection.Input);
             return outPort.ConnectTo(inPort);
         }
 
@@ -217,14 +218,14 @@ namespace Editor
             }
         }
 
-        private Port AddPort(Node node, Direction portDirection)
+        private Port AddPort(Node node, PortDirection portDirection)
         {
             var port = node.InstantiatePort(Orientation.Horizontal, portDirection, Port.Capacity.Multi, typeof(float));
             port.portName = portDirection.ToString();
             
-            if(portDirection == Direction.Input)
+            if(portDirection == PortDirection.Input)
                 node.inputContainer.Add(port);
-            if(portDirection == Direction.Output)
+            if(portDirection == PortDirection.Output)
                 node.outputContainer.Add(port);
             
             port.capabilities -= Capabilities.Copiable;
