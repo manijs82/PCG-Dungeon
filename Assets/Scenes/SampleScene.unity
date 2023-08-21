@@ -1332,7 +1332,7 @@ MonoBehaviour:
         weight: 1
     wallTileSet:
       list:
-      - element: {fileID: 11400000, guid: b782d9bbb2991204f95339cb97793b66, type: 2}
+      - element: {fileID: 11400000, guid: be781aaccb9e3ff4f913df6e618f3738, type: 2}
         weight: 30
       - element: {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
         weight: 1
@@ -1454,6 +1454,31 @@ MonoBehaviour:
     doorTileSet:
       list:
       - element: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
+        weight: 1
+  riverSet:
+    emptyTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 189980c6051b70c44bee00079a3ef9eb, type: 2}
+        weight: 10
+      - element: {fileID: 11400000, guid: b8d8424e3ce55314f871eb701334a23d, type: 2}
+        weight: 1
+    wallTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 9b959328a49e7de4382dea5bce4c2236, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: b782d9bbb2991204f95339cb97793b66, type: 2}
+        weight: 1
+    groundTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 9b959328a49e7de4382dea5bce4c2236, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: b782d9bbb2991204f95339cb97793b66, type: 2}
+        weight: 1
+    doorTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 189980c6051b70c44bee00079a3ef9eb, type: 2}
+        weight: 10
+      - element: {fileID: 11400000, guid: b8d8424e3ce55314f871eb701334a23d, type: 2}
         weight: 1
   color1: {r: 0, g: 0, b: 0, a: 1}
   color2: {r: 0, g: 0.85098046, b: 0.11764707, a: 1}
@@ -2222,10 +2247,10 @@ MonoBehaviour:
     height: 150
     roomTypeLayout: 1
     riverProperties:
-      thickness: 5
-      distanceFromRoom: 40
-      randomDistanceOffset: 8
-      samplingDensity: 20
+      thickness: 2
+      distanceFromRoom: 75
+      randomDistanceOffset: 5
+      samplingDensity: 50
 --- !u!4 &1518624284
 Transform:
   m_ObjectHideFlags: 0
@@ -2400,6 +2425,15 @@ MonoBehaviour:
     doorTileSet:
       list: []
   hallwaySet:
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
+  riverSet:
     emptyTileSet:
       list: []
     wallTileSet:

@@ -11,6 +11,7 @@ public class TileMapVisual : DungeonVisualizer
     [SerializeField] private TileSet sideSet;
     [SerializeField] private TileSet sideTwoSet;
     [SerializeField] private TileSet hallwaySet;
+    [SerializeField] private TileSet riverSet;
 
     [SerializeField] private Color color1;
     [SerializeField] private Color color2;
@@ -69,6 +70,11 @@ public class TileMapVisual : DungeonVisualizer
                     data.tile = sideTwoSet.GetTile(tile.Type);
                     break;
             }
+        }
+        else if (tile is RiverTileObject)
+        {
+            data.color = Color.white;
+            data.tile = riverSet.GetTile(tile.Type);
         }
         else
         {

@@ -103,6 +103,23 @@ public class Dungeon : Sample
 
         return closestRoom;
     }
+
+    public Node<Room> GetRandomCornerRoom()
+    {
+        int cornerIndex = Generator.dungeonRnd.Next(0, 3);
+        switch (cornerIndex)
+        {
+            case 0:
+                return GetClosestRoomToPos(bound.BottomLeft);
+            case 1:
+                return GetClosestRoomToPos(bound.BottomRight);
+            case 2:
+                return GetClosestRoomToPos(bound.TopLeft);
+            case 3:
+                return GetClosestRoomToPos(bound.TopRight);
+        }
+        return GetClosestRoomToPos(bound.BottomLeft);
+    }
     
     public Node<Room> GetRoomContainingPoint(Vector2 point)
     {
@@ -116,7 +133,7 @@ public class Dungeon : Sample
             rooms.Remove(room.Value);
     }
 
-    public void RemoveRoomsCollidingWithSpline(Spline spline, float thickness)
+    public void RemoveRoomsCollidingWithSpline(Spline spline, float thickness, bool reconnectNeighbors = false)
     {
         var nodesToRemove = new List<Node<Room>>(); 
 
@@ -133,8 +150,14 @@ public class Dungeon : Sample
             nodesToRemove.Add(node);
         }
         
-        foreach (var node in nodesToRemove) 
+        foreach (var node in nodesToRemove)
+        {
+            if (node.Neighbors.Count >= 2)
+            {
+                roomGraph.AddEdge(node.Neighbors[0], node.Neighbors[1]);
+            }
             roomGraph.RemoveNode(node);
+        }
     }
 
     public override void Mutate()

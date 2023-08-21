@@ -12,6 +12,10 @@ public struct Bound
     public Vector2 Extents => new Vector2(w / 2f, h / 2f);
     public Vector2 Start => new Vector2(x, y);
     public Vector2 Center => Start + Extents;
+    public Vector2 BottomLeft => new Vector2(x, y);
+    public Vector2 BottomRight => new Vector2(XPW, y);
+    public Vector2 TopLeft => new Vector2(x, YPH);
+    public Vector2 TopRight => new Vector2(XPW, YPH);
     public int XPW => x + w;
     public int YPH => y + h;
 

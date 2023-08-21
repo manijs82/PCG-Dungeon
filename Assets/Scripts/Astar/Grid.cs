@@ -69,13 +69,13 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
     public Vector3 GetWorldPosition(int x, int y) => new Vector3(x, y) * cellSize + origin;
 
-    private void GetXY(Vector3 pos, out int x, out int y)
+    public void GetGridPosition(Vector3 pos, out int x, out int y)
     {
         x = Mathf.FloorToInt((pos - origin).x / cellSize);
         y = Mathf.FloorToInt((pos - origin).y / cellSize);
     }
     
-    private Vector3 GetXY(Vector3 pos)
+    public Vector2 GetGridPosition(Vector3 pos)
     {
         float x = Mathf.FloorToInt((pos - origin).x / cellSize);
         float y = Mathf.FloorToInt((pos - origin).y / cellSize);
@@ -94,8 +94,20 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
     public void SetValue(Vector3 worldPos, TGridObject value)
     {
-        GetXY(worldPos, out var x, out var y);
+        GetGridPosition(worldPos, out var x, out var y);
         SetValue(x, y, value);
+    }
+    
+    public void SetValue(int x, int y, Bound extents, Func<int, int, TGridObject> createGridObject)
+    {
+        for (int i = x - extents.x; i <= x + extents.w; i++)
+        {
+            for (int j = y - extents.y; j <= y + extents.h; j++)
+            {
+                if (!HasValue(i, j)) continue;
+                SetValue(i, j, createGridObject(i, j));
+            }
+        }
     }
 
     public TGridObject GetValue(int x, int y)
@@ -110,7 +122,7 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
     public TGridObject GetValue(Vector3 worldPos)
     {
-        GetXY(worldPos, out var x, out var y);
+        GetGridPosition(worldPos, out var x, out var y);
         return GetValue(x, y);
     }
 
