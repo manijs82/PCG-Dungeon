@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Mani;
 using Mani.Graph;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -133,7 +134,7 @@ public class Dungeon : Sample
             rooms.Remove(room.Value);
     }
 
-    public void RemoveRoomsCollidingWithSpline(Spline spline, float thickness, bool reconnectNeighbors = false)
+    public void RemoveRoomsCollidingWithSpline(Spline spline, int thickness, bool reconnectNeighbors = false)
     {
         var nodesToRemove = new List<Node<Room>>(); 
 
@@ -141,18 +142,22 @@ public class Dungeon : Sample
         for (int i = 0; i < division; i++)
         {
             float t = i / (division - 1f);
-            var pos = spline.EvaluatePosition(t);
+            spline.Evaluate(t, out float3 position, out float3 tangent, out float3 upVector);
+
+            for (int j = -thickness; j <= thickness; j++)
+            {
+                float3 pointAlongTangent = position + tangent * j;
+                var node = GetRoomContainingPoint(new Vector2(pointAlongTangent.x, pointAlongTangent.y));
+                if(node == null) continue;
+                if(nodesToRemove.Contains(node)) continue;
             
-            var node = GetRoomContainingPoint(new Vector2(pos.x, pos.y));
-            if(node == null) continue;
-            if(nodesToRemove.Contains(node)) continue;
-            
-            nodesToRemove.Add(node);
+                nodesToRemove.Add(node);
+            }
         }
         
         foreach (var node in nodesToRemove)
         {
-            if (node.Neighbors.Count >= 2)
+            if (node.Neighbors.Count >= 2 && reconnectNeighbors)
             {
                 roomGraph.AddEdge(node.Neighbors[0], node.Neighbors[1]);
             }

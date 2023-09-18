@@ -20,8 +20,10 @@ public class River : GridDecorator
     
     public override void Decorate(Grid<GridObject> grid)
     {
+        if (!riverProperties.generateRiver) return;
+        
         GenerateRiverSpline();
-        dungeon.RemoveRoomsCollidingWithSpline(riverSpline, riverProperties.thickness);
+        dungeon.RemoveRoomsCollidingWithSpline(riverSpline, riverProperties.thickness, true);
         
         int division = (int) riverSpline.GetLength();
         for (int i = 0; i < division; i++)
@@ -76,6 +78,7 @@ public class River : GridDecorator
 [System.Serializable]
 public struct RiverProperties
 {
+    public bool generateRiver;
     public int thickness;
     public int distanceFromRoom;
     public int randomDistanceOffset;

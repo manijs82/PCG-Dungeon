@@ -30,10 +30,10 @@ public static class RoomDecorator
                 foreach (var node in path)
                 {
                     node.Value.environmentType = EnvironmentType.Room;
-                    dungeon.roomGraph.RemoveNode(node);
+                    copy.RemoveNode(node);
                 }
 
-                foreach (var island in dungeon.roomGraph.GetIslands(false))
+                foreach (var island in copy.GetIslands(false, false))
                 {
                     EnvironmentType islandType = Generator.dungeonRnd.Next(0, 10) > 5 ? EnvironmentType.Set : EnvironmentType.SetTwo;
                     foreach (var node in island.Nodes)
@@ -44,7 +44,7 @@ public static class RoomDecorator
 
                 dungeon.startRoom = startNode.Value;
                 dungeon.endRoom = endNode.Value;
-                dungeon.roomGraph = copy;
+                //dungeon.roomGraph = copy;
                 break;
             case RoomTypeLayout.GrassOnly:
                 startNode = dungeon.GetClosestRoomToPos(Vector2.zero);

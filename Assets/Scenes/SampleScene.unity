@@ -2247,9 +2247,10 @@ MonoBehaviour:
     height: 150
     roomTypeLayout: 0
     riverProperties:
+      generateRiver: 0
       thickness: 2
-      distanceFromRoom: 75
-      randomDistanceOffset: 5
+      distanceFromRoom: 65
+      randomDistanceOffset: 2
       samplingDensity: 50
 --- !u!4 &1518624284
 Transform:
@@ -2279,16 +2280,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeHierarchy: {fileID: 0}
-  showRoomGraphPath: 1
+  showRoomGraphPath: 0
   graphColor: {r: 1, g: 1, b: 1, a: 1}
-  showRoomIndex: 0
+  showRoomIndex: 1
   textColor: {r: 0.98039216, g: 0.93333334, b: 0.03137255, a: 1}
   showRoomArrayPath: 0
   arrayColor: {r: 0, g: 1, b: 0, a: 1}
   showDoors: 0
   doorColor: {r: 1, g: 0, b: 0, a: 1}
   showDungeonOutline: 0
-  showRoomOutline: 0
+  showRoomOutline: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   showPDV: 0
   showGridTiles: 0
