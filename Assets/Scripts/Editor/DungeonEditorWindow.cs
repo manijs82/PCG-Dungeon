@@ -1,5 +1,8 @@
 ﻿using UnityEditor;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using Utils;
 
 namespace Editor
 {
@@ -9,6 +12,12 @@ namespace Editor
         private bool hasDungeon;
         private bool isEditingRooms;
         private Vector3[] roomPositions;
+        [SerializeField] private string screenshotPath;
+        [SerializeField] private Tilemap tilemapToCapture;
+
+        private SerializedObject so;
+        private SerializedProperty screenshotPathProperty;
+        private SerializedProperty tilemapToCaptureProperty;
 
         [MenuItem("PCG_Dungeon/Editor")]
         private static void ShowWindow()
@@ -20,6 +29,12 @@ namespace Editor
 
         private void OnEnable()
         {
+            screenshotPath = EditorPrefs.GetString("ScreenshotPath", "C:/");
+            
+            so = new SerializedObject(this);
+            screenshotPathProperty = so.FindProperty("screenshotPath");
+            tilemapToCaptureProperty = so.FindProperty("tilemapToCapture");
+            
             SceneView.duringSceneGui += OnSceneView;
             Generator.OnDungeonGenerated += d =>
             {
@@ -30,14 +45,29 @@ namespace Editor
 
         private void OnGUI()
         {
+            so.Update();
+            
+            EditorGUILayout.PropertyField(screenshotPathProperty);
+            EditorGUILayout.PropertyField(tilemapToCaptureProperty);
+
+            so.ApplyModifiedProperties();
+            
+            EditorGUILayout.Space();
+            
             if (!Application.isPlaying || dungeon == null)
             {
                 hasDungeon = false;
                 isEditingRooms = false;
                 return;
             }
-
             if (!hasDungeon) return;
+            
+            if (GUILayout.Button("TakeScreenshot"))
+            {
+                if(tilemapToCapture != null)
+                    ScreenshotUtils.TakeScreenShot(dungeon, tilemapToCapture, screenshotPath);
+            }
+
             if (GUILayout.Button("ReloadVisuals"))
             {
                 dungeon.MakeGrid();
@@ -45,9 +75,9 @@ namespace Editor
 
             if (GUILayout.Button("Edit Rooms"))
             {
-                roomPositions = new Vector3[dungeon.rooms.Count];
+                roomPositions = new Vector3[dungeon.roomGraph.NodeCount];
                 for (int i = 0; i < roomPositions.Length; i++) 
-                    roomPositions[i] = dungeon.rooms[i].startPoint;
+                    roomPositions[i] = dungeon.roomGraph.Nodes[i].Value.startPoint;
                 isEditingRooms = !isEditingRooms;
             }
         }
@@ -64,6 +94,11 @@ namespace Editor
                         dungeon.rooms[i].ChangePosition(roomPositions[i]);
                 }
             }
+        }
+
+        private void OnDisable()
+        {
+            EditorPrefs.SetString("ScreenshotPath", screenshotPath);
         }
     }
 }

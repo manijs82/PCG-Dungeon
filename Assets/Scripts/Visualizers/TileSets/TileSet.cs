@@ -10,6 +10,19 @@ public class TileSet
     public ProbabilityList<TileBase> wallTileSet;
     public ProbabilityList<TileBase> groundTileSet;
     public ProbabilityList<TileBase> doorTileSet;
+
+    public virtual TileChangeData GetTileData(CellType cellType, Vector3Int position)
+    {
+        TileChangeData data = new TileChangeData
+        {
+            position = position,
+            tile = GetTile(cellType),
+            color = Color.white,
+            transform = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one)
+        };
+
+        return data;
+    }
     
     public TileBase GetTile(CellType cellType)
     {

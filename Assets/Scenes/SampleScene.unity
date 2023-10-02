@@ -841,7 +841,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2245,7 +2245,7 @@ MonoBehaviour:
     roomWidthRange: {x: 10, y: 20}
     width: 150
     height: 150
-    roomTypeLayout: 0
+    roomTypeLayout: 1
     riverProperties:
       generateRiver: 0
       thickness: 2
