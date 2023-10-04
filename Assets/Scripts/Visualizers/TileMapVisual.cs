@@ -58,23 +58,19 @@ public class TileMapVisual : DungeonVisualizer
                     data.tile = environmentSet.GetTile(tile.Type);
                     break;
                 case EnvironmentType.Room:
-                    data.color = Color.white;
-                    data.tile = dungeonSet.GetTile(tile.Type);
+                    data = dungeonSet.GetTileData(tile.Type, pos);
                     break;
                 case EnvironmentType.Set:
-                    data.color = Color.white;
-                    data.tile = sideSet.GetTile(tile.Type);
+                    data = sideSet.GetTileData(tile.Type, pos);
                     break;
                 case EnvironmentType.SetTwo:
-                    data.color = Color.white;
-                    data.tile = sideTwoSet.GetTile(tile.Type);
+                    data = sideTwoSet.GetTileData(tile.Type, pos);
                     break;
             }
         }
         else if (tile is RiverTileObject)
         {
-            data.color = Color.white;
-            data.tile = riverSet.GetTile(tile.Type);
+            data = riverSet.GetTileData(tile.Type, pos);
         }
         else
         {

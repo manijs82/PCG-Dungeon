@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using Utils;
 
@@ -24,7 +23,7 @@ public class TileSet
         return data;
     }
     
-    public TileBase GetTile(CellType cellType)
+    public virtual TileBase GetTile(CellType cellType)
     {
         switch (cellType)
         {
@@ -40,7 +39,7 @@ public class TileSet
         }
     }
 
-    private TileBase GetRandomTile(ProbabilityList<TileBase> set)
+    protected virtual TileBase GetRandomTile(ProbabilityList<TileBase> set)
     {
         return set.GetWeightedRandomElement();
     }
