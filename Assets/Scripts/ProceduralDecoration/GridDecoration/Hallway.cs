@@ -31,20 +31,29 @@ public class Hallway : GridDecorator
             astar.PathFindingSearch();
             foreach (var gridObject in astar.path)
             {
-                var tile = (TileGridObject)gridObject;
-                tile.Type = CellType.Ground;
-                foreach (var neighbor in grid.Get8Neighbors(tile))
-                {
-                    var n = (TileGridObject)neighbor;
-                    if (n.Type == CellType.Empty) n.Type = CellType.Wall;
-                }
+                SetAsHallwayTile(grid, gridObject);
             }
             
             SetAsDoor(door1);
             SetAsDoor(door2);
         }
     }
-    
+
+    private static void SetAsHallwayTile(Grid<GridObject> grid, GridObject gridObject)
+    {
+        var tile = new HallwayTileObject(gridObject.x, gridObject.y, CellType.Ground);
+        if (gridObject is RiverTileObject)
+            tile.isOverRiver = true;
+        
+        foreach (var neighbor in grid.Get8Neighbors(tile))
+        {
+            var n = (TileGridObject)neighbor;
+            if (n.Type == CellType.Empty) n.Type = CellType.Wall;
+        }
+        
+        grid.SetValue(tile.x, tile.y, tile);
+    }
+
     private void AddDoorsBetweenRooms(Room room1, Room room2, out RoomTileObject door1, out RoomTileObject door2)
     {
         var door1Pos = room1.bound.ClosestPointInside(room2.Center);
