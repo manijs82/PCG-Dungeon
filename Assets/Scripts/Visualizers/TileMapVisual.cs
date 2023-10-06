@@ -71,7 +71,7 @@ public class TileMapVisual : DungeonVisualizer
         {
             data = riverSet.GetTileData(tile.Type, pos);
         }
-        else if (tile is HallwayTileObject)
+        else
         {
             data.tile = hallwaySet.GetTile(tile.Type);
             if (tile.Type == CellType.Empty)
