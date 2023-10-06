@@ -15,7 +15,7 @@ public class Dungeon : Sample
     public Room startRoom;
     public Room endRoom;
     public Graph<Room> roomGraph;
-    public Grid<GridObject> grid;
+    public DungeonGrid<GridObject> grid;
     public DungeonParameters dungeonParameters;
     public Bound bound;
 
@@ -71,18 +71,23 @@ public class Dungeon : Sample
 
     public void MakeGrid()
     {
-        grid = new Grid<GridObject>(dungeonParameters.width, dungeonParameters.height, 1,
+        grid = new DungeonGrid<GridObject>(dungeonParameters.width, dungeonParameters.height, 1,
             (_, x, y) => new TileGridObject(x, y, CellType.Empty));
         
         new River(this).Decorate(grid);
 
-        foreach (var roomNode in roomGraph.Nodes)
-        {
-            roomNode.Value.InitializeGrid();
-            grid.PlaceGridOnGrid(roomNode.Value.bound.x, roomNode.Value.bound.y, roomNode.Value.grid);
-        }
+        new RoomGrid(roomGraph).Decorate(grid);
 
         new Hallway(roomGraph).Decorate(grid);
+        
+        foreach (var gridObject in grid.GridObjects)
+        {
+            if (gridObject is not RiverTileObject && gridObject is not RoomTileObject &&
+                gridObject is not HallwayTileObject)
+            {
+                grid.backgroundTiles.Add((TileGridObject) gridObject);
+            }
+        }
         
         OnMakeGrids?.Invoke();
     }

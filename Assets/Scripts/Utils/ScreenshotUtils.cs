@@ -8,11 +8,10 @@ namespace Utils
 {
     public static class ScreenshotUtils
     {
-        public static void TakeScreenShot(Dungeon dungeon, Tilemap tilemap, string path)
+        public static void TakeScreenShot(Dungeon dungeon, Tilemap tilemap, int pixelPerUnit, string path)
         {
             int dungeonWidth = dungeon.dungeonParameters.width;
             int dungeonHeight = dungeon.dungeonParameters.width;
-            int pixelPerUnit = 24;
 
             Texture2D texture = new Texture2D(dungeonWidth * pixelPerUnit, dungeonHeight * pixelPerUnit);
             texture.filterMode = FilterMode.Point;

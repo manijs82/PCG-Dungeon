@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +51,7 @@ public class Room
         bound.y = (int)newPos.y;
     }
 
-    public void InitializeGrid()
+    public void MakeGrid(Action<RoomTileObject> actionPerTile)
     {
         grid = new Grid<GridObject>(bound.w, bound.h, 1,
             (_, x, y) => new RoomTileObject(x, y, CellType.Empty, this), startPoint);
@@ -60,8 +61,10 @@ public class Room
             for (int y = 0; y < bound.h; y++)
             {
                 var isWall = x == 0 || y == 0 || x == bound.w - 1 || y == bound.h - 1;
-                grid.SetValue(x, y, new RoomTileObject(x + bound.x, y + bound.y,
-                    isWall ? CellType.Wall : CellType.Ground, this, TileState.Free, environmentType));
+                var roomTile = new RoomTileObject(x + bound.x, y + bound.y,
+                    isWall ? CellType.Wall : CellType.Ground, this, TileState.Free, environmentType);
+                grid.SetValue(x, y, roomTile);
+                actionPerTile(roomTile);
             }
         }
     }

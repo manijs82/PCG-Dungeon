@@ -11,12 +11,12 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
     public event GridValueChangeHandler OnGridValueChange;
 
-    private int width;
-    private int height;
-    private float cellSize;
-    private Vector3 origin;
-    private TGridObject[,] gridArray;
-    private TextMeshPro[,] debugObj;
+    protected int width;
+    protected int height;
+    protected float cellSize;
+    protected Vector3 origin;
+    protected TGridObject[,] gridArray;
+    protected TextMeshPro[,] debugObj;
 
     public int Height => height;
     public int Width => width;

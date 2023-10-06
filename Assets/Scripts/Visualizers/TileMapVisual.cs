@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -29,63 +30,90 @@ public class TileMapVisual : DungeonVisualizer
 
     protected override void Visualize(Dungeon dungeon)
     {
+        tilemap.ClearAllTiles();
+        
         perlinOffset = Generator.tileRnd.Next(0, 2000);
-        for (int y = 0; y < dungeon.grid.Height * scale; y++)
-        {
-            for (int x = 0; x < dungeon.grid.Width * scale; x++)
-            {
-                var tile = (TileGridObject)dungeon.grid.GetValue(x / scale, y / scale);
-                tilemap.SetTile(GetTileData(new Vector3Int(x, y), tile), true);
-            }
-        }
-        //tilemap.RefreshAllTiles();
+        StartCoroutine(SetTiles(dungeon));
     }
 
-    private TileChangeData GetTileData(Vector3Int pos, TileGridObject tile)
+    private IEnumerator SetTiles(Dungeon dungeon)
     {
-        float noise = Mathf.PerlinNoise((tile.x + perlinOffset) * perlinScale, (tile.y + perlinOffset) * perlinScale);
-        noise = Mathf.Round(noise / perlinSnapInterval) * perlinSnapInterval;
-        
-        TileChangeData data = new TileChangeData();
-        data.position = pos;
-        if (tile is RoomTileObject roomTile)
+        for (var i = 0; i < dungeon.grid.riverTiles.Count; i++)
         {
+            var riverTile = dungeon.grid.riverTiles[i];
+            
+            if(i % 2 == 0)
+                yield return null;
+
+            tilemap.SetTile(riverSet.GetTileData(riverTile.Type, new Vector3Int(riverTile.x, riverTile.y)), true);
+        }
+
+        for (var i = 0; i < dungeon.grid.roomTiles.Count; i++)
+        {
+            var roomTile = dungeon.grid.roomTiles[i];
+            
+            if(i % 4 == 0)
+                yield return null;
+
+            float noise = Mathf.PerlinNoise((roomTile.x + perlinOffset) * perlinScale,
+                (roomTile.y + perlinOffset) * perlinScale);
+            noise = Mathf.Round(noise / perlinSnapInterval) * perlinSnapInterval;
+
+            TileChangeData data = new TileChangeData();
+            var pos = new Vector3Int(roomTile.x, roomTile.y);
+            data.position = pos;
             switch (roomTile.environmentType)
             {
                 case EnvironmentType.Forest:
-                    data.color = tile.Type == CellType.Wall ? Color.white : Color.Lerp(color1, color2, noise);
-                    data.tile = environmentSet.GetTile(tile.Type);
+                    data.color = roomTile.Type == CellType.Wall ? Color.white : Color.Lerp(color1, color2, noise);
+                    data.tile = environmentSet.GetTile(roomTile.Type);
+                    data.transform = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
                     break;
                 case EnvironmentType.Room:
-                    data = dungeonSet.GetTileData(tile.Type, pos);
+                    data = dungeonSet.GetTileData(roomTile.Type, pos);
                     break;
                 case EnvironmentType.Set:
-                    data = sideSet.GetTileData(tile.Type, pos);
+                    data = sideSet.GetTileData(roomTile.Type, pos);
                     break;
                 case EnvironmentType.SetTwo:
-                    data = sideTwoSet.GetTileData(tile.Type, pos);
+                    data = sideTwoSet.GetTileData(roomTile.Type, pos);
                     break;
             }
+
+            tilemap.SetTile(data, true);
         }
-        else if (tile is RiverTileObject)
+
+        foreach (var hallwayTile in dungeon.grid.hallwayTiles)
         {
-            data = riverSet.GetTileData(tile.Type, pos);
+            yield return null;
+            
+            if (!hallwayTile.isOverRiver)
+                tilemap.SetTile(hallwaySet.GetTileData(hallwayTile.Type, new Vector3Int(hallwayTile.x, hallwayTile.y)),
+                    true);
+            else
+                tilemap.SetTile(riverSet.GetTileData(hallwayTile.Type, new Vector3Int(hallwayTile.x, hallwayTile.y)), true);
         }
-        else
+
+        for (var i = 0; i < dungeon.grid.backgroundTiles.Count; i++)
         {
-            data.tile = hallwaySet.GetTile(tile.Type);
-            if (tile.Type == CellType.Empty)
+            var backTile = dungeon.grid.backgroundTiles[i];
+            
+            if(i % 16 == 0)
+                yield return null;
+
+            float noise = Mathf.PerlinNoise((backTile.x + perlinOffset) * perlinScale,
+                (backTile.y + perlinOffset) * perlinScale);
+            noise = Mathf.Round(noise / perlinSnapInterval) * perlinSnapInterval;
+
+            var data = hallwaySet.GetTileData(backTile.Type, new Vector3Int(backTile.x, backTile.y));
+            if (backTile.Type == CellType.Empty)
             {
                 data.color = Color.Lerp(color1, color2, noise);
             }
-            else
-            {
-                data.color = Color.white;
-            }
+
+            tilemap.SetTile(data, true);
         }
 
-        data.transform = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
-
-        return data;
+        yield return new WaitForEndOfFrame();
     }
 }

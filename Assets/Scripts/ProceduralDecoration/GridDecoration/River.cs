@@ -18,7 +18,7 @@ public class River : GridDecorator
         riverProperties = this.dungeon.dungeonParameters.riverProperties;
     }
     
-    public override void Decorate(Grid<GridObject> grid)
+    public override void Decorate(DungeonGrid<GridObject> grid)
     {
         if (!riverProperties.generateRiver) return;
         
@@ -33,7 +33,17 @@ public class River : GridDecorator
 
             grid.GetGridPosition(pos, out int x, out int y);
             grid.SetValue(x, y, new Bound(riverProperties.thickness, riverProperties.thickness, riverProperties.thickness, riverProperties.thickness),
-                (xPos, yPos) => new RiverTileObject(xPos, yPos, CellType.Empty));
+                (xPos, yPos) =>
+                {
+                    if(grid.GetValue(xPos, yPos) is not RiverTileObject)
+                    {
+                        var riverTile = new RiverTileObject(xPos, yPos, CellType.Empty);
+                        grid.riverTiles.Add(riverTile);
+                        return riverTile;
+                    }
+
+                    return grid.GetValue(xPos, yPos);
+                });
         }
     }
 

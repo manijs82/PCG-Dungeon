@@ -65,7 +65,7 @@ namespace Editor
             if (GUILayout.Button("TakeScreenshot"))
             {
                 if(tilemapToCapture != null)
-                    ScreenshotUtils.TakeScreenShot(dungeon, tilemapToCapture, screenshotPath);
+                    ScreenshotUtils.TakeScreenShot(dungeon, tilemapToCapture, 12, screenshotPath);
             }
 
             if (GUILayout.Button("ReloadVisuals"))

@@ -11,5 +11,9 @@ public class DungeonGrid<T> : Grid<T> where T : GridObject
     
     public DungeonGrid(int width, int height, float cellSize, Func<Grid<T>, int, int, T> createGridObject, Vector3 origin = default, bool shouldDebug = false) : base(width, height, cellSize, createGridObject, origin, shouldDebug)
     {
+        riverTiles = new List<RiverTileObject>();
+        roomTiles = new List<RoomTileObject>();
+        hallwayTiles = new List<HallwayTileObject>();
+        backgroundTiles = new List<TileGridObject>();
     }
 }

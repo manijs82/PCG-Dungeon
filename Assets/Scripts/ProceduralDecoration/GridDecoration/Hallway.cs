@@ -3,7 +3,7 @@ using Mani.Graph;
 
 public class Hallway : GridDecorator
 {
-    private Grid<GridObject> grid;
+    private DungeonGrid<GridObject> grid;
     private Graph<Room> graph;
 
     public Hallway(Graph<Room> graph)
@@ -11,7 +11,7 @@ public class Hallway : GridDecorator
         this.graph = graph;
     }
     
-    public override void Decorate(Grid<GridObject> grid)
+    public override void Decorate(DungeonGrid<GridObject> grid)
     {
         this.grid = grid;
         
@@ -29,6 +29,8 @@ public class Hallway : GridDecorator
             
             AStarAlgorithm astar = new AStarAlgorithm(grid, door1, door2);
             astar.PathFindingSearch();
+            astar.path.Remove(door1);
+            astar.path.Remove(door2);
             foreach (var gridObject in astar.path)
             {
                 SetAsHallwayTile(grid, gridObject);
@@ -39,19 +41,27 @@ public class Hallway : GridDecorator
         }
     }
 
-    private static void SetAsHallwayTile(Grid<GridObject> grid, GridObject gridObject)
+    private static void SetAsHallwayTile(DungeonGrid<GridObject> grid, GridObject gridObject)
     {
         var tile = new HallwayTileObject(gridObject.x, gridObject.y, CellType.Ground);
         if (gridObject is RiverTileObject)
             tile.isOverRiver = true;
         
+        grid.SetValue(tile.x, tile.y, tile);
+        grid.hallwayTiles.Add(tile);
+        
         foreach (var neighbor in grid.Get8Neighbors(tile))
         {
             var n = (TileGridObject)neighbor;
-            if (n.Type == CellType.Empty) n.Type = CellType.Wall;
+            if (n.Type == CellType.Empty)
+            {
+                var neighborTile = new HallwayTileObject(n.x, n.y, CellType.Wall);
+                if (n is RiverTileObject)
+                    neighborTile.isOverRiver = true;
+                grid.SetValue(n.x, n.y, neighborTile);
+                grid.hallwayTiles.Add(neighborTile);
+            }
         }
-        
-        grid.SetValue(tile.x, tile.y, tile);
     }
 
     private void AddDoorsBetweenRooms(Room room1, Room room2, out RoomTileObject door1, out RoomTileObject door2)
