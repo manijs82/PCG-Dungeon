@@ -6,7 +6,7 @@ In this project I am using various algorithms to generate a rough-like dungeon.
 ## Current Output
 | ![TileAnimation](https://github.com/manijs82/PCG-Dungeon/assets/57400375/072014d9-f8a4-447a-b914-004460d9a49c) | 
 |:--:| 
-35 rooms in a 150x150 grid <br>
+150x150 grid <br>
 Each room has a width and height between 10 and 20 cells
 - 4 different room types
   - Main path has its own room type
