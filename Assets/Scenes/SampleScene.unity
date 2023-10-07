@@ -2370,10 +2370,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonParameters:
-    roomCountRange: {x: 15, y: 15}
-    roomWidthRange: {x: 10, y: 15}
-    width: 80
-    height: 80
+    roomCountRange: {x: 35, y: 35}
+    roomWidthRange: {x: 10, y: 20}
+    width: 150
+    height: 150
     roomTypeLayout: 0
     riverProperties:
       generateRiver: 0
@@ -2381,7 +2381,11 @@ MonoBehaviour:
       distanceFromRoom: 65
       randomDistanceOffset: 2
       samplingDensity: 50
+  newDungeon: 0
   mutate: 0
+  triangulate: 0
+  mst: 0
+  doAll: 0
 --- !u!4 &1350604414
 Transform:
   m_ObjectHideFlags: 0
@@ -2470,9 +2474,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeHierarchy: {fileID: 0}
-  showRoomGraphPath: 0
+  showRoomGraphPath: 1
   graphColor: {r: 1, g: 1, b: 1, a: 1}
-  showRoomIndex: 1
+  showRoomIndex: 0
   textColor: {r: 0.98039216, g: 0.93333334, b: 0.03137255, a: 1}
   showRoomArrayPath: 0
   arrayColor: {r: 0, g: 1, b: 0, a: 1}

@@ -10,9 +10,12 @@ public class Evolution<T> where T : Sample
         
     public List<Sample> samples;
 
-    public Evolution(SampleParameters parameters)
+    private bool earlyExit;
+
+    public Evolution(SampleParameters parameters, bool earlyExit = true)
     {
         samples = new List<Sample>();
+        this.earlyExit = earlyExit;
 
         for (int i = 0; i < Population; i++)
         {
@@ -38,8 +41,8 @@ public class Evolution<T> where T : Sample
                 samples.Add(sample);
             }
                 
-            //if(samples[0].fitnessValue >= samples[0].optimalFitnessValue)
-                //return;
+            if(samples[0].fitnessValue >= samples[0].optimalFitnessValue && earlyExit)
+                return;
         }
     }
 }

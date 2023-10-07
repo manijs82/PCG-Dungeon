@@ -49,6 +49,7 @@ public class Generator : MonoBehaviour
         
         OnDungeonGenerated?.Invoke(candidateDungeon);
         
+        candidateDungeon.fitnessValue = candidateDungeon.Evaluate();
         print($"Dungeon Fitness: '{candidateDungeon.fitnessValue}'");
         //print(GetAverageFitnessValueOfGenerator());
     }
@@ -64,9 +65,14 @@ public class Generator : MonoBehaviour
 
     private void FindBestDungeon()
     {
-        Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
-        var d = (Dungeon)e.samples[0];
-        candidateDungeon = d;
+        /* Evolution<Dungeon> e = new Evolution<Dungeon>(dungeonParameters);
+        var d = (Dungeon)e.samples[0]; */
+        
+        candidateDungeon = new Dungeon(dungeonParameters);
+        for (int i = 0; i < 50; i++)
+        {
+            candidateDungeon.Mutate();
+        }
     }
 
     private void ConstructDungeonGraph()
