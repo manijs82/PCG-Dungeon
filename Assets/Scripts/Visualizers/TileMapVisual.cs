@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Tilemap))]
 public class TileMapVisual : DungeonVisualizer
 {
+    [SerializeField] private bool animate;
     [SerializeField] private int scale = 1;
     [SerializeField] private TileSet dungeonSet;
     [SerializeField] private TileSet environmentSet;
@@ -42,7 +43,7 @@ public class TileMapVisual : DungeonVisualizer
         {
             var riverTile = dungeon.grid.riverTiles[i];
             
-            if(i % 2 == 0)
+            if(i % 8 == 0 && animate)
                 yield return null;
 
             tilemap.SetTile(riverSet.GetTileData(riverTile.Type, new Vector3Int(riverTile.x, riverTile.y)), true);
@@ -52,7 +53,7 @@ public class TileMapVisual : DungeonVisualizer
         {
             var roomTile = dungeon.grid.roomTiles[i];
             
-            if(i % 4 == 0)
+            if(i % 15 == 0 && animate)
                 yield return null;
 
             float noise = Mathf.PerlinNoise((roomTile.x + perlinOffset) * perlinScale,
@@ -83,22 +84,26 @@ public class TileMapVisual : DungeonVisualizer
             tilemap.SetTile(data, true);
         }
 
-        foreach (var hallwayTile in dungeon.grid.hallwayTiles)
+        for (var i = 0; i < dungeon.grid.hallwayTiles.Count; i++)
         {
-            yield return null;
+            var hallwayTile = dungeon.grid.hallwayTiles[i];
             
+            if(i % 8 == 0 && animate)
+                yield return null;
+
             if (!hallwayTile.isOverRiver)
                 tilemap.SetTile(hallwaySet.GetTileData(hallwayTile.Type, new Vector3Int(hallwayTile.x, hallwayTile.y)),
                     true);
             else
-                tilemap.SetTile(riverSet.GetTileData(hallwayTile.Type, new Vector3Int(hallwayTile.x, hallwayTile.y)), true);
+                tilemap.SetTile(riverSet.GetTileData(hallwayTile.Type, new Vector3Int(hallwayTile.x, hallwayTile.y)),
+                    true);
         }
 
         for (var i = 0; i < dungeon.grid.backgroundTiles.Count; i++)
         {
             var backTile = dungeon.grid.backgroundTiles[i];
             
-            if(i % 16 == 0)
+            if(i % 50 == 0 && animate)
                 yield return null;
 
             float noise = Mathf.PerlinNoise((backTile.x + perlinOffset) * perlinScale,

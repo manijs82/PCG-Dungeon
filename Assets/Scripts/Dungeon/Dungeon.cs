@@ -177,25 +177,23 @@ public class Dungeon : Sample
             Vector2 newStartPoint;
             if (DoesCollideWithOtherRooms(rooms[i]))
             {
+                // if it is colliding with other rooms select random position
                 newStartPoint = new Vector2Int(Generator.dungeonRnd.Next(0, dungeonParameters.width - rooms[i].bound.w),
                     Generator.dungeonRnd.Next(0, dungeonParameters.height - rooms[i].bound.h));
             }
             else
             {
+                // select a closer position to the center
                 newStartPoint = rooms[i].startPoint + (bound.Center - rooms[i].Center).normalized * 2;
             }
             Room newRoom = new Room(rooms[i]);
             newRoom.ChangePosition(newStartPoint);
             if(!DoesCollideWithOtherRooms(newRoom, rooms[i]))
+            {
+                // move the room if the newly selected position isn't colliding with another room
                 rooms[i] = newRoom;
+            }
         }
-        /* for (var i = 0; i < rooms.Count; i++)
-        {
-            Vector2 startPointOffset = new Vector2(Random.Range(-2, 3), Random.Range(-2, 3));
-            Room newRoom = new Room(rooms[i]);
-            newRoom.ChangePosition(newRoom.startPoint + startPointOffset);
-            rooms[i] = newRoom;
-        } */
     }
 
     private bool DoesCollideWithOtherRooms(Room room, Room ignoreRoom = null)

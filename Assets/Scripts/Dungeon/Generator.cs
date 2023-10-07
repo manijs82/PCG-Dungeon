@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Mani;
 using Mani.Graph;
 using UnityEngine;
@@ -18,26 +19,37 @@ public class Generator : MonoBehaviour
 
     private Dungeon candidateDungeon;
 
-    private void Start()
+    private void Awake()
     {
         if (randomSeed)
             seed = UnityEngine.Random.Range(100000, 1000000000);
         
         dungeonRnd = new Random(seed - 50);
         tileRnd = new Random(seed + 50);
+    }
+
+    private void Start()
+    {
         GenerateDungeon();
     }
 
     public void GenerateDungeon()
     {
+        var watch = new Stopwatch();
+        watch.Start();
+        
         FindBestDungeon();
         ConstructDungeonGraph();
         RoomDecorator.GenerateRoomTypes(candidateDungeon);
         
         candidateDungeon.MakeGrid();
+        
+        watch.Stop();
+        print($"Execution time: '{watch.ElapsedMilliseconds}'ms");
+        
         OnDungeonGenerated?.Invoke(candidateDungeon);
         
-        print(candidateDungeon.fitnessValue);
+        print($"Dungeon Fitness: '{candidateDungeon.fitnessValue}'");
         //print(GetAverageFitnessValueOfGenerator());
     }
 
