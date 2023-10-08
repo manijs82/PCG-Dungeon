@@ -426,6 +426,8 @@ GameObject:
   - component: {fileID: 153867249}
   - component: {fileID: 153867248}
   - component: {fileID: 153867250}
+  - component: {fileID: 153867251}
+  - component: {fileID: 153867252}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -476,6 +478,124 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859f9f088a744266ae2caee9b840852f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &153867251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153867247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93f6031be7c14d31ab72ae2b4ebf1dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perlinSnapInterval: 0.25
+  perlinScale: 0.1
+--- !u!114 &153867252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153867247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89214e9a96d841da95bde0078edf3462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  darkGrassColor: {r: 0, g: 0, b: 0, a: 1}
+  brightGrassColor: {r: 0, g: 0.8509804, b: 0.11764706, a: 1}
+  dungeonSet:
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
+  environmentSet:
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
+  sideSet:
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
+  sideTwoSet:
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
+  hallwaySet:
+    emptyTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 339fa39fe57b46943ac4846264484019, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: 9f8846d7fd4df3e4f9717eca8d3cf2de, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: 690352e85a97005469f57c9c774c63e4, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: f62dce75c232c71448208983f5e2162a, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: 3e2215d390a84d042831ee0065c43cf5, type: 2}
+        weight: 20
+      - element: {fileID: 11400000, guid: 03b36f3333b43ca44b8ab05d95022042, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: 09117bc4ca5be8c4fa6230fed795761d, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: 5d9a4a2bd91623f4793cc1af3a94a0aa, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: fd10e8a245cdf994899c935e317f4d68, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: f04295e20dc46504cbcdbd49268642f3, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: d83c30488bd59f64087a0969917fec2b, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: 49844ab1f4935db4f9eb3e67cbae95c2, type: 2}
+        weight: 1
+    wallTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 9b959328a49e7de4382dea5bce4c2236, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: b782d9bbb2991204f95339cb97793b66, type: 2}
+        weight: 1
+    groundTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 9b959328a49e7de4382dea5bce4c2236, type: 2}
+        weight: 1
+      - element: {fileID: 11400000, guid: b782d9bbb2991204f95339cb97793b66, type: 2}
+        weight: 1
+    doorTileSet:
+      list:
+      - element: {fileID: 11400000, guid: 189980c6051b70c44bee00079a3ef9eb, type: 2}
+        weight: 10
+      - element: {fileID: 11400000, guid: b8d8424e3ce55314f871eb701334a23d, type: 2}
+        weight: 1
+  riverSet:
+    emptyTileSet:
+      list: []
+    wallTileSet:
+      list: []
+    groundTileSet:
+      list: []
+    doorTileSet:
+      list: []
 --- !u!1 &261701028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,8 +1731,6 @@ MonoBehaviour:
         weight: 1
   color1: {r: 0, g: 0, b: 0, a: 1}
   color2: {r: 0, g: 0.85098046, b: 0.11764707, a: 1}
-  perlinSnapInterval: 0.25
-  perlinScale: 0.1
 --- !u!19719996 &752770667
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2693,8 +2811,6 @@ MonoBehaviour:
       list: []
   color1: {r: 0, g: 0, b: 0, a: 0}
   color2: {r: 0, g: 0, b: 0, a: 0}
-  perlinSnapInterval: 0.2
-  perlinScale: 0.1
 --- !u!483693784 &2071118049
 TilemapRenderer:
   m_ObjectHideFlags: 0

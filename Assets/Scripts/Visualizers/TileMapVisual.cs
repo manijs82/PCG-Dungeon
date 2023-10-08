@@ -13,13 +13,10 @@ public class TileMapVisual : DungeonVisualizer
     [SerializeField] private TileSet sideTwoSet;
     [SerializeField] private TileSet hallwaySet;
     [SerializeField] private TileSet riverSet;
-
+    
     [SerializeField] private Color color1;
     [SerializeField] private Color color2;
-    [SerializeField] private float perlinSnapInterval = 0.2f;
-    [SerializeField] private float perlinScale = 0.1f;
-    
-    private float perlinOffset;
+
     private Tilemap tilemap;
     
     protected override void Awake()
@@ -33,7 +30,7 @@ public class TileMapVisual : DungeonVisualizer
     {
         tilemap.ClearAllTiles();
         
-        perlinOffset = Generator.tileRnd.Next(0, 2000);
+        ServiceLocator.PerlinNoiseProvider.SetPerlinOffset(Generator.tileRnd.Next(0, 2000));
         StartCoroutine(SetTiles(dungeon));
     }
 
@@ -56,9 +53,7 @@ public class TileMapVisual : DungeonVisualizer
             if(i % 15 == 0 && animate)
                 yield return null;
 
-            float noise = Mathf.PerlinNoise((roomTile.x + perlinOffset) * perlinScale,
-                (roomTile.y + perlinOffset) * perlinScale);
-            noise = Mathf.Round(noise / perlinSnapInterval) * perlinSnapInterval;
+            float noise = ServiceLocator.PerlinNoiseProvider.GetNoise(roomTile.x, roomTile.y);
 
             TileChangeData data = new TileChangeData();
             var pos = new Vector3Int(roomTile.x, roomTile.y);
@@ -106,17 +101,7 @@ public class TileMapVisual : DungeonVisualizer
             if(i % 50 == 0 && animate)
                 yield return null;
 
-            float noise = Mathf.PerlinNoise((backTile.x + perlinOffset) * perlinScale,
-                (backTile.y + perlinOffset) * perlinScale);
-            noise = Mathf.Round(noise / perlinSnapInterval) * perlinSnapInterval;
-
-            var data = hallwaySet.GetTileData(backTile.Type, new Vector3Int(backTile.x, backTile.y));
-            if (backTile.Type == CellType.Empty)
-            {
-                data.color = Color.Lerp(color1, color2, noise);
-            }
-
-            tilemap.SetTile(data, true);
+            tilemap.SetTile(backTile.GetTileVisual(), true);
         }
 
         yield return new WaitForEndOfFrame();
