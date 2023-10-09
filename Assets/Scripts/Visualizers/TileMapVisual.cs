@@ -43,7 +43,7 @@ public class TileMapVisual : DungeonVisualizer
             if(i % 8 == 0 && animate)
                 yield return null;
 
-            tilemap.SetTile(riverSet.GetTileData(riverTile.Type, new Vector3Int(riverTile.x, riverTile.y)), true);
+            tilemap.SetTile(riverTile.GetTileVisual(), true);
         }
 
         for (var i = 0; i < dungeon.grid.roomTiles.Count; i++)
@@ -53,30 +53,7 @@ public class TileMapVisual : DungeonVisualizer
             if(i % 15 == 0 && animate)
                 yield return null;
 
-            float noise = ServiceLocator.PerlinNoiseProvider.GetNoise(roomTile.x, roomTile.y);
-
-            TileChangeData data = new TileChangeData();
-            var pos = new Vector3Int(roomTile.x, roomTile.y);
-            data.position = pos;
-            switch (roomTile.environmentType)
-            {
-                case EnvironmentType.Forest:
-                    data.color = roomTile.Type == CellType.Wall ? Color.white : Color.Lerp(color1, color2, noise);
-                    data.tile = environmentSet.GetTile(roomTile.Type);
-                    data.transform = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
-                    break;
-                case EnvironmentType.Room:
-                    data = dungeonSet.GetTileData(roomTile.Type, pos);
-                    break;
-                case EnvironmentType.Set:
-                    data = sideSet.GetTileData(roomTile.Type, pos);
-                    break;
-                case EnvironmentType.SetTwo:
-                    data = sideTwoSet.GetTileData(roomTile.Type, pos);
-                    break;
-            }
-
-            tilemap.SetTile(data, true);
+            tilemap.SetTile(roomTile.GetTileVisual(), true);
         }
 
         for (var i = 0; i < dungeon.grid.hallwayTiles.Count; i++)
@@ -86,12 +63,7 @@ public class TileMapVisual : DungeonVisualizer
             if(i % 8 == 0 && animate)
                 yield return null;
 
-            if (!hallwayTile.isOverRiver)
-                tilemap.SetTile(hallwaySet.GetTileData(hallwayTile.Type, new Vector3Int(hallwayTile.x, hallwayTile.y)),
-                    true);
-            else
-                tilemap.SetTile(riverSet.GetTileData(hallwayTile.Type, new Vector3Int(hallwayTile.x, hallwayTile.y)),
-                    true);
+            tilemap.SetTile(hallwayTile.GetTileVisual(), true);
         }
 
         for (var i = 0; i < dungeon.grid.backgroundTiles.Count; i++)
