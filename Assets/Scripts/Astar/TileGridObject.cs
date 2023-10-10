@@ -4,6 +4,8 @@ using UnityEngine.Tilemaps;
 public class TileGridObject : GridObject
 {
     public CellType Type;
+    
+    public virtual int AnimateSpeed => 50;
 
     public TileGridObject(int x, int y, CellType type) : base(x, y)
     {

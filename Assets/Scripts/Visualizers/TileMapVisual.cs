@@ -6,16 +6,6 @@ using UnityEngine.Tilemaps;
 public class TileMapVisual : DungeonVisualizer
 {
     [SerializeField] private bool animate;
-    [SerializeField] private int scale = 1;
-    [SerializeField] private TileSet dungeonSet;
-    [SerializeField] private TileSet environmentSet;
-    [SerializeField] private TileSet sideSet;
-    [SerializeField] private TileSet sideTwoSet;
-    [SerializeField] private TileSet hallwaySet;
-    [SerializeField] private TileSet riverSet;
-    
-    [SerializeField] private Color color1;
-    [SerializeField] private Color color2;
 
     private Tilemap tilemap;
     
@@ -31,7 +21,16 @@ public class TileMapVisual : DungeonVisualizer
         tilemap.ClearAllTiles();
         
         ServiceLocator.PerlinNoiseProvider.SetPerlinOffset(Generator.tileRnd.Next(0, 2000));
-        StartCoroutine(SetTiles(dungeon));
+        
+        if(animate)
+            StartCoroutine(SetTiles(dungeon));
+        else
+        {
+            foreach (var gridObject in dungeon.grid.GridObjects)
+            {
+                tilemap.SetTile(((TileGridObject)gridObject).GetTileVisual(), true);
+            }
+        }
     }
 
     private IEnumerator SetTiles(Dungeon dungeon)
@@ -40,7 +39,7 @@ public class TileMapVisual : DungeonVisualizer
         {
             var riverTile = dungeon.grid.riverTiles[i];
             
-            if(i % 8 == 0 && animate)
+            if(i % riverTile.AnimateSpeed == 0)
                 yield return null;
 
             tilemap.SetTile(riverTile.GetTileVisual(), true);
@@ -50,7 +49,7 @@ public class TileMapVisual : DungeonVisualizer
         {
             var roomTile = dungeon.grid.roomTiles[i];
             
-            if(i % 15 == 0 && animate)
+            if(i % roomTile.AnimateSpeed == 0)
                 yield return null;
 
             tilemap.SetTile(roomTile.GetTileVisual(), true);
@@ -60,7 +59,7 @@ public class TileMapVisual : DungeonVisualizer
         {
             var hallwayTile = dungeon.grid.hallwayTiles[i];
             
-            if(i % 8 == 0 && animate)
+            if(i % hallwayTile.AnimateSpeed == 0)
                 yield return null;
 
             tilemap.SetTile(hallwayTile.GetTileVisual(), true);
@@ -70,7 +69,7 @@ public class TileMapVisual : DungeonVisualizer
         {
             var backTile = dungeon.grid.backgroundTiles[i];
             
-            if(i % 50 == 0 && animate)
+            if(i % backTile.AnimateSpeed == 0)
                 yield return null;
 
             tilemap.SetTile(backTile.GetTileVisual(), true);

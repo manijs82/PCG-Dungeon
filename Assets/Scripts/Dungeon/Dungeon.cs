@@ -143,7 +143,7 @@ public class Dungeon : Sample
     {
         var nodesToRemove = new List<Node<Room>>(); 
 
-        int division = (int) spline.GetLength();
+        int division = (int) spline.GetLength() / 4;
         for (int i = 0; i < division; i++)
         {
             float t = i / (division - 1f);

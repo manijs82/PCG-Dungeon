@@ -4,7 +4,9 @@ using UnityEngine.Tilemaps;
 public class HallwayTileObject : TileGridObject
 {
     public bool isOverRiver;
-    
+
+    public override int AnimateSpeed => 8;
+
     public HallwayTileObject(int x, int y, CellType type) : base(x, y, type)
     {
     }

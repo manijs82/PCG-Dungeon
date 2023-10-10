@@ -1500,6 +1500,7 @@ Transform:
   m_Children:
   - {fileID: 752770663}
   - {fileID: 2071118046}
+  - {fileID: 875905467}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1637,182 +1638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0314c3006a9995a43826c355a4687d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animate: 0
-  scale: 1
-  dungeonSet:
-    emptyTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-        weight: 1
-    wallTileSet:
-      list:
-      - element: {fileID: 11400000, guid: f5786cf0eb9e5a5489d788e19d6c1f0e, type: 2}
-        weight: 1
-    groundTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 424210d9d70b5f544ba600d4389fdf27, type: 2}
-        weight: 1
-    doorTileSet:
-      list:
-      - element: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
-        weight: 1
-  environmentSet:
-    emptyTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-        weight: 1
-    wallTileSet:
-      list:
-      - element: {fileID: 11400000, guid: be781aaccb9e3ff4f913df6e618f3738, type: 2}
-        weight: 30
-      - element: {fileID: 11400000, guid: d169fd9f1b62a6c47baecafd934313de, type: 2}
-        weight: 1
-    groundTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 339fa39fe57b46943ac4846264484019, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 9f8846d7fd4df3e4f9717eca8d3cf2de, type: 2}
-        weight: 10
-      - element: {fileID: 11400000, guid: 690352e85a97005469f57c9c774c63e4, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: f62dce75c232c71448208983f5e2162a, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 3e2215d390a84d042831ee0065c43cf5, type: 2}
-        weight: 1
-    doorTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 339fa39fe57b46943ac4846264484019, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 9f8846d7fd4df3e4f9717eca8d3cf2de, type: 2}
-        weight: 10
-      - element: {fileID: 11400000, guid: 690352e85a97005469f57c9c774c63e4, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: f62dce75c232c71448208983f5e2162a, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 3e2215d390a84d042831ee0065c43cf5, type: 2}
-        weight: 1
-  sideSet:
-    emptyTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-        weight: 1
-    wallTileSet:
-      list:
-      - element: {fileID: 11400000, guid: cd07a864be09c1041b01a99dd0513dfc, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 25251204d0306e74ea74e85b66bdeecd, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 7e9bd2b93e9b3c74fbc8f25a8f8fc94d, type: 2}
-        weight: 1
-    groundTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 005fa5e1751ac224e8911d63bff15f03, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: f186b2835c8a29e4f8eab6de1779f432, type: 2}
-        weight: 1
-    doorTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 67ca6bd0046935b4c8652e60078d1e4c, type: 2}
-        weight: 1
-  sideTwoSet:
-    emptyTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
-        weight: 1
-    wallTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 853d79cbc8de85242ac85c02f04216a5, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 54c1349fc7062a14ea0b0cfbbbc6920b, type: 2}
-        weight: 1
-    groundTileSet:
-      list:
-      - element: {fileID: 11400000, guid: cb878489afd507b409e01f0a79cc0f3f, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 4af68ae69499b3b49beeb8c864038b1b, type: 2}
-        weight: 1
-    doorTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 17e61b33f1dbfd6489ec7353db3e8bfd, type: 2}
-        weight: 1
-  hallwaySet:
-    emptyTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 339fa39fe57b46943ac4846264484019, type: 2}
-        weight: 20
-      - element: {fileID: 11400000, guid: 9f8846d7fd4df3e4f9717eca8d3cf2de, type: 2}
-        weight: 20
-      - element: {fileID: 11400000, guid: 690352e85a97005469f57c9c774c63e4, type: 2}
-        weight: 20
-      - element: {fileID: 11400000, guid: f62dce75c232c71448208983f5e2162a, type: 2}
-        weight: 20
-      - element: {fileID: 11400000, guid: 3e2215d390a84d042831ee0065c43cf5, type: 2}
-        weight: 20
-      - element: {fileID: 11400000, guid: 03b36f3333b43ca44b8ab05d95022042, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 09117bc4ca5be8c4fa6230fed795761d, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 5d9a4a2bd91623f4793cc1af3a94a0aa, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: fd10e8a245cdf994899c935e317f4d68, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: f04295e20dc46504cbcdbd49268642f3, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: d83c30488bd59f64087a0969917fec2b, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 49844ab1f4935db4f9eb3e67cbae95c2, type: 2}
-        weight: 1
-    wallTileSet:
-      list:
-      - element: {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
-        weight: 8
-      - element: {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
-        weight: 2
-      - element: {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
-        weight: 2
-    groundTileSet:
-      list:
-      - element: {fileID: 11400000, guid: a834afd5e3cfa994da9add58bc552c13, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: 03f0f9179ce14304187ae5b6c39b28bd, type: 2}
-        weight: 8
-      - element: {fileID: 11400000, guid: d57cc98aafb222a47965a2661afb1e9f, type: 2}
-        weight: 2
-      - element: {fileID: 11400000, guid: a1755ccba99c1b340a8a7c93d8e32a45, type: 2}
-        weight: 2
-    doorTileSet:
-      list:
-      - element: {fileID: 11400000, guid: a721024c99204b04b9e8adc126a2a6f6, type: 2}
-        weight: 1
-  riverSet:
-    emptyTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 189980c6051b70c44bee00079a3ef9eb, type: 2}
-        weight: 10
-      - element: {fileID: 11400000, guid: b8d8424e3ce55314f871eb701334a23d, type: 2}
-        weight: 1
-    wallTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 9b959328a49e7de4382dea5bce4c2236, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: b782d9bbb2991204f95339cb97793b66, type: 2}
-        weight: 1
-    groundTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 9b959328a49e7de4382dea5bce4c2236, type: 2}
-        weight: 1
-      - element: {fileID: 11400000, guid: b782d9bbb2991204f95339cb97793b66, type: 2}
-        weight: 1
-    doorTileSet:
-      list:
-      - element: {fileID: 11400000, guid: 189980c6051b70c44bee00079a3ef9eb, type: 2}
-        weight: 10
-      - element: {fileID: 11400000, guid: b8d8424e3ce55314f871eb701334a23d, type: 2}
-        weight: 1
-  color1: {r: 0, g: 0, b: 0, a: 1}
-  color2: {r: 0, g: 0.85098046, b: 0.11764707, a: 1}
+  animate: 1
 --- !u!19719996 &752770667
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1849,6 +1675,163 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
   m_UseDelaunayMesh: 0
+--- !u!1 &875905466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 875905467}
+  - component: {fileID: 875905471}
+  - component: {fileID: 875905470}
+  - component: {fileID: 875905468}
+  m_Layer: 0
+  m_Name: VideoTilemap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &875905467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875905466}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -150, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 658487205}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!19719996 &875905468
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875905466}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
+  m_UseDelaunayMesh: 0
+--- !u!483693784 &875905470
+TilemapRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875905466}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a1efa34147a06414c91cc15b2f09008b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_ChunkSize: {x: 32, y: 32, z: 32}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_MaxChunkCount: 16
+  m_MaxFrameAge: 16
+  m_SortOrder: 0
+  m_Mode: 0
+  m_DetectChunkCullingBounds: 0
+  m_MaskInteraction: 0
+--- !u!1839735485 &875905471
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875905466}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &909743626
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,11 +2564,13 @@ MonoBehaviour:
       distanceFromRoom: 65
       randomDistanceOffset: 2
       samplingDensity: 50
+  tilemap: {fileID: 875905471}
   newDungeon: 0
   mutate: 0
   triangulate: 0
   mst: 0
   doAll: 0
+  drawRoom: 0
 --- !u!4 &1350604414
 Transform:
   m_ObjectHideFlags: 0
@@ -2594,7 +2579,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1350604412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -172.5, y: -0.2, z: 0}
+  m_LocalPosition: {x: -150, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2641,7 +2626,7 @@ MonoBehaviour:
     height: 150
     roomTypeLayout: 0
     riverProperties:
-      generateRiver: 1
+      generateRiver: 0
       thickness: 2
       distanceFromRoom: 65
       randomDistanceOffset: 2
@@ -2836,63 +2821,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animate: 0
-  scale: 1
-  dungeonSet:
-    emptyTileSet:
-      list: []
-    wallTileSet:
-      list: []
-    groundTileSet:
-      list: []
-    doorTileSet:
-      list: []
-  environmentSet:
-    emptyTileSet:
-      list: []
-    wallTileSet:
-      list: []
-    groundTileSet:
-      list: []
-    doorTileSet:
-      list: []
-  sideSet:
-    emptyTileSet:
-      list: []
-    wallTileSet:
-      list: []
-    groundTileSet:
-      list: []
-    doorTileSet:
-      list: []
-  sideTwoSet:
-    emptyTileSet:
-      list: []
-    wallTileSet:
-      list: []
-    groundTileSet:
-      list: []
-    doorTileSet:
-      list: []
-  hallwaySet:
-    emptyTileSet:
-      list: []
-    wallTileSet:
-      list: []
-    groundTileSet:
-      list: []
-    doorTileSet:
-      list: []
-  riverSet:
-    emptyTileSet:
-      list: []
-    wallTileSet:
-      list: []
-    groundTileSet:
-      list: []
-    doorTileSet:
-      list: []
-  color1: {r: 0, g: 0, b: 0, a: 0}
-  color2: {r: 0, g: 0, b: 0, a: 0}
 --- !u!483693784 &2071118049
 TilemapRenderer:
   m_ObjectHideFlags: 0

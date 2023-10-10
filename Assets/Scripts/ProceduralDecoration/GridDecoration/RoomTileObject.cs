@@ -7,6 +7,8 @@ public class RoomTileObject : TileGridObject
     public EnvironmentType environmentType;
     public Room room;
 
+    public override int AnimateSpeed => 16;
+
     public RoomTileObject(int x, int y, CellType type, Room room, TileState tileState = TileState.Free, EnvironmentType environmentType = EnvironmentType.Room) : base(x, y, type)
     {
         this.tileState = tileState;
