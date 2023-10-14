@@ -7,7 +7,7 @@ public class HallwayTileObject : TileGridObject
 
     public override int AnimateSpeed => 8;
 
-    public HallwayTileObject(int x, int y, CellType type) : base(x, y, type)
+    public HallwayTileObject(int x, int y, Grid<GridObject> grid, CellType type) : base(x, y, grid, type)
     {
     }
 

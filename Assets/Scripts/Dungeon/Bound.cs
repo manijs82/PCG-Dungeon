@@ -1,4 +1,6 @@
 ﻿using Freya;
+using Mani;
+using Mani.Geometry;
 using UnityEngine;
 
 [System.Serializable]
@@ -44,6 +46,21 @@ public struct Bound
                rect1.x + rect1.w > rect2.x &&
                rect1.y < rect2.y + rect2.h &&
                rect1.h + rect1.y > rect2.y;
+    }
+    
+    public static bool Collide(Circle circle, Bound rect)
+    {
+        float testX = circle.Center.x;
+        float testY = circle.Center.y;
+
+        if (circle.Center.x < rect.x) testX = rect.x;
+        else if (circle.Center.x > rect.XPW) testX = rect.XPW;
+        if (circle.Center.y < rect.y) testY = rect.y;
+        else if (circle.Center.y > rect.YPH) testY = rect.YPH;
+
+        float distance = Point.Distance(circle.Center, new Point(testX, testY));
+
+        return distance <= circle.Radius;
     }
 
     public static bool Inside(Bound rect1, Bound rect2)

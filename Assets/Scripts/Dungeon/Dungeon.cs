@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Mani;
+using Mani.Geometry;
 using Mani.Graph;
 using Unity.Mathematics;
 using UnityEngine;
@@ -72,7 +73,7 @@ public class Dungeon : Sample
     public void MakeGrid()
     {
         grid = new DungeonGrid<GridObject>(dungeonParameters.width, dungeonParameters.height, 1,
-            (_, x, y) => new TileGridObject(x, y, CellType.Empty));
+            (g, x, y) => new TileGridObject(x, y, g, CellType.Empty));
         
         new River(this).Decorate(grid);
 
@@ -130,6 +131,15 @@ public class Dungeon : Sample
     public Node<Room> GetRoomContainingPoint(Vector2 point)
     {
         return roomGraph.Nodes.FirstOrDefault(node => Bound.Inside(point, node.Value.bound));
+    }
+
+    public IEnumerable<Node<Room>> GetRoomsCollidingWithCircle(Circle circle)
+    {
+        foreach (var node in roomGraph.Nodes)
+        {
+            if (Bound.Collide(circle, node.Value.bound))
+                yield return node;
+        }
     }
 
     public void RemoveUnusedRooms()

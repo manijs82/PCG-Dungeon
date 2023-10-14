@@ -37,7 +37,7 @@ public class River : GridDecorator
                 {
                     if(grid.GetValue(xPos, yPos) is not RiverTileObject)
                     {
-                        var riverTile = new RiverTileObject(xPos, yPos, CellType.Empty);
+                        var riverTile = new RiverTileObject(xPos, yPos, grid, CellType.Empty);
                         grid.riverTiles.Add(riverTile);
                         return riverTile;
                     }

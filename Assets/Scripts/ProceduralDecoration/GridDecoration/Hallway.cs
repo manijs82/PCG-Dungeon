@@ -43,7 +43,7 @@ public class Hallway : GridDecorator
 
     private static void SetAsHallwayTile(DungeonGrid<GridObject> grid, GridObject gridObject)
     {
-        var tile = new HallwayTileObject(gridObject.x, gridObject.y, CellType.Ground);
+        var tile = new HallwayTileObject(gridObject.x, gridObject.y, grid, CellType.Ground);
         if (gridObject is RiverTileObject)
             tile.isOverRiver = true;
         
@@ -55,7 +55,7 @@ public class Hallway : GridDecorator
             var n = (TileGridObject)neighbor;
             if (n.Type == CellType.Empty)
             {
-                var neighborTile = new HallwayTileObject(n.x, n.y, CellType.Wall);
+                var neighborTile = new HallwayTileObject(n.x, n.y, grid, CellType.Wall);
                 if (n is RiverTileObject)
                     neighborTile.isOverRiver = true;
                 grid.SetValue(n.x, n.y, neighborTile);

@@ -5,7 +5,7 @@ public class RiverTileObject : TileGridObject
 {
     public override int AnimateSpeed => 8;
 
-    public RiverTileObject(int x, int y, CellType type) : base(x, y, type)
+    public RiverTileObject(int x, int y, Grid<GridObject> grid, CellType type) : base(x, y, grid, type)
     {
     }
 

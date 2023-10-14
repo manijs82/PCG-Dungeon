@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -221,6 +222,15 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
         return output;
     }
+    
+    public List<TGridObject> GetNeighbors(int x, int y, int radius, bool checkBlocked = false)
+    {
+        var output = GetNeighbors(x, y, new Bound(radius, radius, radius, radius), checkBlocked);
+
+        output = output.Where(go => GetManhattanDistance(x, y, go) <= radius).ToList();
+
+        return output;
+    }
 
     public List<TGridObject> GetGridObjectsWithCondition(Func<Grid<TGridObject>, int, int, bool> conditionFunction)
     {
@@ -241,6 +251,16 @@ public class Grid<TGridObject> where TGridObject : GridObject
         if (list.Count == 0) return null;
         
         return list[Random.Range(0, list.Count)];
+    }
+
+    public int GetManhattanDistance(TGridObject g1, TGridObject g2)
+    {
+        return Mathf.Abs(g1.x - g2.x) + Mathf.Abs(g1.y - g2.y);
+    }
+    
+    public int GetManhattanDistance(int x, int y, TGridObject g2)
+    {
+        return Mathf.Abs(x - g2.x) + Mathf.Abs(y - g2.y);
     }
 
     public void PlaceGridOnGrid(int startX, int startY, Grid<TGridObject> grid)

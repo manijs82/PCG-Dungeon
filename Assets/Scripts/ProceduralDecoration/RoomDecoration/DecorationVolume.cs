@@ -45,7 +45,7 @@ public class DecorationVolume
 
     private RoomTileObject GetDefaultTileObject(int x, int y, Room room)
     {
-        return new RoomTileObject(x, y, CellType.Ground, room);
+        return new RoomTileObject(x, y, room.grid, CellType.Ground, room);
     }
 
     private bool HasFreeNeighbors(Grid<RoomTileObject> grid, int x, int y)

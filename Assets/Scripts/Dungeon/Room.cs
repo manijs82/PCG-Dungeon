@@ -54,14 +54,14 @@ public class Room
     public void MakeGrid(Action<RoomTileObject> actionPerTile)
     {
         grid = new Grid<GridObject>(bound.w, bound.h, 1,
-            (_, x, y) => new RoomTileObject(x, y, CellType.Empty, this), startPoint);
+            (_, x, y) => new RoomTileObject(x, y, grid, CellType.Empty, this), startPoint);
 
         for (int x = 0; x < bound.w; x++)
         {
             for (int y = 0; y < bound.h; y++)
             {
                 var isWall = x == 0 || y == 0 || x == bound.w - 1 || y == bound.h - 1;
-                var roomTile = new RoomTileObject(x + bound.x, y + bound.y,
+                var roomTile = new RoomTileObject(x + bound.x, y + bound.y, grid,
                     isWall ? CellType.Wall : CellType.Ground, this, TileState.Free, environmentType);
                 grid.SetValue(x, y, roomTile);
                 actionPerTile(roomTile);

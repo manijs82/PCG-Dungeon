@@ -1,7 +1,9 @@
 ﻿using System;
 using Mani;
+using Mani.Geometry;
 using Mani.Graph;
 using UnityEngine;
+using Utils;
 using Object = UnityEngine.Object;
 
 public static class RoomDecorator
@@ -47,6 +49,20 @@ public static class RoomDecorator
                 //dungeon.roomGraph = copy;
                 break;
             case RoomTypeLayout.GrassOnly:
+                startNode = dungeon.GetClosestRoomToPos(Vector2.zero);
+                endNode = dungeon.GetClosestRoomToPos(new Vector2(dungeon.dungeonParameters.width, dungeon.dungeonParameters.height));
+                dungeon.startRoom = startNode.Value;
+                dungeon.endRoom = endNode.Value;
+                break;
+            case RoomTypeLayout.Village:
+                float caveRadius = Generator.dungeonRnd.Next(dungeon.dungeonParameters.width / 4,
+                    dungeon.dungeonParameters.width / 3);
+                Circle caveCircle = new Circle(dungeon.bound.GetRandomPointInside(), caveRadius);
+                foreach (var roomNode in dungeon.GetRoomsCollidingWithCircle(caveCircle))
+                {
+                    roomNode.Value.environmentType = EnvironmentType.Set;
+                }
+                
                 startNode = dungeon.GetClosestRoomToPos(Vector2.zero);
                 endNode = dungeon.GetClosestRoomToPos(new Vector2(dungeon.dungeonParameters.width, dungeon.dungeonParameters.height));
                 dungeon.startRoom = startNode.Value;
