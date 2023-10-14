@@ -1,5 +1,6 @@
 ﻿public enum RoomTypeLayout
 {
     LinePathWithBranches,       
-    GrassOnly
+    GrassOnly,
+    Village
 }

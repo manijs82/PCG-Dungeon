@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor
@@ -39,5 +40,14 @@ namespace Editor
 
             return foldout;
         }
+
+        /*public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            SerializedProperty[] lists = new SerializedProperty[4];
+            for (int i = 0; i < Names.Length; i++)
+                lists[i] = property.FindPropertyRelative(Names[i]).FindPropertyRelative("list");
+            
+            EditorGUILayout.fol
+        }*/
     }
 }
