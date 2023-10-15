@@ -664,6 +664,10 @@ MonoBehaviour:
         weight: 1
       - element: {fileID: 11400000, guid: e9f79aba8a208214aa9451f0ad72a0d1, type: 2}
         weight: 1
+      - element: {fileID: 11400000, guid: 1cb0f46c5e32a7f489b9783fae11d826, type: 2}
+        weight: 10
+      - element: {fileID: 11400000, guid: 7d536325c91bc14489586062767dde7e, type: 2}
+        weight: 4
     groundTileSet:
       list:
       - element: {fileID: 11400000, guid: 6ce2cb07c10676940895e444eae0d6ad, type: 2}
