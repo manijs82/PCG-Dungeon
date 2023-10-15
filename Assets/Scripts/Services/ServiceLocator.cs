@@ -6,6 +6,7 @@ public static class ServiceLocator
 
     public static TileSetProvider TileSetProvider;
     public static PerlinNoiseProvider PerlinNoiseProvider;
+    public static DungeonShapesDrawer dungeonShapesDrawer;
 
     public static T FindService<T>() where T : Service
     {

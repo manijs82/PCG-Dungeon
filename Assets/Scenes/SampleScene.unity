@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 153867250}
   - component: {fileID: 153867251}
   - component: {fileID: 153867252}
+  - component: {fileID: 153867253}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -605,6 +606,12 @@ MonoBehaviour:
     emptyTileSet:
       list:
       - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+        weight: 5
+      - element: {fileID: 11400000, guid: 7d536325c91bc14489586062767dde7e, type: 2}
+        weight: 10
+      - element: {fileID: 11400000, guid: 1cb0f46c5e32a7f489b9783fae11d826, type: 2}
+        weight: 10
+      - element: {fileID: 11400000, guid: c212dac6203eefe4f893ae39c074b164, type: 2}
         weight: 1
     wallTileSet:
       list:
@@ -694,6 +701,18 @@ MonoBehaviour:
         weight: 10
       - element: {fileID: 11400000, guid: b8d8424e3ce55314f871eb701334a23d, type: 2}
         weight: 1
+--- !u!114 &153867253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153867247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21bac7174c834f309993ddae60fcce41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &261701028
 GameObject:
   m_ObjectHideFlags: 0

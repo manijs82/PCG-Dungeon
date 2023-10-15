@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,6 +19,9 @@ public class TileMapVisual : DungeonVisualizer
 
     protected override void Visualize(Dungeon dungeon)
     {
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+        
         tilemap.ClearAllTiles();
         
         ServiceLocator.PerlinNoiseProvider.SetPerlinOffset(Generator.tileRnd.Next(0, 2000));
@@ -31,6 +35,9 @@ public class TileMapVisual : DungeonVisualizer
                 tilemap.SetTile(((TileGridObject)gridObject).GetTileVisual(), true);
             }
         }
+        
+        stopwatch.Stop();
+        print($"Rendering time: '{stopwatch.ElapsedMilliseconds}'ms");
     }
 
     private IEnumerator SetTiles(Dungeon dungeon)

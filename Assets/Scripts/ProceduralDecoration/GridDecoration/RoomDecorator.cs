@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Mani;
 using Mani.Geometry;
 using Mani.Graph;
@@ -49,28 +50,54 @@ public static class RoomDecorator
                 //dungeon.roomGraph = copy;
                 break;
             case RoomTypeLayout.GrassOnly:
-                startNode = dungeon.GetClosestRoomToPos(Vector2.zero);
-                endNode = dungeon.GetClosestRoomToPos(new Vector2(dungeon.dungeonParameters.width, dungeon.dungeonParameters.height));
-                dungeon.startRoom = startNode.Value;
-                dungeon.endRoom = endNode.Value;
+                SetGenericStartEndNode(dungeon);
                 break;
             case RoomTypeLayout.Village:
+                var freeRooms = new List<Node<Room>>(dungeon.roomGraph.Nodes);
+                
                 float caveRadius = Generator.dungeonRnd.Next(dungeon.dungeonParameters.width / 4,
                     dungeon.dungeonParameters.width / 3);
                 Circle caveCircle = new Circle(dungeon.bound.GetRandomPointInside(), caveRadius);
                 foreach (var roomNode in dungeon.GetRoomsCollidingWithCircle(caveCircle))
                 {
                     roomNode.Value.environmentType = EnvironmentType.Set;
+                    freeRooms.Remove(roomNode);
                 }
                 
-                startNode = dungeon.GetClosestRoomToPos(Vector2.zero);
-                endNode = dungeon.GetClosestRoomToPos(new Vector2(dungeon.dungeonParameters.width, dungeon.dungeonParameters.height));
-                dungeon.startRoom = startNode.Value;
-                dungeon.endRoom = endNode.Value;
+                SetGenericStartEndNode(dungeon);
+                ServiceLocator.dungeonShapesDrawer.AddShape("CaveCircle", () => caveCircle.DrawGizmos(true));
+
+                var roomCount = freeRooms.Count / 4;
+                for (int i = 0; i < roomCount; i++)
+                {
+                    int randomIndex = Generator.dungeonRnd.Next(0, freeRooms.Count);
+                    var randomRoom = freeRooms[randomIndex];
+
+                    randomRoom.Value.environmentType = EnvironmentType.Room;
+                    freeRooms.Remove(randomRoom);
+                    foreach (var neighbor in randomRoom.Neighbors)
+                    {
+                        if(!freeRooms.Contains(neighbor))
+                            continue;
+
+                        neighbor.Value.environmentType = EnvironmentType.SetTwo;
+                        freeRooms.Remove(neighbor);
+                        break;
+                    }
+                }
+
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
 
+    private static void SetGenericStartEndNode(Dungeon dungeon)
+    {
+        var startNode = dungeon.GetClosestRoomToPos(Vector2.zero);
+        var endNode = dungeon.GetClosestRoomToPos(
+            new Vector2(dungeon.dungeonParameters.width, dungeon.dungeonParameters.height));
+        dungeon.startRoom = startNode.Value;
+        dungeon.endRoom = endNode.Value;
+    }
 }

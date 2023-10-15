@@ -37,7 +37,7 @@ public class RoomTileObject : TileGridObject
                 data.tile = ServiceLocator.TileSetProvider.environmentSet.GetTile(Type);
                 break;
             case EnvironmentType.Room:
-                data.tile = ServiceLocator.TileSetProvider.riverSet.GetTile(Type);
+                data.tile = ServiceLocator.TileSetProvider.dungeonSet.GetTile(Type);
                 break;
             case EnvironmentType.Set:
                 data.tile = ServiceLocator.TileSetProvider.sideSet.GetTile(Type);

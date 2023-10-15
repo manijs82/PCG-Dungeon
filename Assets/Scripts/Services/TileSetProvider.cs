@@ -20,7 +20,9 @@ public class TileSetProvider : Service
 
     public Color GetGrassColorAt(int x, int y)
     {
-        return Color.Lerp(darkGrassColor, brightGrassColor, ServiceLocator.PerlinNoiseProvider.GetNoise(x, y));
+        var noise = ServiceLocator.PerlinNoiseProvider.GetNoise(x, y);
+        noise = Mathf.Clamp01(noise - .3f);
+        return Color.Lerp(darkGrassColor, brightGrassColor, noise);
     }
 
     protected override void OnDestroy()

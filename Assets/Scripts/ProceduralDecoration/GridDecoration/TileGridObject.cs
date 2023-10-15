@@ -30,12 +30,27 @@ public class TileGridObject : GridObject
         foreach (var gridObject in grid.GetNeighbors(x, y, 3))
         {
             if (gridObject is not RoomTileObject roomTile) continue;
-            if (roomTile.environmentType != EnvironmentType.Set) continue;
-            if (Generator.dungeonRnd.Next(0, 10) > 5 && grid.GetManhattanDistance(this, gridObject) >= 3) continue;
+            if (roomTile.environmentType == EnvironmentType.Set)
+            {
+                if (grid.GetManhattanDistance(this, gridObject) < 3 
+                    || (Generator.dungeonRnd.Next(0, 10) > 5 && grid.GetManhattanDistance(this, gridObject) == 3))
+                {
+                    data.tile = ServiceLocator.TileSetProvider.sideSet.GetTile(Type);
+                    data.color = Color.white;
+                    break;
+                }
+            }
 
-            data.tile = ServiceLocator.TileSetProvider.sideSet.GetTile(Type);
-            data.color = Color.white;
-            break;
+            if (roomTile.environmentType == EnvironmentType.SetTwo)
+            {
+                if (grid.GetManhattanDistance(this, gridObject) < 2 
+                    || (Generator.dungeonRnd.Next(0, 10) > 5 && grid.GetManhattanDistance(this, gridObject) == 2))
+                {
+                    data.tile = ServiceLocator.TileSetProvider.sideTwoSet.GetTile(Type);
+                    data.color = Color.white;
+                    break;
+                }
+            }
         }
 
         return data;

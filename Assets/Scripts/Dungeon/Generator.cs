@@ -3,7 +3,6 @@ using System.Diagnostics;
 using Mani;
 using Mani.Graph;
 using UnityEngine;
-using UnityEngine.Profiling;
 using Random = System.Random;
 
 public class Generator : MonoBehaviour
@@ -36,7 +35,6 @@ public class Generator : MonoBehaviour
 
     public void GenerateDungeon()
     {
-        Profiler.BeginSample("DungeonGen");
         var watch = new Stopwatch();
         watch.Start();
         
@@ -47,8 +45,7 @@ public class Generator : MonoBehaviour
         candidateDungeon.MakeGrid();
         
         watch.Stop();
-        print($"Execution time: '{watch.ElapsedMilliseconds}'ms");
-        Profiler.EndSample();
+        print($"Generation time: '{watch.ElapsedMilliseconds}'ms");
         
         OnDungeonGenerated?.Invoke(candidateDungeon);
         
