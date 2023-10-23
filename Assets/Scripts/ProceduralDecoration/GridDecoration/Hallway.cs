@@ -81,7 +81,10 @@ public class Hallway : GridDecorator
 
         var walls = grid.Get4Neighbors(tile, true).
             Where(t => t is RoomTileObject { Type: CellType.Wall } tr && tr.room == tile.room).ToList();
-        var secondDoor = (TileGridObject) walls[Generator.dungeonRnd.Next(0, walls.Count - 1)];
+        var secondDoor = (RoomTileObject) walls[Generator.dungeonRnd.Next(0, walls.Count - 1)];
         secondDoor.Type = CellType.Door;
+        
+        tile.room.doorTiles.Add(tile);
+        secondDoor.room.doorTiles.Add(secondDoor);
     }
 }

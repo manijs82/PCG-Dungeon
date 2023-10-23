@@ -53,6 +53,7 @@ public class Room
 
     public void MakeGrid(Action<RoomTileObject> actionPerTile)
     {
+        doorTiles = new List<RoomTileObject>();
         grid = new Grid<GridObject>(bound.w, bound.h, 1,
             (_, x, y) => new RoomTileObject(x, y, grid, CellType.Empty, this), startPoint);
 

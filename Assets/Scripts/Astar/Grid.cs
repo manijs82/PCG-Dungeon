@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 public class Grid<TGridObject> where TGridObject : GridObject
@@ -144,20 +145,17 @@ public class Grid<TGridObject> where TGridObject : GridObject
         return false;
     }
 
-    public TGridObject[] GetAll()
+    public IEnumerable<TGridObject> GetAll()
     {
-        var o = new TGridObject[height * width];
         int i = 0;
         for (int x = 0; x < gridArray.GetLength(0); x++)
         {
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
-                o[i] = gridArray[x, y];
+                yield return gridArray[x, y];
                 i++;
             }
         }
-
-        return o;
     }
 
     private bool neighborAlter;
@@ -243,6 +241,23 @@ public class Grid<TGridObject> where TGridObject : GridObject
         }
 
         return list;
+    }
+
+    public TGridObject GetRandomGridObject(bool checkBlocked = false)
+    {
+        if (checkBlocked)
+        {
+            var nonBlockGridObjects = GetAll().Where(go => !go.IsBlocked).ToList();
+            return nonBlockGridObjects.GetRandomElement();
+        }
+
+        return gridArray.GetRandomElement();
+    }
+    
+    public TGridObject GetRandomGridObjectWithCondition(Func<TGridObject, bool> conditionFunc)
+    {
+        var nonBlockGridObjects = GetAll().Where(conditionFunc).ToList();
+        return nonBlockGridObjects.GetRandomElement();
     }
     
     public TGridObject GetRandomGridObjectWithCondition(Func<Grid<TGridObject>, int, int, bool> conditionFunction)
