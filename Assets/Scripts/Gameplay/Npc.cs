@@ -4,7 +4,10 @@ using Utils;
 
 public class Npc : MonoBehaviour
 {
-    [SerializeField] private float speed = 0.1f;
+    private const int AnimationSteps = 20;
+    
+    [Tooltip("Tile per second")]
+    [SerializeField] private float speed = 1f;
     [SerializeField] private Vector2 waitTimeRange = new (1f, 3f);
     
     private Room room;
@@ -32,11 +35,11 @@ public class Npc : MonoBehaviour
         print(astar.path.Count);
         foreach (var gridObject in astar.path)
         {
-            for (int i = 1; i <= 10; i++)
+            for (int i = 1; i <= AnimationSteps; i++)
             {
-                yield return new WaitForSeconds(speed);
+                yield return new WaitForSeconds(speed * (1f / AnimationSteps));
                 
-                float t = i / 10f;
+                float t = (float)i / AnimationSteps;
                 transform.position = currentTile.GetPositionTowards(gridObject, t) + GridPositionOffset;
             }
 

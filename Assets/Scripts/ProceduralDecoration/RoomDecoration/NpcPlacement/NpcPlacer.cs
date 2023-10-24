@@ -11,7 +11,6 @@ public static class NpcPlacer
 
             Npc npc = Object.Instantiate(npcPrefab);
             npc.SetRoom(node.Value, node.Value.grid.GetRandomGridObjectWithCondition(o => ((RoomTileObject)o).Type == CellType.Ground));
-            break;
         }
     }
 }
