@@ -17,6 +17,7 @@ public class Grid<TGridObject> where TGridObject : GridObject
     protected int height;
     protected float cellSize;
     protected Vector3 origin;
+    protected Vector2Int originInt;
     protected TGridObject[,] gridArray;
     protected TextMeshPro[,] debugObj;
 
@@ -37,6 +38,7 @@ public class Grid<TGridObject> where TGridObject : GridObject
         this.height = (int)(height / cellSize);
         this.cellSize = cellSize;
         this.origin = origin;
+        originInt = new Vector2Int((int) origin.x, (int) origin.y);
 
         gridArray = new TGridObject[this.width, this.height];
 
@@ -160,8 +162,8 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
     private bool neighborAlter;
 
-    public List<TGridObject> Get4Neighbors(int x, int y) =>
-        Get4Neighbors(gridArray[x, y]);
+    public List<TGridObject> Get4Neighbors(int x, int y, bool ignoreBlocked = false) =>
+        Get4Neighbors(gridArray[x, y], ignoreBlocked);
 
     public List<TGridObject> Get4Neighbors(TGridObject center, bool ignoreBlocked = false)
     {
@@ -170,19 +172,22 @@ public class Grid<TGridObject> where TGridObject : GridObject
 
         neighborAlter = !neighborAlter;
 
+        int x = center.x - originInt.x;
+        int y = center.y - originInt.y;
+
         if(neighborAlter)
         {
-            temp.Add(GetValue(center.x, center.y + 1));
-            temp.Add(GetValue(center.x, center.y - 1));
-            temp.Add(GetValue(center.x + 1, center.y));
-            temp.Add(GetValue(center.x - 1, center.y));
+            temp.Add(GetValue(x, y + 1));
+            temp.Add(GetValue(x, y - 1));
+            temp.Add(GetValue(x + 1, y));
+            temp.Add(GetValue(x - 1, y));
         }
         else
         {
-            temp.Add(GetValue(center.x, center.y - 1));
-            temp.Add(GetValue(center.x, center.y + 1));
-            temp.Add(GetValue(center.x - 1, center.y));
-            temp.Add(GetValue(center.x + 1, center.y));
+            temp.Add(GetValue(x, y - 1));
+            temp.Add(GetValue(x, y + 1));
+            temp.Add(GetValue(x - 1, y));
+            temp.Add(GetValue(x + 1, y));
         }
 
         foreach (var p in temp)

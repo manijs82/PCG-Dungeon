@@ -10,7 +10,7 @@ public class GreedyBestFirstSearch : BreadthFirstSearch
     {
     }
 
-    public override void PathFindingSearch()
+    public override void PathFindingSearch(bool ignoreBlocked = false)
     {
         frontiersPriorityQueue = new Dictionary<GridObject, float>();
         frontiersPriorityQueue.Add(start, 0);
@@ -25,7 +25,7 @@ public class GreedyBestFirstSearch : BreadthFirstSearch
             if(current == goal)
                 break;
             
-            foreach (var gridObj in pathGrid.Get4Neighbors(current))
+            foreach (var gridObj in pathGrid.Get4Neighbors(current, ignoreBlocked))
             {
                 
                 // yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.D));

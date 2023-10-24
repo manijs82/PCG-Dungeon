@@ -11,7 +11,7 @@ public class DijkstrasAlgorithm : BreadthFirstSearch
     {
     }
 
-    public override void PathFindingSearch()
+    public override void PathFindingSearch(bool ignoreBlocked = false)
     {
         frontiersPriorityQueue = new Dictionary<GridObject, float>();
         frontiersPriorityQueue.Add(start, 0);
@@ -22,14 +22,13 @@ public class DijkstrasAlgorithm : BreadthFirstSearch
 
         while (frontiersPriorityQueue.Count > 0)
         {
-            //yield return new WaitForSeconds(.03f);
             GridObject current = GetHighestPriority();
             frontiersPriorityQueue.Remove(current);
             
             if(current == goal)
                 break;
 
-            foreach (var gridObj in pathGrid.Get4Neighbors(current))
+            foreach (var gridObj in pathGrid.Get4Neighbors(current, ignoreBlocked))
             {
                 float nextCost = costs[current] + current.Cost + gridObj.Cost;
                 if (!costs.ContainsKey(gridObj) || nextCost < costs[gridObj])

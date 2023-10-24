@@ -20,7 +20,7 @@ public class BreadthFirstSearch
         this.goal = goal;
     }
 
-    public virtual void PathFindingSearch()
+    public virtual void PathFindingSearch(bool ignoreBlocked = false)
     {
         frontiers = new Queue<GridObject>();
         frontiers.Enqueue(start);
@@ -33,7 +33,7 @@ public class BreadthFirstSearch
             if(current == goal)
                 break;
 
-            foreach (var gridObj in pathGrid.Get4Neighbors(current))
+            foreach (var gridObj in pathGrid.Get4Neighbors(current, ignoreBlocked))
             {
                 if (!searched.ContainsKey(gridObj))
                 {
