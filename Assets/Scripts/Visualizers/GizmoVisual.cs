@@ -148,7 +148,7 @@ public class GizmoVisual : DungeonVisualizer
         
         Handles.color = doorColor;
         foreach (var door in room.doorTiles)
-            Handles.DrawSolidDisc(room.startPoint + door.Point, Vector3.back, .2f);
+            Handles.DrawSolidDisc(door.Point, Vector3.back, .2f);
     }
 
     private void DrawOutline(Bound bound)

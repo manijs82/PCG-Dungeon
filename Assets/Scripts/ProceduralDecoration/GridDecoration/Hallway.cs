@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Mani.Graph;
+using UnityEngine;
 
 public class Hallway : GridDecorator
 {
@@ -78,13 +79,15 @@ public class Hallway : GridDecorator
     private void SetAsDoor(RoomTileObject tile)
     {
         tile.Type = CellType.Door;
-
-        var walls = grid.Get4Neighbors(tile, true).
-            Where(t => t is RoomTileObject { Type: CellType.Wall } tr && tr.room == tile.room).ToList();
-        var secondDoor = (RoomTileObject) walls[Generator.dungeonRnd.Next(0, walls.Count - 1)];
-        secondDoor.Type = CellType.Door;
-        
         tile.room.doorTiles.Add(tile);
+        
+        var walls = tile.room.grid.Get4Neighbors(tile, true).
+            Where(t => t is RoomTileObject { Type: CellType.Wall }).ToList();
+        
+        if (walls.Count == 0) return;
+        
+        var secondDoor = (RoomTileObject) walls[Generator.dungeonRnd.Next(0, walls.Count)];
+        secondDoor.Type = CellType.Door;
         secondDoor.room.doorTiles.Add(secondDoor);
     }
 }

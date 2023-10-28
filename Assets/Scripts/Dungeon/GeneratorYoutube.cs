@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Mani;
 using Mani.Graph;
 using UnityEditor;
@@ -17,18 +18,27 @@ public class GeneratorYoutube : MonoBehaviour
     [SerializeField] private bool mst;
     [SerializeField] private bool doAll;
     [SerializeField] private bool drawRoom;
+    [SerializeField] private bool drawHallway;
+    [SerializeField] private bool drawBackground;
+    [SerializeField] private bool clear;
     
     private Dungeon dungeon;
     
     private void Start()
     {
-        dungeon = new Dungeon(dungeonParameters);
+        //dungeon = new Dungeon(dungeonParameters);
     }
 
     #if UNITY_EDITOR
     
     private void OnDrawGizmos()
     {
+        if (newDungeon)
+        {
+            dungeon = new Dungeon(dungeonParameters);
+            newDungeon = false;
+        }
+        
         if (dungeon == null)
             return;
         
@@ -49,12 +59,6 @@ public class GeneratorYoutube : MonoBehaviour
             {
                 Handles.DrawAAPolyLine(connection.Start.Value.Center, connection.End.Value.Center);
             }
-        }
-
-        if (newDungeon)
-        {
-            dungeon = new Dungeon(dungeonParameters);
-            newDungeon = false;
         }
 
         if (doAll)
@@ -106,6 +110,27 @@ public class GeneratorYoutube : MonoBehaviour
             drawRoom = false;
         }
         
+        if (drawHallway && dungeon.roomGraph != null)
+        {
+            StartCoroutine(SetHallwayTiles(dungeon.grid.hallwayTiles));
+
+            drawHallway = false;
+        }
+        
+        if (drawBackground && dungeon.roomGraph != null)
+        {
+            StartCoroutine(SetTiles(dungeon.grid.backgroundTiles));
+
+            drawBackground = false;
+        }
+        
+        if (clear)
+        {
+            tilemap.ClearAllTiles();
+
+            clear = false;
+        }
+        
         Handles.matrix = Matrix4x4.identity;
     }
 
@@ -127,6 +152,32 @@ public class GeneratorYoutube : MonoBehaviour
                 tilemap.SetTile(((TileGridObject)gridObject3).GetTileVisual(), true);
                 tilemap.SetTile(((TileGridObject)gridObject4).GetTileVisual(), true);
             }
+        }
+    }
+    
+    private IEnumerator SetHallwayTiles(List<HallwayTileObject> tiles)
+    {
+        for (var i = 0; i < tiles.Count; i++)
+        {
+            var hallwayTile = tiles[i];
+            
+            if(i % hallwayTile.AnimateSpeed == 0)
+                yield return new WaitForSeconds(0.016f);
+
+            tilemap.SetTile(hallwayTile.GetTileVisual(), true);
+        }
+    }
+    
+    private IEnumerator SetTiles(List<TileGridObject> tiles)
+    {
+        for (var i = 0; i < tiles.Count; i++)
+        {
+            var hallwayTile = tiles[i];
+            
+            if(i % hallwayTile.AnimateSpeed == 0)
+                yield return new WaitForSeconds(0.016f);
+
+            tilemap.SetTile(hallwayTile.GetTileVisual(), true);
         }
     }
 

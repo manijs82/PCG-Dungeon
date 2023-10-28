@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class TileMapVisual : DungeonVisualizer
 {
     [SerializeField] private bool animate;
+    [SerializeField] private bool placeNpcs;
     [SerializeField] private Npc npcPrefab;
     
     private Tilemap tilemap;
@@ -37,7 +38,8 @@ public class TileMapVisual : DungeonVisualizer
             }
         }
         
-        NpcPlacer.Place(dungeon, npcPrefab);
+        if(placeNpcs)
+            NpcPlacer.Place(dungeon, npcPrefab);
         
         stopwatch.Stop();
         print($"Rendering time: '{stopwatch.ElapsedMilliseconds}'ms");

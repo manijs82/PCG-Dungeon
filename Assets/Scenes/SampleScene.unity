@@ -668,6 +668,8 @@ MonoBehaviour:
         weight: 10
       - element: {fileID: 11400000, guid: 7d536325c91bc14489586062767dde7e, type: 2}
         weight: 4
+      - element: {fileID: 11400000, guid: 7f534e6620c456c479f4a532ff23a6b6, type: 2}
+        weight: 10
     groundTileSet:
       list:
       - element: {fileID: 11400000, guid: 6ce2cb07c10676940895e444eae0d6ad, type: 2}
@@ -717,6 +719,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21bac7174c834f309993ddae60fcce41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &194555727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194555729}
+  - component: {fileID: 194555728}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &194555728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194555727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7adeb349b404bc981bb0121014ff650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonParameters:
+    roomCountRange: {x: 35, y: 35}
+    roomWidthRange: {x: 10, y: 20}
+    width: 150
+    height: 150
+    roomTypeLayout: 0
+    riverProperties:
+      generateRiver: 0
+      thickness: 0
+      distanceFromRoom: 0
+      randomDistanceOffset: 0
+      samplingDensity: 0
+  tilemap: {fileID: 875905471}
+  newDungeon: 0
+  mutate: 0
+  triangulate: 0
+  mst: 0
+  doAll: 0
+  drawRoom: 0
+  drawHallway: 0
+  drawBackground: 0
+--- !u!4 &194555729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194555727}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -250, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261701028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,7 +1276,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1675,6 +1742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animate: 0
+  placeNpcs: 0
   npcPrefab: {fileID: -8164506700281548545, guid: 5857dc40e7ef29448aeab4c9a861764e, type: 3}
 --- !u!19719996 &752770667
 TilemapCollider2D:
@@ -1740,7 +1808,7 @@ Transform:
   m_GameObject: {fileID: 875905466}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -150, y: 0, z: 0}
+  m_LocalPosition: {x: -250, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2462,69 +2530,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3966601028533726727, guid: bb886cf6e35a55c439e139b40d1e9091, type: 3}
   m_PrefabInstance: {fileID: 1296659069}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1350604412
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1350604414}
-  - component: {fileID: 1350604413}
-  m_Layer: 0
-  m_Name: video dungeon gen
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1350604413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350604412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7adeb349b404bc981bb0121014ff650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonParameters:
-    roomCountRange: {x: 35, y: 35}
-    roomWidthRange: {x: 10, y: 20}
-    width: 150
-    height: 150
-    roomTypeLayout: 0
-    riverProperties:
-      generateRiver: 0
-      thickness: 2
-      distanceFromRoom: 65
-      randomDistanceOffset: 2
-      samplingDensity: 50
-  tilemap: {fileID: 875905471}
-  newDungeon: 0
-  mutate: 0
-  triangulate: 0
-  mst: 0
-  doAll: 0
-  drawRoom: 0
---- !u!4 &1350604414
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350604412}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -150, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1518624282
 GameObject:
   m_ObjectHideFlags: 0
@@ -2557,7 +2562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 0
-  seed: 261135824
+  seed: 258981488
   dungeonParameters:
     roomCountRange: {x: 35, y: 35}
     roomWidthRange: {x: 10, y: 20}
@@ -2760,6 +2765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animate: 0
+  placeNpcs: 0
   npcPrefab: {fileID: 0}
 --- !u!483693784 &2071118049
 TilemapRenderer:
@@ -2856,7 +2862,6 @@ SceneRoots:
   - {fileID: 130191492}
   - {fileID: 1296659069}
   - {fileID: 1518624284}
-  - {fileID: 1350604414}
   - {fileID: 658487205}
   - {fileID: 261701029}
   - {fileID: 566951982}
@@ -2865,3 +2870,4 @@ SceneRoots:
   - {fileID: 340512457}
   - {fileID: 316120313}
   - {fileID: 1757157487}
+  - {fileID: 194555729}
