@@ -1,11 +1,12 @@
-﻿using MeshGen;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Utils
+namespace MeshGen
 {
     public static class MeshUtils
     {
-        public static void AddCube(this MeshData meshData, Vector3 center, Vector3 halfExtents)
+        #region OldMeshData
+
+        public static void AddCube(this MeshDataOld meshData, Vector3 center, Vector3 halfExtents)
         {
             Vector3 right = new Vector3(halfExtents.x, 0, 0);
             Vector3 up = new Vector3(0, halfExtents.y, 0);
@@ -19,7 +20,7 @@ namespace Utils
             meshData.AddQuad(center -  forward, halfExtents.x, halfExtents.y, Vector3.right, Vector3.up); // back quad
         }
         
-        public static void AddQuad(this MeshData meshData, Vector3 center, float halfWidth, float halfHeight, Vector3 right, Vector3 up)
+        public static void AddQuad(this MeshDataOld meshData, Vector3 center, float halfWidth, float halfHeight, Vector3 right, Vector3 up)
         {
             int triangleOffset = meshData.vertices.Count;
             Vector3 halfRight = right * halfWidth;
@@ -38,5 +39,9 @@ namespace Utils
             meshData.AddUV(Vector2.right);
             meshData.AddUV(Vector2.one);
         }
+        
+        #endregion
+
+        
     }
 }

@@ -1,9 +1,10 @@
 ﻿using MeshGen;
 using UnityEngine;
-using Utils;
 
 public class RockMesh : EnvironmentMesh
 {
+    public MeshData mesh;
+    
     public RockMesh(Material material) : base(material)
     {
     }
@@ -32,8 +33,14 @@ public class RockMesh : EnvironmentMesh
     {
         MeshData meshData = new MeshData();
         
-        meshData.AddCube(Vector3.zero, new Vector3(1, 2, 3));
-        
+        meshData.AddTriangle(Vector2.zero, Vector2.up, Vector2.right);
+        meshData.AddConnectedTriangle(Vector2.one, 0, 1);
+        meshData.AddConnectedTriangle(Vector3.one, 1, 0);
+        meshData.AddConnectedTriangle(new Vector3(1, 0, 1), 0, 2);
+        meshData.AddConnectedTriangle(new Vector3(0, 1, 1), 0, 0);
+        meshData.AddConnectedTriangle(new Vector3(1, 0, 1), 1, 1);
+
+        mesh = meshData;
         return meshData;
     }
 }

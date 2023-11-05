@@ -8,13 +8,13 @@ public class TerrainGenerator
 
     private Dungeon dungeon;
     private int width;
-    private MeshData meshData;
+    private MeshDataOld meshData;
     
     public TerrainGenerator(Dungeon dungeon)
     {
         this.dungeon = dungeon;
         width = dungeon.dungeonParameters.width;
-        meshData = new MeshData();
+        meshData = new MeshDataOld();
     }
 
     public Mesh GenerateMesh()
