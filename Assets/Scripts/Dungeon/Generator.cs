@@ -69,7 +69,7 @@ public class Generator : MonoBehaviour
         var d = (Dungeon)e.samples[0]; */
         
         candidateDungeon = new Dungeon(dungeonParameters);
-        for (int i = 0; i < dungeonParameters.roomCountRange.y / 3; i++)
+        for (int i = 0; i < dungeonParameters.width / 2; i++)
         {
             candidateDungeon.Mutate();
         }

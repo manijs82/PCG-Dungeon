@@ -29,7 +29,7 @@ public class TileMapVisual : DungeonVisualizer
         ServiceLocator.PerlinNoiseProvider.SetPerlinOffset(Generator.tileRnd.Next(0, 2000));
         
         if(animate)
-            StartCoroutine(SetTiles(dungeon));
+            StartCoroutine(SetTilesAnimated(dungeon));
         else
         {
             foreach (var gridObject in dungeon.grid.GridObjects)
@@ -45,7 +45,7 @@ public class TileMapVisual : DungeonVisualizer
         print($"Rendering time: '{stopwatch.ElapsedMilliseconds}'ms");
     }
 
-    private IEnumerator SetTiles(Dungeon dungeon)
+    private IEnumerator SetTilesAnimated(Dungeon dungeon)
     {
         for (var i = 0; i < dungeon.grid.riverTiles.Count; i++)
         {
