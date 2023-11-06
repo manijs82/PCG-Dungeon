@@ -22,14 +22,19 @@ namespace MeshGen
             return position == other.position;
         }
 
+        public bool Equals(Vector3 other)
+        {
+            return position.Equals(other);
+        }
+
         public bool Equals(Vertex other)
         {
-            return position.Equals(other.position) && triangle == other.triangle;
+            return position.Equals(other.position);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(position, triangle);
+            return position.GetHashCode();
         }
     }
 }

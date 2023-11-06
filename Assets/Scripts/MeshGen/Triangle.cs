@@ -50,5 +50,28 @@
                     break;
             }
         }
+
+        public bool Contains(int vIndex)
+        {
+            return vertex1 == vIndex || vertex2 == vIndex || vertex3 == vIndex;
+        }
+        
+        public void SetAdjacentTriangle(int vIndex1, int vIndex2, int adjacentTriangleIndex)
+        {
+            if (vertex1 == vIndex1 && vertex2 == vIndex2)
+            {
+                adjacentTriangle1 = adjacentTriangleIndex;
+            }
+            
+            if (vertex2 == vIndex1 && vertex3 == vIndex2)
+            {
+                adjacentTriangle2 = adjacentTriangleIndex;
+            }
+            
+            if (vertex3 == vIndex1 && vertex1 == vIndex2)
+            {
+                adjacentTriangle3 = adjacentTriangleIndex;
+            }
+        }
     }
 }
