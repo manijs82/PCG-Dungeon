@@ -40,11 +40,17 @@ public class RockMesh : EnvironmentMesh
         meshData.AddVertex(1, 1, 0);
         meshData.AddVertex(-0.5f, 0.5f, 0);
         meshData.AddVertex(0.5f, -0.5f, 0);
+        meshData.AddVertex(1.5f, -0.5f, 0);
+        meshData.AddVertex(0, -0.5f, 0);
 
         meshData.AddTriangle(0, 1, 2);
         meshData.AddTriangle(1, 3, 2);
         meshData.AddTriangle(0, 4, 1);
         meshData.AddTriangle(2, 5, 0);
+        meshData.AddTriangle(2, 6, 5);
+        meshData.AddTriangle(0, 5, 7);
+        meshData.AddTriangle(4, 0, 7);
+        meshData.AddTriangle(2, 3, 6);
 
         return meshData;
     }

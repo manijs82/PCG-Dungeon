@@ -42,6 +42,19 @@ namespace MeshGen
         
         #endregion
 
-        
+        public static void RotateTriangle(this MeshData meshData, int triangleIndex, Quaternion rotation)
+        {
+            var triangle = meshData.triangles[triangleIndex];
+            var v1 = meshData.vertices[triangle.vertex1];
+            var v2 = meshData.vertices[triangle.vertex2];
+            var v3 = meshData.vertices[triangle.vertex3];
+            
+            var center = meshData.GetTriangleCenter(triangle);
+            var normal = meshData.GetTriangleNormal(triangle);
+            var tangent = (v1.position - center).normalized;
+            var right = Vector3.Cross(normal, tangent).normalized;
+            
+            
+        }
     }
 }

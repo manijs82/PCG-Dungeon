@@ -8,10 +8,10 @@ namespace MeshGen
         public Vector3 position;
         public int triangle;
 
-        public Vertex(Vector3 position, int triangle)
+        public Vertex(Vector3 position)
         {
             this.position = position;
-            this.triangle = triangle;
+            this.triangle = -1;
         }
 
         public override bool Equals(object obj)

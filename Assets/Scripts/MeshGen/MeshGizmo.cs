@@ -39,23 +39,30 @@ namespace MeshGen
 
                 Handles.DrawAAPolyLine(3, pos1, pos2, pos3, pos1);
 
+                // draw lines to adjacent triangles of this triangle
                 if (triangle.adjacentTriangle1 >= 0) 
                     DrawLineBetweenTriangles(triangle, triangle.adjacentTriangle1);
                 if (triangle.adjacentTriangle2 >= 0) 
                     DrawLineBetweenTriangles(triangle, triangle.adjacentTriangle2);
                 if (triangle.adjacentTriangle3 >= 0) 
                     DrawLineBetweenTriangles(triangle, triangle.adjacentTriangle3);
+                
+                Handles.color = Color.cyan;
+                
+                // draw normal of triangle
+                Handles.DrawAAPolyLine(3, GetTriangleCenter(triangle), GetTriangleCenter(triangle) + meshData.GetTriangleNormal(triangle) / 4f);
+                
                 Handles.color = Color.white;
             }
 
             foreach (var vertex in meshData.vertices)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawSphere(vertex.position, 0.05f);
+                Gizmos.DrawSphere(vertex.position, 0.03f);
                 
-                Handles.color = Color.cyan;
+                Handles.color = Color.yellow;
                 Handles.DrawAAPolyLine(3, vertex.position, 
-                    Vector3.Lerp(vertex.position, GetTriangleCenter(meshData.triangles[vertex.triangle]), 0.2f));
+                    Vector3.Lerp(vertex.position, GetTriangleCenter(meshData.triangles[vertex.triangle]), 0.4f));
             }
             
             Handles.matrix = Matrix4x4.identity;
