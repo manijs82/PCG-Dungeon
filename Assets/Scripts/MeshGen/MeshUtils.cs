@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Freya;
+using UnityEngine;
 
 namespace MeshGen
 {
@@ -42,7 +44,7 @@ namespace MeshGen
         
         #endregion
 
-        public static void RotateTriangle(this MeshData meshData, int triangleIndex, Quaternion rotation)
+        public static void RotateTriangle(this MeshData meshData, int triangleIndex, Vector3 axis, float angle)
         {
             var triangle = meshData.triangles[triangleIndex];
             var v1 = meshData.vertices[triangle.vertex1];
@@ -53,7 +55,21 @@ namespace MeshGen
             var normal = meshData.GetTriangleNormal(triangle);
             var tangent = (v1.position - center).normalized;
             var right = Vector3.Cross(normal, tangent).normalized;
+
+            var rotation = Quaternion.LookRotation(normal, tangent);
+            rotation *= Quaternion.AngleAxis(angle, axis);
             
+            var matrix = Matrix4x4.TRS(center, rotation, Vector3.one);
+            
+            var v1Local = matrix.MultiplyPoint(v1.position);
+            var v2Local = matrix.MultiplyPoint(v2.position);
+            var v3Local = matrix.MultiplyPoint(v3.position);
+
+            Debug.Log(matrix.MultiplyPoint(Vector3.zero));
+            
+            meshData.SetVertexPosition(triangle.vertex1, matrix.inverse.MultiplyPoint(v1Local));
+            meshData.SetVertexPosition(triangle.vertex2, matrix.inverse.MultiplyPoint(v2Local));
+            meshData.SetVertexPosition(triangle.vertex3, matrix.inverse.MultiplyPoint(v3Local));
             
         }
     }

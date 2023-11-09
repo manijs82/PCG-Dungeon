@@ -61,8 +61,9 @@ namespace MeshGen
                 Gizmos.DrawSphere(vertex.position, 0.03f);
                 
                 Handles.color = Color.yellow;
-                Handles.DrawAAPolyLine(3, vertex.position, 
-                    Vector3.Lerp(vertex.position, GetTriangleCenter(meshData.triangles[vertex.triangle]), 0.4f));
+                if(vertex.triangle >= 0)
+                    Handles.DrawAAPolyLine(3, vertex.position, 
+                        Vector3.Lerp(vertex.position, GetTriangleCenter(meshData.triangles[vertex.triangle]), 0.4f));
             }
             
             Handles.matrix = Matrix4x4.identity;

@@ -41,7 +41,7 @@ namespace MeshGen
             }
 
 
-            return -1;
+            return triangleIndex;
         }
         
         public void AddVertex(float x, float y, float z)
@@ -54,19 +54,13 @@ namespace MeshGen
             vertices.Add(new Vertex(pos));
         }
 
-        public int GetTriangle(int vIndex1, int vIndex2)
+        public void SetVertexPosition(int vIndex, Vector3 newPos)
         {
-            int tri1 = vertices[vIndex1].triangle;
-            int tri2 = vertices[vIndex2].triangle;
+            var vert = vertices[vIndex];
 
-            if (tri1 == tri2)
-                return tri1;
-            if (triangles[tri1].Contains(tri2))
-                return tri1;
-            if (triangles[tri2].Contains(tri1))
-                return tri2;
+            vert.position = newPos;
 
-            return -1;
+            vertices[vIndex] = vert;
         }
 
         private void SetVertexTriangleIndex(int vIndex, int triangleIndex)
