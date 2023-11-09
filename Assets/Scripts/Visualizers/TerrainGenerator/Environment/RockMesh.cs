@@ -54,6 +54,7 @@ public class RockMesh : EnvironmentMesh
 
         meshData.RotateTriangle(tri1, Vector3.back, 45);
         meshData.ScaleTriangle(tri1, Vector3.one * 0.5f);
+        meshData.MoveTriangle(tri1, Vector3.down * 0.4f);
         
         return meshData;
     }
