@@ -52,7 +52,7 @@ public class TileMapVisual : DungeonVisualizer
             var riverTile = dungeon.grid.riverTiles[i];
             
             if(i % riverTile.AnimateSpeed == 0)
-                yield return null;
+                yield return new WaitForSeconds(0.008f);
 
             tilemap.SetTile(riverTile.GetTileVisual(), true);
         }
@@ -62,7 +62,7 @@ public class TileMapVisual : DungeonVisualizer
             var roomTile = dungeon.grid.roomTiles[i];
             
             if(i % roomTile.AnimateSpeed == 0)
-                yield return null;
+                yield return new WaitForSeconds(0.008f);
 
             tilemap.SetTile(roomTile.GetTileVisual(), true);
         }
@@ -72,7 +72,7 @@ public class TileMapVisual : DungeonVisualizer
             var hallwayTile = dungeon.grid.hallwayTiles[i];
             
             if(i % hallwayTile.AnimateSpeed == 0)
-                yield return null;
+                yield return new WaitForSeconds(0.008f);
 
             tilemap.SetTile(hallwayTile.GetTileVisual(), true);
         }
@@ -82,7 +82,7 @@ public class TileMapVisual : DungeonVisualizer
             var backTile = dungeon.grid.backgroundTiles[i];
             
             if(i % backTile.AnimateSpeed == 0)
-                yield return null;
+                yield return new WaitForSeconds(0.008f);
 
             tilemap.SetTile(backTile.GetTileVisual(), true);
         }
