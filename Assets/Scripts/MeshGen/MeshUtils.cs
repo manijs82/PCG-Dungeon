@@ -54,23 +54,51 @@ namespace MeshGen
             var center = meshData.GetTriangleCenter(triangle);
             var normal = meshData.GetTriangleNormal(triangle);
             var tangent = (v1.position - center).normalized;
-            var right = Vector3.Cross(normal, tangent).normalized;
 
             var rotation = Quaternion.LookRotation(normal, tangent);
-            rotation *= Quaternion.AngleAxis(angle, axis);
+            var newRotation = rotation * Quaternion.AngleAxis(angle, axis);
             
             var matrix = Matrix4x4.TRS(center, rotation, Vector3.one);
+            var newMatrix = Matrix4x4.TRS(center, newRotation, Vector3.one);
             
-            var v1Local = matrix.MultiplyPoint(v1.position);
-            var v2Local = matrix.MultiplyPoint(v2.position);
-            var v3Local = matrix.MultiplyPoint(v3.position);
+            var v1Local = matrix.inverse.MultiplyPoint(v1.position);
+            var v2Local = matrix.inverse.MultiplyPoint(v2.position);
+            var v3Local = matrix.inverse.MultiplyPoint(v3.position);
+            
+            meshData.SetVertexPosition(triangle.vertex1, newMatrix.MultiplyPoint(v1Local));
+            meshData.SetVertexPosition(triangle.vertex2, newMatrix.MultiplyPoint(v2Local));
+            meshData.SetVertexPosition(triangle.vertex3, newMatrix.MultiplyPoint(v3Local));
+        }
+        
+        public static void ScaleTriangle(this MeshData meshData, int triangleIndex, Vector3 scale)
+        {
+            var newMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);
+            meshData.TranslateTriangle(triangleIndex, newMatrix);
+        }
+        
+        public static void TranslateTriangle(this MeshData meshData, int triangleIndex, Matrix4x4 translationMatrix)
+        {
+            var triangle = meshData.triangles[triangleIndex];
+            var v1 = meshData.vertices[triangle.vertex1];
+            var v2 = meshData.vertices[triangle.vertex2];
+            var v3 = meshData.vertices[triangle.vertex3];
+            
+            var center = meshData.GetTriangleCenter(triangle);
+            var normal = meshData.GetTriangleNormal(triangle);
+            var tangent = (v1.position - center).normalized;
 
-            Debug.Log(matrix.MultiplyPoint(Vector3.zero));
+            var rotation = Quaternion.LookRotation(normal, tangent);
             
-            meshData.SetVertexPosition(triangle.vertex1, matrix.inverse.MultiplyPoint(v1Local));
-            meshData.SetVertexPosition(triangle.vertex2, matrix.inverse.MultiplyPoint(v2Local));
-            meshData.SetVertexPosition(triangle.vertex3, matrix.inverse.MultiplyPoint(v3Local));
+            var matrix = Matrix4x4.TRS(center, rotation, Vector3.one);
+            var newMatrix = matrix * matrix;
             
+            var v1Local = matrix.inverse.MultiplyPoint(v1.position);
+            var v2Local = matrix.inverse.MultiplyPoint(v2.position);
+            var v3Local = matrix.inverse.MultiplyPoint(v3.position);
+            
+            meshData.SetVertexPosition(triangle.vertex1, newMatrix.MultiplyPoint(v1Local));
+            meshData.SetVertexPosition(triangle.vertex2, newMatrix.MultiplyPoint(v2Local));
+            meshData.SetVertexPosition(triangle.vertex3, newMatrix.MultiplyPoint(v3Local));
         }
     }
 }
