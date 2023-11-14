@@ -1,4 +1,5 @@
-﻿using MeshGen;
+﻿using System.Collections.Generic;
+using MeshGen;
 using UnityEngine;
 
 public abstract class EnvironmentMesh
@@ -12,7 +13,7 @@ public abstract class EnvironmentMesh
     
     public abstract void PlaceMeshes(Dungeon dungeon);
     
-    protected abstract Vector3[] GetPositions();
+    protected abstract List<Vector3> GetPositions();
     
     protected abstract Mesh[] GetMeshVariations();
 

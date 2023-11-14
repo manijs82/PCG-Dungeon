@@ -46,7 +46,84 @@ namespace MeshGen
             meshData.SetVertexPosition(triangle.vertex3, newMatrix.MultiplyPoint(v3Local));
         }
         
-        public static void InsertVertexTriangle(this MeshData meshData, int tIndex)
+        public static void MoveMesh(this MeshData meshData, Vector3 offset)
+        {
+            var moveMatrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
+            meshData.TranslateVertices(0, meshData.vertices.Count - 1, moveMatrix);
+        }
+
+        public static void RotateMesh(this MeshData meshData, Vector3 axis, float angle)
+        {
+            var newRotation = Quaternion.AngleAxis(angle, axis);
+            var rotationMatrix = Matrix4x4.TRS(Vector3.zero, newRotation, Vector3.one);
+            meshData.TranslateVertices(0, meshData.vertices.Count - 1, rotationMatrix);
+        }
+        
+        public static void ScaleMesh(this MeshData meshData, Vector3 scale)
+        {
+            var scalingMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);
+            meshData.TranslateVertices(0, meshData.vertices.Count - 1, scalingMatrix);
+        }
+        
+        public static void MoveVertices(this MeshData meshData, int startIndex, int endIndex, Vector3 offset)
+        {
+            var moveMatrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
+            meshData.TranslateVertices(startIndex, endIndex, moveMatrix);
+        }
+
+        public static void RotateVertices(this MeshData meshData, int startIndex, int endIndex, Vector3 axis, float angle)
+        {
+            var newRotation = Quaternion.AngleAxis(angle, axis);
+            var rotationMatrix = Matrix4x4.TRS(Vector3.zero, newRotation, Vector3.one);
+            meshData.TranslateVertices(startIndex, endIndex, rotationMatrix);
+        }
+        
+        public static void ScaleVertices(this MeshData meshData, int startIndex, int endIndex, Vector3 scale)
+        {
+            var scalingMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);
+            meshData.TranslateVertices(startIndex, endIndex, scalingMatrix);
+        }
+        
+        public static void MoveVertex(this MeshData meshData, int vIndex, Vector3 offset)
+        {
+            var moveMatrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
+            meshData.TranslateVertices(vIndex, vIndex, moveMatrix);
+        }
+
+        public static void RotateVertex(this MeshData meshData, int vIndex, Vector3 axis, float angle)
+        {
+            var newRotation = Quaternion.AngleAxis(angle, axis);
+            var rotationMatrix = Matrix4x4.TRS(Vector3.zero, newRotation, Vector3.one);
+            meshData.TranslateVertices(vIndex, vIndex, rotationMatrix);
+        }
+        
+        public static void ScaleVertex(this MeshData meshData, int vIndex, Vector3 scale)
+        {
+            var scalingMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);
+            meshData.TranslateVertices(vIndex, vIndex, scalingMatrix);
+        }
+        
+        /// <param name="startIndex"> Inclusive </param>
+        /// <param name="endIndex"> Inclusive </param>
+        public static void TranslateVertices(this MeshData meshData, int startIndex, int endIndex, Matrix4x4 translationMatrix)
+        {
+            var positions = new Vector3[endIndex - startIndex + 1];
+            for (int i = startIndex; i <= endIndex; i++) 
+                positions[i - startIndex] = meshData.vertices[i].position;
+
+            var center = GetPointsCenter(positions);
+            
+            var matrix = Matrix4x4.TRS(center, Quaternion.identity, Vector3.one);
+            var newMatrix = matrix * translationMatrix;
+            
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                var local = matrix.inverse.MultiplyPoint(positions[i - startIndex]);
+                meshData.SetVertexPosition(i, newMatrix.MultiplyPoint(local));
+            }
+        }
+        
+        public static int InsertVertexTriangle(this MeshData meshData, int tIndex)
         {
             var triangle = meshData.GetTriangle(tIndex);
             
@@ -58,19 +135,21 @@ namespace MeshGen
             meshData.AddTriangle(triangle.vertex1, vIndex, triangle.vertex3);
             meshData.AddTriangle(triangle.vertex2, vIndex, triangle.vertex1);
             meshData.AddTriangle(triangle.vertex3, vIndex, triangle.vertex2);
+
+            return vIndex;
         }
         
-        public static void InsertVertexQuad(this MeshData meshData, int t1Index, int t2Index)
+        public static int InsertVertexQuad(this MeshData meshData, int t1Index, int t2Index)
         {
             var t1 = meshData.GetTriangle(t1Index);
             var t2 = meshData.GetTriangle(t2Index);
             if(!t1.IsAdjacentTo(t2, out var edgeV1, out var edgeV2))
-                return;
+                return -1;
             
             meshData.GetTriangleVerticesPositions(t1Index, out var t1v1, out var t1v2, out var t1v3);
             meshData.GetTriangleVerticesPositions(t2Index, out var t2v1, out var t2v2, out var t2v3);
             
-            var center = GetPolygonCenter(t1v1, t1v2, t1v3, t2v1, t2v2, t2v3);
+            var center = GetPointsCenter(t1v1, t1v2, t1v3, t2v1, t2v2, t2v3);
             var vIndex = meshData.AddVertex(center);
             
             meshData.RemoveTriangle(t1Index);
@@ -101,6 +180,8 @@ namespace MeshGen
                     meshData.AddTriangle(other, t1.vertex1, vIndex);
                     break;
             }
+
+            return vIndex;
         }
         
         public static Vector3 GetTriangleCenter(this MeshData meshData, int triangle)
@@ -115,7 +196,7 @@ namespace MeshGen
             return Vector3.Cross(v2 - v1, v3 - v1).normalized;
         }
         
-        public static Vector3 GetPolygonCenter(params Vector3[] points)
+        public static Vector3 GetPointsCenter(params Vector3[] points)
         {
             return GetPositionSum(points) / points.Length;
         }

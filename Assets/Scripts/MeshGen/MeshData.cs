@@ -55,12 +55,24 @@ namespace MeshGen
             var ad2 = triangle.adjacentTriangle2;
             var ad3 = triangle.adjacentTriangle3;
 
-            if (ad1 >= 0) 
+            if (ad1 >= 0)
+            {
                 SetTriangleEdge(ad1, triangle.vertex1, triangle.vertex2, -1);
-            if (ad2 >= 0) 
+                SetVertexTriangleIndex(triangle.vertex1, ad1);
+                SetVertexTriangleIndex(triangle.vertex2, ad1);
+            }
+            if (ad2 >= 0)
+            {
                 SetTriangleEdge(ad2, triangle.vertex2, triangle.vertex3, -1);
-            if (ad3 >= 0) 
+                SetVertexTriangleIndex(triangle.vertex2, ad2);
+                SetVertexTriangleIndex(triangle.vertex3, ad2);
+            }
+            if (ad3 >= 0)
+            {
                 SetTriangleEdge(ad3, triangle.vertex3, triangle.vertex1, -1);
+                SetVertexTriangleIndex(triangle.vertex3, ad3);
+                SetVertexTriangleIndex(triangle.vertex1, ad3);
+            }
         }
 
         public Triangle GetTriangle(int triangleIndex)
