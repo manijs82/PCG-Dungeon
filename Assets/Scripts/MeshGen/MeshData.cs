@@ -9,6 +9,8 @@ namespace MeshGen
     {
         public List<Triangle> triangles = new();
         public List<Vertex> vertices = new();
+
+        private int currentTriangleIndex = 0;
         
         public int AddTriangle(int v1, int v2, int v3)
         {
@@ -19,7 +21,7 @@ namespace MeshGen
                 throw new ArgumentException("Invalid vertex index.");
             }
             
-            int triangleIndex = triangles.Count;
+            int triangleIndex = currentTriangleIndex;
             Triangle newTriangle = new Triangle(v1, v2, v3, triangleIndex);
             triangles.Add(newTriangle);
             
@@ -40,8 +42,30 @@ namespace MeshGen
                 }
             }
 
-
+            currentTriangleIndex++;
             return triangleIndex;
+        }
+
+        public void RemoveTriangle(int triangleIndex) //TODO: update vertex tIndex
+        {
+            var triangle = GetTriangle(triangleIndex);
+            triangles.Remove(triangle);
+
+            var ad1 = triangle.adjacentTriangle1;
+            var ad2 = triangle.adjacentTriangle2;
+            var ad3 = triangle.adjacentTriangle3;
+
+            if (ad1 >= 0) 
+                SetTriangleEdge(ad1, triangle.vertex1, triangle.vertex2, -1);
+            if (ad2 >= 0) 
+                SetTriangleEdge(ad2, triangle.vertex2, triangle.vertex3, -1);
+            if (ad3 >= 0) 
+                SetTriangleEdge(ad3, triangle.vertex3, triangle.vertex1, -1);
+        }
+
+        public Triangle GetTriangle(int triangleIndex)
+        {
+            return triangles.FirstOrDefault(t => t.index == triangleIndex);
         }
         
         public void AddVertex(float x, float y, float z)
@@ -49,9 +73,12 @@ namespace MeshGen
             vertices.Add(new Vertex(new Vector3(x, y, z)));
         }
         
-        public void AddVertex(Vector3 pos)
+        public int AddVertex(Vector3 pos)
         {
+            int vIndex = vertices.Count;
             vertices.Add(new Vertex(pos));
+
+            return vIndex;
         }
 
         public void SetVertexPosition(int vIndex, Vector3 newPos)
@@ -66,8 +93,8 @@ namespace MeshGen
         private void SetVertexTriangleIndex(int vIndex, int triangleIndex)
         {
             var vert = vertices[vIndex];
-            if (vert.triangle >= 0)
-                return;
+            //if (vert.triangle >= 0)
+            //    return;
             
             vert.triangle = triangleIndex;
 
@@ -76,18 +103,20 @@ namespace MeshGen
 
         private void SetTriangleEdge(int triangle, int edge, int edgeTriangle)
         {
-            var tri = triangles[triangle];
+            var tri = GetTriangle(triangle);
+            var tIndex = triangles.IndexOf(tri);
             tri.SetAdjacentTriangle(edge, edgeTriangle);
 
-            triangles[triangle] = tri;
+            triangles[tIndex] = tri;
         }
         
         public void SetTriangleEdge(int triangle, int vIndex1, int vIndex2, int edgeTriangle)
         {
-            var tri = triangles[triangle];
+            var tri = GetTriangle(triangle);
+            var tIndex = triangles.IndexOf(tri);
             tri.SetAdjacentTriangle(vIndex1, vIndex2, edgeTriangle);
 
-            triangles[triangle] = tri;
+            triangles[tIndex] = tri;
         }
         
         public Vector3 GetTriangleCenter(Triangle triangle)

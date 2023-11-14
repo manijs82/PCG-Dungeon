@@ -34,27 +34,10 @@ public class RockMesh : EnvironmentMesh
     {
         MeshData meshData = new MeshData();
         
-        meshData.AddVertex(0, 0, 0);
-        meshData.AddVertex(0, 1, 0);
-        meshData.AddVertex(1, 0, 0);
-        meshData.AddVertex(1, 1, 0);
-        meshData.AddVertex(-0.5f, 0.5f, 0);
-        meshData.AddVertex(0.5f, -0.5f, 0);
-        meshData.AddVertex(1.5f, -0.5f, 0);
-        meshData.AddVertex(0, -0.5f, 0);
-
-        var tri1 = meshData.AddTriangle(0, 1, 2);
-        meshData.AddTriangle(1, 3, 2);
-        meshData.AddTriangle(0, 4, 1);
-        meshData.AddTriangle(2, 5, 0);
-        meshData.AddTriangle(2, 6, 5);
-        meshData.AddTriangle(0, 5, 7);
-        meshData.AddTriangle(4, 0, 7);
-        meshData.AddTriangle(2, 3, 6);
-
-        meshData.RotateTriangle(tri1, Vector3.back, 45);
-        meshData.ScaleTriangle(tri1, Vector3.one * 0.5f);
-        meshData.MoveTriangle(tri1, Vector3.down * 0.4f);
+        //meshData.AddCube(Vector3.zero, Vector3.one / 2f);
+        meshData.AddQuad(Vector3.zero, Vector3.right / 2f, Vector3.up / 2f);
+        meshData.RemoveTriangle(1);
+        //meshData.InsertVertexTriangle(0);
         
         return meshData;
     }

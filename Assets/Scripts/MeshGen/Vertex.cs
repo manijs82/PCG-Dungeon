@@ -21,6 +21,10 @@ namespace MeshGen
 
             return position == other.position;
         }
+        
+        public static bool operator ==(Vertex a, Vertex b) => a.Equals(b);
+        
+        public static bool operator !=(Vertex a, Vertex b) => !a.Equals(b);
 
         public bool Equals(Vector3 other)
         {

@@ -63,7 +63,7 @@ namespace MeshGen
                 Handles.color = Color.yellow;
                 if(vertex.triangle >= 0)
                     Handles.DrawAAPolyLine(3, vertex.position, 
-                        Vector3.Lerp(vertex.position, GetTriangleCenter(meshData.triangles[vertex.triangle]), 0.4f));
+                        Vector3.Lerp(vertex.position, GetTriangleCenter(meshData.GetTriangle(vertex.triangle)), 0.4f));
             }
             
             Handles.matrix = Matrix4x4.identity;
@@ -73,7 +73,7 @@ namespace MeshGen
         {
             Handles.color = Color.red;
             Handles.DrawAAPolyLine(GetTriangleCenter(triangle1),
-                GetTriangleCenter(meshData.triangles[triangle2Index]));
+                GetTriangleCenter(meshData.GetTriangle(triangle2Index)));
         }
 
         public Vector3 GetTriangleCenter(Triangle triangle)

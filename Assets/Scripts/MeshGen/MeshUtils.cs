@@ -1,49 +1,9 @@
-﻿using System;
-using Freya;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MeshGen
 {
     public static class MeshUtils
     {
-        #region OldMeshData
-
-        public static void AddCube(this MeshDataOld meshData, Vector3 center, Vector3 halfExtents)
-        {
-            Vector3 right = new Vector3(halfExtents.x, 0, 0);
-            Vector3 up = new Vector3(0, halfExtents.y, 0);
-            Vector3 forward = new Vector3(0, 0, halfExtents.z);
-            
-            meshData.AddQuad(center + up, halfExtents.x, halfExtents.z, Vector3.right, Vector3.forward); // top quad
-            meshData.AddQuad(center - up, halfExtents.x, halfExtents.z, Vector3.right, Vector3.back); // bottom quad
-            meshData.AddQuad(center +  right, halfExtents.z, halfExtents.y, Vector3.forward, Vector3.up); // right quad
-            meshData.AddQuad(center -  right, halfExtents.z, halfExtents.y, Vector3.back, Vector3.up); // left quad
-            meshData.AddQuad(center +  forward, halfExtents.x, halfExtents.y, Vector3.left, Vector3.up); // front quad
-            meshData.AddQuad(center -  forward, halfExtents.x, halfExtents.y, Vector3.right, Vector3.up); // back quad
-        }
-        
-        public static void AddQuad(this MeshDataOld meshData, Vector3 center, float halfWidth, float halfHeight, Vector3 right, Vector3 up)
-        {
-            int triangleOffset = meshData.vertices.Count;
-            Vector3 halfRight = right * halfWidth;
-            Vector3 halfUp = up * halfHeight;
-            
-            meshData.AddVertex(center - halfRight - halfUp); // bottom left
-            meshData.AddVertex(center - halfRight + halfUp); // top left
-            meshData.AddVertex(center + halfRight - halfUp); // bottom right
-            meshData.AddVertex(center + halfRight + halfUp); // top right
-            
-            meshData.AddTriangle(triangleOffset, triangleOffset + 1, triangleOffset + 2);
-            meshData.AddTriangle(triangleOffset + 1, triangleOffset + 3, triangleOffset + 2);
-            
-            meshData.AddUV(Vector2.zero);
-            meshData.AddUV(Vector2.up);
-            meshData.AddUV(Vector2.right);
-            meshData.AddUV(Vector2.one);
-        }
-        
-        #endregion
-        
         public static void MoveTriangle(this MeshData meshData, int triangleIndex, Vector3 offset)
         {
             var moveMatrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
@@ -65,27 +25,121 @@ namespace MeshGen
         
         public static void TranslateTriangle(this MeshData meshData, int triangleIndex, Matrix4x4 translationMatrix)
         {
-            var triangle = meshData.triangles[triangleIndex];
-            var v1 = meshData.vertices[triangle.vertex1];
-            var v2 = meshData.vertices[triangle.vertex2];
-            var v3 = meshData.vertices[triangle.vertex3];
+            var triangle = meshData.GetTriangle(triangleIndex);
+            meshData.GetTriangleVerticesPositions(triangleIndex, out var v1, out var v2, out var v3);
             
             var center = meshData.GetTriangleCenter(triangle);
             var normal = meshData.GetTriangleNormal(triangle);
-            var tangent = (v1.position - center).normalized;
+            var tangent = (v1 - center).normalized;
 
             var rotation = Quaternion.LookRotation(normal, tangent);
             
             var matrix = Matrix4x4.TRS(center, rotation, Vector3.one);
             var newMatrix = matrix * translationMatrix;
             
-            var v1Local = matrix.inverse.MultiplyPoint(v1.position);
-            var v2Local = matrix.inverse.MultiplyPoint(v2.position);
-            var v3Local = matrix.inverse.MultiplyPoint(v3.position);
+            var v1Local = matrix.inverse.MultiplyPoint(v1);
+            var v2Local = matrix.inverse.MultiplyPoint(v2);
+            var v3Local = matrix.inverse.MultiplyPoint(v3);
             
             meshData.SetVertexPosition(triangle.vertex1, newMatrix.MultiplyPoint(v1Local));
             meshData.SetVertexPosition(triangle.vertex2, newMatrix.MultiplyPoint(v2Local));
             meshData.SetVertexPosition(triangle.vertex3, newMatrix.MultiplyPoint(v3Local));
+        }
+        
+        public static void InsertVertexTriangle(this MeshData meshData, int tIndex)
+        {
+            var triangle = meshData.GetTriangle(tIndex);
+            
+            var center = meshData.GetTriangleCenter(triangle);
+            var vIndex = meshData.AddVertex(center);
+            
+            meshData.RemoveTriangle(tIndex);
+
+            meshData.AddTriangle(triangle.vertex1, vIndex, triangle.vertex3);
+            meshData.AddTriangle(triangle.vertex2, vIndex, triangle.vertex1);
+            meshData.AddTriangle(triangle.vertex3, vIndex, triangle.vertex2);
+        }
+        
+        public static void InsertVertexQuad(this MeshData meshData, int t1Index, int t2Index)
+        {
+            var t1 = meshData.GetTriangle(t1Index);
+            var t2 = meshData.GetTriangle(t2Index);
+            if(!t1.IsAdjacentTo(t2, out var edgeV1, out var edgeV2))
+                return;
+            
+            meshData.GetTriangleVerticesPositions(t1Index, out var t1v1, out var t1v2, out var t1v3);
+            meshData.GetTriangleVerticesPositions(t2Index, out var t2v1, out var t2v2, out var t2v3);
+            
+            var center = GetPolygonCenter(t1v1, t1v2, t1v3, t2v1, t2v2, t2v3);
+            var vIndex = meshData.AddVertex(center);
+            
+            meshData.RemoveTriangle(t1Index);
+            meshData.RemoveTriangle(t2Index);
+
+            var other = t2.GetOtherVertex(edgeV1, edgeV2);
+            switch (t1.GetEdgeIndex(edgeV1, edgeV2))
+            {
+                case 0:
+                    meshData.AddTriangle(t1.vertex1, vIndex, t1.vertex3);
+                    meshData.AddTriangle(vIndex, t1.vertex2, t1.vertex3);
+
+                    meshData.AddTriangle(t1.vertex1, other, vIndex);
+                    meshData.AddTriangle(other, t1.vertex2, vIndex);
+                    break;
+                case 1:
+                    meshData.AddTriangle(t1.vertex2, vIndex, t1.vertex1);
+                    meshData.AddTriangle(vIndex, t1.vertex3, t1.vertex1);
+
+                    meshData.AddTriangle(t1.vertex3, vIndex, other);
+                    meshData.AddTriangle(vIndex, t1.vertex2, other);
+                    break;
+                case 2:
+                    meshData.AddTriangle(t1.vertex1, t1.vertex2, vIndex);
+                    meshData.AddTriangle(t1.vertex2, t1.vertex3, vIndex);
+
+                    meshData.AddTriangle(t1.vertex3, other, vIndex);
+                    meshData.AddTriangle(other, t1.vertex1, vIndex);
+                    break;
+            }
+        }
+        
+        public static Vector3 GetTriangleCenter(this MeshData meshData, int triangle)
+        {
+            meshData.GetTriangleVerticesPositions(triangle, out var v1, out var v2, out var v3);
+            return (v1 + v2 + v3) / 3f;
+        }
+        
+        public static Vector3 GetTriangleNormal(this MeshData meshData, int triangle)
+        {
+            meshData.GetTriangleVerticesPositions(triangle, out var v1, out var v2, out var v3);
+            return Vector3.Cross(v2 - v1, v3 - v1).normalized;
+        }
+        
+        public static Vector3 GetPolygonCenter(params Vector3[] points)
+        {
+            return GetPositionSum(points) / points.Length;
+        }
+        
+        public static Vector3 GetPositionSum(Vector3[] points)
+        {
+            Vector3 sum = Vector3.zero;
+            foreach (var point in points)
+                sum += point;
+            return sum;
+        }
+        
+        public static void GetTriangleVerticesPositions(this MeshData meshData, int triangle, out Vector3 v1, out Vector3 v2, out Vector3 v3)
+        {
+            v1 = meshData.vertices[meshData.GetTriangle(triangle).vertex1].position;
+            v2 = meshData.vertices[meshData.GetTriangle(triangle).vertex2].position;
+            v3 = meshData.vertices[meshData.GetTriangle(triangle).vertex3].position;
+        }
+        
+        public static void GetTriangleVertices(this MeshData meshData, int triangle, out Vertex v1, out Vertex v2, out Vertex v3)
+        {
+            v1 = meshData.vertices[meshData.GetTriangle(triangle).vertex1];
+            v2 = meshData.vertices[meshData.GetTriangle(triangle).vertex2];
+            v3 = meshData.vertices[meshData.GetTriangle(triangle).vertex3];
         }
     }
 }

@@ -51,6 +51,52 @@ namespace MeshGen
             return null;
         }
         
+        public int GetEdgeIndex(int vIndex1, int vIndex2)
+        {
+            if ((vertex1 == vIndex1 && vertex2 == vIndex2) || (vertex2 == vIndex1 && vertex1 == vIndex2))
+            {
+                return 0;
+            }
+            
+            if ((vertex2 == vIndex1 && vertex3 == vIndex2) || (vertex3 == vIndex1 && vertex2 == vIndex2))
+            {
+                return 1;
+            }
+            
+            if ((vertex3 == vIndex1 && vertex1 == vIndex2) || (vertex1 == vIndex1 && vertex3 == vIndex2))
+            {
+                return 2;
+            }
+
+            return -1;
+        }
+        
+        public int GetEdgeTriangleIndex(int edgeIndex)
+        {
+            switch (edgeIndex)
+            {
+                case 0:
+                    return adjacentTriangle1;
+                case 1:
+                    return adjacentTriangle2;
+                case 2:
+                    return adjacentTriangle3;
+            }
+
+            return -1;
+        }
+
+        public int GetOtherVertex(int v1, int v2)
+        {
+            if ((v1 == vertex1 && v2 == vertex2) || (v1 == vertex2 && v2 == vertex1))
+                return vertex3;
+            if ((v1 == vertex2 && v2 == vertex3) || (v1 == vertex3 && v2 == vertex2))
+                return vertex1;
+            if ((v1 == vertex1 && v2 == vertex3) || (v1 == vertex3 && v2 == vertex1))
+                return vertex2;
+            return -1;
+        }
+        
         public int GetVertex(int vIndex)
         {
             switch (vIndex)
@@ -78,11 +124,6 @@ namespace MeshGen
             return -1;
         }
 
-        public bool Contains(int vIndex)
-        {
-            return vertex1 == vIndex || vertex2 == vIndex || vertex3 == vIndex;
-        }
-        
         public bool IsAdjacentTo(Triangle other)
         {
             int sharedVertices = 0;
@@ -102,7 +143,7 @@ namespace MeshGen
             }
             return false;
         }
-        
+
         public bool IsAdjacentTo(Triangle other, out int v1, out int v2)
         {
             int sharedVertices = 0;
@@ -163,6 +204,11 @@ namespace MeshGen
             {
                 adjacentTriangle3 = adjacentTriangleIndex;
             }
+        }
+
+        public bool Contains(int vIndex)
+        {
+            return vertex1 == vIndex || vertex2 == vIndex || vertex3 == vIndex;
         }
 
         public static bool operator ==(Triangle a, Triangle b) => a.Equals(b);
