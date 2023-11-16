@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using MeshGen;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TerrainVisualizer : DungeonVisualizer
 {
@@ -20,8 +17,8 @@ public class TerrainVisualizer : DungeonVisualizer
         meshCollider.sharedMesh = mesh;
         
         grassShell.Enable(new BackgroundMask(dungeon).GetMaskTexture(1f)); // generate grass
-        var rockMesh = new RockMesh(rockMaterial); // generate rocks
-        rockMesh.PlaceMeshes(dungeon);
+        new RockMesh(rockMaterial).PlaceMeshes(dungeon); // generate rocks
+        new BushMesh(rockMaterial).PlaceMeshes(dungeon); // generate bushes
     }
 
     

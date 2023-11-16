@@ -183,6 +183,14 @@ namespace MeshGen
 
             return vIndex;
         }
+
+        public static int SetAsQuad(this MeshData meshData, int v00, int v01, int v10, int v11)
+        {
+            var tIndex = meshData.AddTriangle(v00, v01, v10);
+            meshData.AddTriangle(v01, v11, v10);
+
+            return tIndex;
+        }
         
         public static Vector3 GetTriangleCenter(this MeshData meshData, int triangle)
         {
