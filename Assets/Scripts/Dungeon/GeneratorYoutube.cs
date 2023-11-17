@@ -77,16 +77,17 @@ public class GeneratorYoutube : MonoBehaviour
 
         if (mutate)
         {
-            dungeon.Mutate();
+            for (int i = 0; i < 50; i++)
+            {
+                dungeon.Mutate();
+            }
 
             mutate = false;
         }
 
         if (triangulate)
         {
-            dungeon.roomGraph = new Graph<Room>();
-            foreach (var room in dungeon.rooms) dungeon.roomGraph.AddNode(new Node<Room>(room));
-            dungeon.roomGraph.TriangulateDelaunay(node => node.Value.Center.ToPoint());
+            StartCoroutine(Triangulate());
             triangulate = false;
         }
 
@@ -132,6 +133,23 @@ public class GeneratorYoutube : MonoBehaviour
         }
         
         Handles.matrix = Matrix4x4.identity;
+    }
+
+    private IEnumerator Triangulate()
+    {
+        for (int i = 3; i <= dungeon.rooms.Count; i++)
+        {
+            dungeon.roomGraph = new Graph<Room>();
+            for (var j = 0; j < i; j++)
+            {
+                var room = dungeon.rooms[j];
+                dungeon.roomGraph.AddNode(new Node<Room>(room));
+            }
+
+            dungeon.roomGraph.TriangulateDelaunay(node => node.Value.Center.ToPoint());
+
+            yield return new WaitForSeconds(0.15f);
+        }
     }
 
     private IEnumerator SetRoomTiles(Room room)
