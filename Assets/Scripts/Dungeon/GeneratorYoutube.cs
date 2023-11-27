@@ -20,6 +20,8 @@ public class GeneratorYoutube : MonoBehaviour
     [SerializeField] private bool drawRoom;
     [SerializeField] private bool drawHallway;
     [SerializeField] private bool drawBackground;
+    [SerializeField] private bool drawAll;
+    [SerializeField] private bool drawAllColored;
     [SerializeField] private bool clear;
     
     private Dungeon dungeon;
@@ -123,6 +125,29 @@ public class GeneratorYoutube : MonoBehaviour
             StartCoroutine(SetTiles(dungeon.grid.backgroundTiles));
 
             drawBackground = false;
+        }
+        
+        if (drawAll && dungeon.roomGraph != null)
+        {
+            foreach (var gridObject in dungeon.grid.GridObjects)
+            {
+                TileChangeData tileData = ((TileGridObject)gridObject).GetTileVisual();
+                tileData.color = ((Tile)tileData.tile).color;
+                tilemap.SetTile(tileData, true);
+            }
+
+            drawAll = false;
+        }
+        
+        if (drawAllColored && dungeon.roomGraph != null)
+        {
+            foreach (var gridObject in dungeon.grid.GridObjects)
+            {
+                TileChangeData tileData = ((TileGridObject)gridObject).GetTileVisual();
+                tilemap.SetTile(tileData, true);
+            }
+
+            drawAllColored = false;
         }
         
         if (clear)

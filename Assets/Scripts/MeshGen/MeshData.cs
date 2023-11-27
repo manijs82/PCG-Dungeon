@@ -149,17 +149,45 @@ namespace MeshGen
             return Vector3.Cross(v2 - v1, v3 - v1).normalized;
         }
 
-        public Mesh CreateMesh()
+        public Mesh CreateMesh(bool autoNormals = true, bool perTriangleVertices = false)
         {
             var verts = new List<Vector3>();
-            foreach (var vertex in vertices) verts.Add(vertex.position);
-
             var tris = new List<int>();
-            foreach (var triangle in triangles)
+            var normals = new List<Vector3>();
+            
+            if(!perTriangleVertices)
             {
-                tris.Add(triangle.vertex1);
-                tris.Add(triangle.vertex2);
-                tris.Add(triangle.vertex3);
+                foreach (var vertex in vertices) 
+                    verts.Add(vertex.position);
+
+                foreach (var triangle in triangles)
+                {
+                    tris.Add(triangle.vertex1);
+                    tris.Add(triangle.vertex2);
+                    tris.Add(triangle.vertex3);
+                }
+            }
+            else
+            {
+                foreach (var triangle in triangles)
+                {
+                    int lastVertIndex = verts.Count;
+                    
+                    verts.Add(vertices[triangle.vertex1].position);
+                    verts.Add(vertices[triangle.vertex2].position);
+                    verts.Add(vertices[triangle.vertex3].position);
+                    
+                    if(autoNormals)
+                    {
+                        normals.Add(GetTriangleNormal(triangle));
+                        normals.Add(GetTriangleNormal(triangle));
+                        normals.Add(GetTriangleNormal(triangle));
+                    }
+                    
+                    tris.Add(lastVertIndex);
+                    tris.Add(lastVertIndex + 1);
+                    tris.Add(lastVertIndex + 2);
+                }
             }
 
             Mesh mesh = new Mesh
@@ -168,7 +196,10 @@ namespace MeshGen
                 triangles = tris.ToArray(),
             };
 
-            mesh.RecalculateNormals();
+            if (autoNormals)
+                mesh.RecalculateNormals();
+            else
+                mesh.normals = normals.ToArray();
             return mesh;
         }
     }

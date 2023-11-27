@@ -13,18 +13,21 @@ public class RockMesh : EnvironmentMesh
     public override void PlaceMeshes(Dungeon dungeon)
     {
         this.dungeon = dungeon;
+        var meshVariation = GetMeshVariations();
 
         foreach (var position in GetPositions())
         {
             var go = new GameObject("Cube");
             go.transform.position = position;
-            var randomMeshData = GetRandomMeshData();
+            
+            /* var randomMeshData = GetRandomMeshData();
             var mesh = randomMeshData.CreateMesh();
-            mesh.RecalculateNormals();
+            mesh.RecalculateNormals(); */
+            var mesh = meshVariation[Random.Range(0, meshVariation.Length)];
         
             go.AddComponent<MeshFilter>().mesh = mesh;
             go.AddComponent<MeshRenderer>().material = material;
-            go.AddComponent<MeshGizmo>().SetMeshData(randomMeshData);
+            //go.AddComponent<MeshGizmo>().SetMeshData(randomMeshData);
         }
     }
 
@@ -50,7 +53,17 @@ public class RockMesh : EnvironmentMesh
 
     protected override Mesh[] GetMeshVariations()
     {
-        return new Mesh[] { };
+        Mesh[] meshes = new Mesh[15];
+        for (int i = 0; i < meshes.Length; i++)
+        {
+            var randomMeshData = GetRandomMeshData();
+            var mesh = randomMeshData.CreateMesh(false, true);
+            mesh.name = $"Rock {i}";
+
+            meshes[i] = mesh;
+        }
+        
+        return meshes;
     }
 
     protected override MeshData GetRandomMeshData()
