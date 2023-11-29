@@ -6,7 +6,7 @@ public class RockMesh : EnvironmentMesh
 {
     private Dungeon dungeon;
     
-    public RockMesh(Material material) : base(material)
+    public RockMesh(Material[] materials) : base(materials)
     {
     }
 
@@ -26,7 +26,7 @@ public class RockMesh : EnvironmentMesh
             var mesh = meshVariation[Random.Range(0, meshVariation.Length)];
         
             go.AddComponent<MeshFilter>().mesh = mesh;
-            go.AddComponent<MeshRenderer>().material = material;
+            go.AddComponent<MeshRenderer>().materials = materials;
             //go.AddComponent<MeshGizmo>().SetMeshData(randomMeshData);
         }
     }
@@ -57,7 +57,7 @@ public class RockMesh : EnvironmentMesh
         for (int i = 0; i < meshes.Length; i++)
         {
             var randomMeshData = GetRandomMeshData();
-            var mesh = randomMeshData.CreateMesh(false, true);
+            var mesh = randomMeshData.CreateMesh(true, true);
             mesh.name = $"Rock {i}";
 
             meshes[i] = mesh;

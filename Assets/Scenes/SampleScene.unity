@@ -914,6 +914,8 @@ MonoBehaviour:
   meshFilter: {fileID: 261701031}
   grassShell: {fileID: 1272919784}
   rockMaterial: {fileID: 2100000, guid: 0abc1c1e12bbd7046afedf8547873c51, type: 2}
+  bushMaterial: {fileID: 2100000, guid: cac035c3d671e77438faed1e1dfe2559, type: 2}
+  trunkMaterial: {fileID: 2100000, guid: 65cb2e20e83598046b630b94930e96f0, type: 2}
 --- !u!1 &316120310
 GameObject:
   m_ObjectHideFlags: 0

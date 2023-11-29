@@ -5,7 +5,8 @@ public class TerrainVisualizer : DungeonVisualizer
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private GrassShell grassShell;
     [SerializeField] private Material rockMaterial;
-
+    [SerializeField] private Material bushMaterial;
+    [SerializeField] private Material trunkMaterial;
     
     protected override void Visualize(Dungeon dungeon)
     {
@@ -17,8 +18,8 @@ public class TerrainVisualizer : DungeonVisualizer
         meshCollider.sharedMesh = mesh;
         
         grassShell.Enable(new BackgroundMask(dungeon).GetMaskTexture(1f)); // generate grass
-        new RockMesh(rockMaterial).PlaceMeshes(dungeon); // generate rocks
-        new BushMesh(rockMaterial).PlaceMeshes(dungeon); // generate bushes
+        new RockMesh(new [] { rockMaterial }).PlaceMeshes(dungeon); // generate rocks
+        new BushMesh(new [] { bushMaterial, trunkMaterial }).PlaceMeshes(dungeon); // generate bushes
     }
 
     

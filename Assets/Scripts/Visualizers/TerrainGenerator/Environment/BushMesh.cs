@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BushMesh : EnvironmentMesh
 {
-    public BushMesh(Material material) : base(material)
+    public BushMesh(Material[] materials) : base(materials)
     {
     }
 
@@ -19,7 +19,7 @@ public class BushMesh : EnvironmentMesh
             mesh.RecalculateNormals();
         
             go.AddComponent<MeshFilter>().mesh = mesh;
-            go.AddComponent<MeshRenderer>().material = material;
+            go.AddComponent<MeshRenderer>().materials = materials;
             go.AddComponent<MeshGizmo>().SetMeshData(randomMeshData);
         }
     }
@@ -45,7 +45,9 @@ public class BushMesh : EnvironmentMesh
         //meshData.AddSubdividedCube(Vector3.up * 2, Vector3.one / 2f, 2, 2, 2);
         //meshData.AddSubdividedCube(Vector2.one * 2, Vector3.one / 2f, 6, 2, 2);
         meshData.AddRoundedCube(Vector3.zero, new Vector3(4, 2, 4), 4);
+        meshData.subMeshes.Add(meshData.triangles.Count - 1);
         meshData.AddCube(Vector3.down * 5, new Vector3(1, 5, 1));
+        meshData.subMeshes.Add(meshData.triangles.Count - 1);
 
         return meshData;
     }

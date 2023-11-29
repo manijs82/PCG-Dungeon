@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class EnvironmentMesh
 {
-    protected Material material;
+    protected Material[] materials;
     
-    public EnvironmentMesh(Material material)
+    public EnvironmentMesh(Material[] materials)
     {
-        this.material = material;
+        this.materials = materials;
     }
     
     public abstract void PlaceMeshes(Dungeon dungeon);

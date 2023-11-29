@@ -9,6 +9,7 @@ namespace MeshGen
     {
         public List<Triangle> triangles = new();
         public List<Vertex> vertices = new();
+        public List<int> subMeshes = new();
 
         private int currentTriangleIndex = 0;
         
@@ -152,49 +153,72 @@ namespace MeshGen
         public Mesh CreateMesh(bool autoNormals = true, bool perTriangleVertices = false)
         {
             var verts = new List<Vector3>();
-            var tris = new List<int>();
+            var tris = new List<List<int>>();
             var normals = new List<Vector3>();
+            if(subMeshes.Count == 0) subMeshes.Add(triangles.Count - 1);
             
             if(!perTriangleVertices)
             {
                 foreach (var vertex in vertices) 
                     verts.Add(vertex.position);
 
-                foreach (var triangle in triangles)
+                for (int i = 0; i < subMeshes.Count; i++)
                 {
-                    tris.Add(triangle.vertex1);
-                    tris.Add(triangle.vertex2);
-                    tris.Add(triangle.vertex3);
+                    var subMeshTris = new List<int>();
+                    var lastIndex = i == 0 ? 0 : subMeshes[i - 1] + 1;
+
+                    for (int j = lastIndex; j <= subMeshes[i]; j++)
+                    {
+                        var triangle = triangles[j];
+                        subMeshTris.Add(triangle.vertex1);
+                        subMeshTris.Add(triangle.vertex2);
+                        subMeshTris.Add(triangle.vertex3);
+                    }
+                    
+                    tris.Add(subMeshTris);
                 }
             }
             else
             {
-                foreach (var triangle in triangles)
+                for (int i = 0; i < subMeshes.Count; i++)
                 {
-                    int lastVertIndex = verts.Count;
+                    var subMeshTris = new List<int>();
+                    var lastIndex = i == 0 ? 0 : subMeshes[i - 1] + 1;
                     
-                    verts.Add(vertices[triangle.vertex1].position);
-                    verts.Add(vertices[triangle.vertex2].position);
-                    verts.Add(vertices[triangle.vertex3].position);
-                    
-                    if(autoNormals)
+                    for (int j = lastIndex; j <= subMeshes[i]; j++)
                     {
-                        normals.Add(GetTriangleNormal(triangle));
-                        normals.Add(GetTriangleNormal(triangle));
-                        normals.Add(GetTriangleNormal(triangle));
+                        var triangle = triangles[j];
+                        int lastVertIndex = verts.Count;
+                    
+                        verts.Add(vertices[triangle.vertex1].position);
+                        verts.Add(vertices[triangle.vertex2].position);
+                        verts.Add(vertices[triangle.vertex3].position);
+                    
+                        if(!autoNormals)
+                        {
+                            normals.Add(GetTriangleNormal(triangle));
+                            normals.Add(GetTriangleNormal(triangle));
+                            normals.Add(GetTriangleNormal(triangle));
+                        }
+                    
+                        subMeshTris.Add(lastVertIndex);
+                        subMeshTris.Add(lastVertIndex + 1);
+                        subMeshTris.Add(lastVertIndex + 2);
                     }
                     
-                    tris.Add(lastVertIndex);
-                    tris.Add(lastVertIndex + 1);
-                    tris.Add(lastVertIndex + 2);
+                    tris.Add(subMeshTris);
                 }
             }
 
             Mesh mesh = new Mesh
             {
-                vertices = verts.ToArray(),
-                triangles = tris.ToArray(),
+                vertices = verts.ToArray()
             };
+            mesh.subMeshCount = tris.Count;
+            for (var i = 0; i < tris.Count; i++)
+            {
+                mesh.SetTriangles(tris[i].ToArray(), i);
+            }
 
             if (autoNormals)
                 mesh.RecalculateNormals();
