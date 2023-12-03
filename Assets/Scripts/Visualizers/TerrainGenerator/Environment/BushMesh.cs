@@ -28,9 +28,14 @@ public class BushMesh : EnvironmentMesh
         }
     }
 
-    protected override List<Vector3> GetPositions()
+    protected override IEnumerable<Vector3> GetPositions()
     {
-        return PoissonDiscSampling.GeneratePoints(20, dungeon.bound, 1000);
+        PerlinMask perlinMask = new PerlinMask(dungeon, 0.5f);
+        BackgroundMask backgroundMask = new BackgroundMask(dungeon);
+        SurroundingRoomMask surroundingRoomMask = new SurroundingRoomMask(dungeon, EnvironmentType.Set, true);
+        var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask, surroundingRoomMask);
+        
+        return PoissonDiscSampling.GeneratePoints(2, dungeon.bound, 10000).MaskPositions(mask);
     }
 
     protected override Mesh[] GetMeshVariations()
@@ -42,9 +47,9 @@ public class BushMesh : EnvironmentMesh
     {
         MeshData meshData = new MeshData();
 
-        meshData.AddRoundedCube(Vector3.zero, new Vector3(4, 2, 4), 4);
+        meshData.AddRoundedCube(Vector3.up * 5, new Vector3(4, 2, 4), 4);
         meshData.subMeshes.Add(meshData.triangles.Count - 1);
-        meshData.AddCube(Vector3.down * 5, new Vector3(1, 5, 1));
+        meshData.AddCube(Vector3.zero, new Vector3(1, 5, 1));
         meshData.subMeshes.Add(meshData.triangles.Count - 1);
         
         meshData.ScaleMesh(Vector3.one * 0.5f);

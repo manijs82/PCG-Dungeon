@@ -13,7 +13,7 @@ public abstract class EnvironmentMesh
     
     public abstract void PlaceMeshes(Dungeon dungeon);
     
-    protected abstract List<Vector3> GetPositions();
+    protected abstract IEnumerable<Vector3> GetPositions();
     
     protected abstract Mesh[] GetMeshVariations();
 

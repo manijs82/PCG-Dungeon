@@ -5,7 +5,7 @@ public class SurroundingRoomMask : Mask
     private DungeonGrid<GridObject> grid;
     private EnvironmentType roomType;
     
-    public SurroundingRoomMask(Dungeon dungeon, EnvironmentType roomType) : base(dungeon)
+    public SurroundingRoomMask(Dungeon dungeon, EnvironmentType roomType, bool inverted = false) : base(dungeon, inverted)
     {
         grid = dungeon.grid;
         this.roomType = roomType;

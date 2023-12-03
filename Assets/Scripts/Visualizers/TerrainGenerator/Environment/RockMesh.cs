@@ -31,10 +31,8 @@ public class RockMesh : EnvironmentMesh
         }
     }
 
-    protected override List<Vector3> GetPositions()
+    protected override IEnumerable<Vector3> GetPositions()
     {
-        var positions = new List<Vector3>();
-
         var mask = new SurroundingRoomMask(dungeon, EnvironmentType.Set).GetMask();
         
         for (int x = 0; x < mask.GetLength(0); x++)
@@ -43,12 +41,10 @@ public class RockMesh : EnvironmentMesh
             {
                 if (mask[x, y])
                 {
-                    positions.Add(new Vector3(x, 0, y));
+                    yield return new Vector3(x, 0, y);
                 }
             }
         }
-        
-        return positions;
     }
 
     protected override Mesh[] GetMeshVariations()

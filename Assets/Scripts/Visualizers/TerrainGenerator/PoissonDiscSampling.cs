@@ -25,7 +25,8 @@ public static class PoissonDiscSampling
         
         while (activeList.Count != 0)
         {
-            int pointIndex = activeList[Random.Range(0, activeList.Count)];
+            var randomIndex = Random.Range(0, activeList.Count);
+            int pointIndex = activeList[randomIndex];
             Vector2 point = points[pointIndex];
 
             bool addedAnySample = false;
@@ -44,13 +45,17 @@ public static class PoissonDiscSampling
                     grid.SetValue(newX, newY, nextSample);
 
                     addedAnySample = true;
-                    break;
+                    
+                    if(points.Count > pointsLimit)
+                    {
+                        break;
+                    }
                 }
             }
 
             if (!addedAnySample)
             {
-                activeList.Remove(pointIndex);
+                activeList.RemoveAt(randomIndex);
             }
             
             if(points.Count > pointsLimit)
@@ -59,7 +64,6 @@ public static class PoissonDiscSampling
             }
         }
         
-        Debug.Log(points.Count);
         return points;
     }
 
@@ -69,17 +73,30 @@ public static class PoissonDiscSampling
             return false;
         
         grid.GetGridPosition(candidate, out int x, out int y);
+
+        if(grid.HasValue(x, y))
+        {
+            if (grid.GetValue(x, y).index != -1)
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+
         var neighbors = grid.GetNeighbors(x, y, new Bound(2, 2, 2, 2));
         foreach (var neighbor in neighbors)
         {
             if(neighbor.index == -1) continue;
             
             var neighborPos = points[neighbor.index];
-            if (Vector2.Distance(candidate, neighborPos) >= radius)
-                return true;
+            if (Vector2.Distance(candidate, neighborPos) <= radius)
+            {
+                return false;
+            }
         }
 
-        return false;
+        return true;
     }
 }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BackgroundMask : Mask
 {
-    public BackgroundMask(Dungeon dungeon) : base(dungeon)
+    public BackgroundMask(Dungeon dungeon, bool inverted = false) : base(dungeon, inverted)
     {
     }
 
