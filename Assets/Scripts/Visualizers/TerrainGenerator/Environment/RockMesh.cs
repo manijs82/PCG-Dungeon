@@ -17,17 +17,13 @@ public class RockMesh : EnvironmentMesh
 
         foreach (var position in GetPositions())
         {
-            var go = new GameObject("Cube");
+            var go = new GameObject("Rock");
             go.transform.position = position;
             
-            /* var randomMeshData = GetRandomMeshData();
-            var mesh = randomMeshData.CreateMesh();
-            mesh.RecalculateNormals(); */
             var mesh = meshVariation[Random.Range(0, meshVariation.Length)];
         
             go.AddComponent<MeshFilter>().mesh = mesh;
             go.AddComponent<MeshRenderer>().materials = materials;
-            //go.AddComponent<MeshGizmo>().SetMeshData(randomMeshData);
         }
     }
 

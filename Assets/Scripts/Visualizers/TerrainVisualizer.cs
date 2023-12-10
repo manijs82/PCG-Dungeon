@@ -19,7 +19,7 @@ public class TerrainVisualizer : DungeonVisualizer
         
         grassShell.Enable(new BackgroundMask(dungeon).GetMaskTexture(1f)); // generate grass
         new RockMesh(new [] { rockMaterial }).PlaceMeshes(dungeon); // generate rocks
-        new BushMesh(new [] { bushMaterial, trunkMaterial }).PlaceMeshes(dungeon); // generate bushes
+        new TreeMesh(new [] { bushMaterial, trunkMaterial }).PlaceMeshes(dungeon); // generate bushes
     }
 
     

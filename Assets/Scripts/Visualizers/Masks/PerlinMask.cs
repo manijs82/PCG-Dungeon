@@ -7,6 +7,7 @@ public class PerlinMask : Mask
     public PerlinMask(Dungeon dungeon, float threshold, bool inverted = false) : base(dungeon, inverted)
     {
         this.threshold = threshold;
+        ServiceLocator.PerlinNoiseProvider.SetPerlinOffset(Generator.tileRnd.Next(0, 2000));
     }
 
     public override bool GetMaskValueAt(int x, int y)

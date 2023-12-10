@@ -2,11 +2,11 @@
 using MeshGen;
 using UnityEngine;
 
-public class BushMesh : EnvironmentMesh
+public class TreeMesh : EnvironmentMesh
 {
     private Dungeon dungeon;
     
-    public BushMesh(Material[] materials) : base(materials)
+    public TreeMesh(Material[] materials) : base(materials)
     {
     }
 
@@ -14,17 +14,15 @@ public class BushMesh : EnvironmentMesh
     {
         this.dungeon = dungeon;
         
-        var randomMeshData = GetRandomMeshData();
-        var mesh = randomMeshData.CreateMesh();
+        var meshVariation = GetMeshVariations();
         
         foreach (var position in GetPositions())
         {
-            var go = new GameObject("Cube");
+            var go = new GameObject("Tree");
             go.transform.position = new Vector3(position.x, 0, position.y);
         
-            go.AddComponent<MeshFilter>().mesh = mesh;
+            go.AddComponent<MeshFilter>().mesh = meshVariation[Random.Range(0, meshVariation.Length)];
             go.AddComponent<MeshRenderer>().materials = materials;
-            go.AddComponent<MeshGizmo>().SetMeshData(randomMeshData);
         }
     }
 
@@ -35,21 +33,33 @@ public class BushMesh : EnvironmentMesh
         SurroundingRoomMask surroundingRoomMask = new SurroundingRoomMask(dungeon, EnvironmentType.Set, true);
         var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask, surroundingRoomMask);
         
-        return PoissonDiscSampling.GeneratePoints(2, dungeon.bound, 10000).MaskPositions(mask);
+        return PoissonDiscSampling.GeneratePoints(7, dungeon.bound, 1000).MaskPositions(mask);
     }
 
     protected override Mesh[] GetMeshVariations()
     {
-        return new Mesh[] { };
+        Mesh[] meshes = new Mesh[10];
+        for (int i = 0; i < meshes.Length; i++)
+        {
+            var randomMeshData = GetRandomMeshData();
+            var mesh = randomMeshData.CreateMesh();
+            mesh.name = $"Tree {i}";
+
+            meshes[i] = mesh;
+        }
+        
+        return meshes;
     }
 
     protected override MeshData GetRandomMeshData()
     {
         MeshData meshData = new MeshData();
 
-        meshData.AddRoundedCube(Vector3.up * 5, new Vector3(4, 2, 4), 4);
+        float height = Random.Range(5, 7);
+
+        meshData.AddRoundedCube(Vector3.up * height, new Vector3(height - 1, height - Random.Range(1, 2), height - 1), Random.Range(2, 5));
         meshData.subMeshes.Add(meshData.triangles.Count - 1);
-        meshData.AddCube(Vector3.zero, new Vector3(1, 5, 1));
+        meshData.AddCube(Vector3.zero, new Vector3(1, height, 1));
         meshData.subMeshes.Add(meshData.triangles.Count - 1);
         
         meshData.ScaleMesh(Vector3.one * 0.5f);

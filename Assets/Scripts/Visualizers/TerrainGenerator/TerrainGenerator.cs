@@ -42,9 +42,9 @@ public class TerrainGenerator
         meshData.AddTriangle(squareIndex + 2, squareIndex + 3, squareIndex);
 
         var tileSprite = ((Tile)tile.GetTileVisual().tile).sprite;
-        meshData.AddUV(tileSprite.uv[2]);
-        meshData.AddUV(tileSprite.uv[0]);
-        meshData.AddUV(tileSprite.uv[1]);
-        meshData.AddUV(tileSprite.uv[3]);
+        //meshData.AddUV(tileSprite.uv[2]);
+        //meshData.AddUV(tileSprite.uv[0]);
+        //meshData.AddUV(tileSprite.uv[1]);
+        //meshData.AddUV(tileSprite.uv[3]);
     }
 }
