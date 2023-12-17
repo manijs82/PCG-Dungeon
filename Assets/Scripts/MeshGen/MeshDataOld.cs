@@ -9,6 +9,7 @@ namespace MeshGen
         public List<Vector3> vertices = new();
         public List<int> triangles = new();
         public List<Vector2> uvs = new();
+        public List<Vector3> normals = new();
 
         public void AddTriangle(int a, int b, int c)
         {
@@ -26,8 +27,13 @@ namespace MeshGen
         {
             uvs.Add(uv);
         }
+        
+        public void AddNormal(Vector3 normal)
+        {
+            normals.Add(normal);
+        }
 
-        public Mesh CreateMesh()
+        public Mesh CreateMesh(bool autoNormals = true)
         {
             Mesh mesh = new Mesh
             {
@@ -36,7 +42,11 @@ namespace MeshGen
                 uv = uvs.ToArray()
             };
 
-            mesh.RecalculateNormals();
+            if (autoNormals)
+                mesh.RecalculateNormals();
+            else
+                mesh.normals = normals.ToArray();
+            
             return mesh;
         }
     }

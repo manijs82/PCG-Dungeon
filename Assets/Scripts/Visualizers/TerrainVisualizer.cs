@@ -3,7 +3,6 @@
 public class TerrainVisualizer : DungeonVisualizer
 {
     [SerializeField] private HeightMapData heightMapData;
-    [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private GrassShell grassShell;
     [SerializeField] private Material rockMaterial;
     [SerializeField] private Material bushMaterial;
@@ -16,19 +15,21 @@ public class TerrainVisualizer : DungeonVisualizer
         heightMap = new HeightMap(heightMapData);
         
         TerrainGenerator terrainGenerator = new TerrainGenerator(dungeon, heightMap); //generate terrain
-        var meshes = terrainGenerator.GenerateMesh();
+        var meshes = terrainGenerator.GenerateTerrainSections();
         
         foreach (var mesh in meshes)
         {
+            var go = new GameObject("terrain section");
+            go.transform.SetParent(transform);
+            var meshFilter = go.AddComponent<MeshFilter>();
+            go.AddComponent<MeshRenderer>().material = rockMaterial;
             meshFilter.mesh = mesh;
-            var meshCollider = gameObject.AddComponent<MeshCollider>();
+            var meshCollider = go.AddComponent<MeshCollider>();
             meshCollider.sharedMesh = mesh;
         }
         
-        grassShell.Enable(new BackgroundMask(dungeon).GetMaskTexture(1f)); // generate grass
-        
-        new RockMesh(new [] { rockMaterial }).PlaceMeshes(dungeon); // generate rocks
-        new TreeMesh(new [] { bushMaterial, trunkMaterial }).PlaceMeshes(dungeon); // generate bushes
+        new RockMesh(new [] { rockMaterial }, heightMap).PlaceMeshes(dungeon); // generate rocks
+        new TreeMesh(new [] { bushMaterial, trunkMaterial }, heightMap).PlaceMeshes(dungeon); // generate bushes
     }
 
     

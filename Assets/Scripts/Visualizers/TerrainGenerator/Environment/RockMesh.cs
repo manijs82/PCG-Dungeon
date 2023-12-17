@@ -6,7 +6,7 @@ public class RockMesh : EnvironmentMesh
 {
     private Dungeon dungeon;
     
-    public RockMesh(Material[] materials) : base(materials)
+    public RockMesh(Material[] materials, HeightMap heightMap) : base(materials, heightMap)
     {
     }
 
@@ -37,7 +37,7 @@ public class RockMesh : EnvironmentMesh
             {
                 if (mask[x, y])
                 {
-                    yield return new Vector3(x, 0, y);
+                    yield return new Vector3(x, GetHeightAt(x, y), y);
                 }
             }
         }

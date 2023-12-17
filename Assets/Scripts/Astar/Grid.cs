@@ -273,6 +273,20 @@ public class Grid<TGridObject> where TGridObject : GridObject
         return list[Random.Range(0, list.Count)];
     }
 
+    public IEnumerable<TGridObject> GetSection(int sectionXIndex, int sectionYIndex, int sectionWidth,
+        int sectionHeight)
+    {
+        for (int x = 0; x < sectionWidth; x++)
+        {
+            for (int y = 0; y < sectionHeight; y++)
+            {
+                var gridObject = GetValue(sectionWidth * sectionXIndex + x, sectionHeight * sectionYIndex + y);
+                if (gridObject != null)
+                    yield return gridObject;
+            }
+        }
+    }
+
     public int GetManhattanDistance(TGridObject g1, TGridObject g2)
     {
         return Mathf.Abs(g1.x - g2.x) + Mathf.Abs(g1.y - g2.y);

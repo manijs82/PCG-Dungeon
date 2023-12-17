@@ -40,6 +40,18 @@ public struct Bound
         return intersect.b;
     }
 
+    public LineSegment2D[] GetLineSegments()
+    {
+        var lineSegments = new LineSegment2D[4];
+
+        lineSegments[0] = new LineSegment2D(BottomLeft, BottomRight);
+        lineSegments[1] = new LineSegment2D(BottomRight, TopRight);
+        lineSegments[2] = new LineSegment2D(TopRight, TopLeft);
+        lineSegments[3] = new LineSegment2D(TopLeft, BottomLeft);
+
+        return lineSegments;
+    }
+
     public static bool Collide(Bound rect1, Bound rect2)
     {
         return rect1.x < rect2.x + rect2.w &&

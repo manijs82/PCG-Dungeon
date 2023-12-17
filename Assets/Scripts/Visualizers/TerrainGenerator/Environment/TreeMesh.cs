@@ -6,7 +6,7 @@ public class TreeMesh : EnvironmentMesh
 {
     private Dungeon dungeon;
     
-    public TreeMesh(Material[] materials) : base(materials)
+    public TreeMesh(Material[] materials, HeightMap heightMap) : base(materials, heightMap)
     {
     }
 
@@ -19,7 +19,7 @@ public class TreeMesh : EnvironmentMesh
         foreach (var position in GetPositions())
         {
             var go = new GameObject("Tree");
-            go.transform.position = new Vector3(position.x, 0, position.y);
+            go.transform.position = new Vector3(position.x, GetHeightAt((int) position.x, (int) position.y), position.y);
         
             go.AddComponent<MeshFilter>().mesh = meshVariation[Random.Range(0, meshVariation.Length)];
             go.AddComponent<MeshRenderer>().materials = materials;
@@ -59,7 +59,7 @@ public class TreeMesh : EnvironmentMesh
 
         meshData.AddRoundedCube(Vector3.up * height, new Vector3(height - 1, height - Random.Range(1, 2), height - 1), Random.Range(2, 5));
         meshData.subMeshes.Add(meshData.triangles.Count - 1);
-        meshData.AddCube(Vector3.zero, new Vector3(1, height, 1));
+        meshData.AddCube(Vector3.down, new Vector3(1, height + 1, 1));
         meshData.subMeshes.Add(meshData.triangles.Count - 1);
         
         meshData.ScaleMesh(Vector3.one * 0.5f);
