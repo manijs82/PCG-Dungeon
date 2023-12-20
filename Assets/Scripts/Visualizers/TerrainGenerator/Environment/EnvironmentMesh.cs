@@ -15,7 +15,7 @@ public abstract class EnvironmentMesh
 
     protected float GetHeightAt(int x, int y)
     {
-        return heightMap.heights[x, y];
+        return heightMap.heights.GetValue(x, y).height;
     }
     
     public abstract void PlaceMeshes(Dungeon dungeon);

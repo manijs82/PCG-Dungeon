@@ -42,7 +42,7 @@ public class TreeMesh : EnvironmentMesh
         for (int i = 0; i < meshes.Length; i++)
         {
             var randomMeshData = GetRandomMeshData();
-            var mesh = randomMeshData.CreateMesh();
+            var mesh = randomMeshData.CreateMesh(true, true);
             mesh.name = $"Tree {i}";
 
             meshes[i] = mesh;

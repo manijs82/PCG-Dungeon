@@ -53,23 +53,24 @@ public class TerrainGenerator
 
     private void AddTileQuadToMesh(MeshDataOld meshData, GridObject tile, int squareIndex)
     {
-        meshData.AddVertex(new Vector3(tile.x, heightMap.heights[tile.x, tile.y], tile.y));
-        meshData.AddVertex(new Vector3(tile.x, heightMap.heights[tile.x, tile.y + 1], tile.y + 1));
-        meshData.AddVertex(new Vector3(tile.x + 1, heightMap.heights[tile.x + 1, tile.y + 1], tile.y + 1));
-        meshData.AddVertex(new Vector3(tile.x + 1, heightMap.heights[tile.x + 1, tile.y], tile.y));
+        meshData.AddVertex(new Vector3(tile.x, heightMap[tile.x, tile.y], tile.y));
+        meshData.AddVertex(new Vector3(tile.x, heightMap[tile.x, tile.y + 1], tile.y + 1));
+        meshData.AddVertex(new Vector3(tile.x + 1, heightMap[tile.x + 1, tile.y + 1], tile.y + 1));
+        meshData.AddVertex(new Vector3(tile.x + 1, heightMap[tile.x + 1, tile.y], tile.y));
 
         meshData.AddTriangle(squareIndex, squareIndex + 1, squareIndex + 2);
         meshData.AddTriangle(squareIndex + 2, squareIndex + 3, squareIndex);
-        
-        meshData.AddNormal(heightMap.GetNormalAt(tile.x, tile.y));
-        meshData.AddNormal(heightMap.GetNormalAt(tile.x, tile.y + 1));
-        meshData.AddNormal(heightMap.GetNormalAt(tile.x + 1, tile.y + 1));
-        meshData.AddNormal(heightMap.GetNormalAt(tile.x + 1, tile.y));
 
-        //var tileSprite = ((Tile)tile.GetTileVisual().tile).sprite;
-        //meshData.AddUV(tileSprite.uv[2]);
-        //meshData.AddUV(tileSprite.uv[0]);
-        //meshData.AddUV(tileSprite.uv[1]);
-        //meshData.AddUV(tileSprite.uv[3]);
+        var normal = heightMap.GetNormalAt(tile.x + 0.5f, tile.y + 0.5f, 0.5f);
+        meshData.AddNormal(normal);
+        meshData.AddNormal(normal);
+        meshData.AddNormal(normal);
+        meshData.AddNormal(normal);
+        
+        ServiceLocator.dungeonShapesDrawer.AddShape(() =>
+        {
+            var start = new Vector3(tile.x + 0.5f, heightMap.GetHeightAt(tile.x + 0.5f, tile.y + 0.5f), tile.y + 0.5f);
+            Gizmos.DrawLine(start, start + normal);
+        });
     }
 }

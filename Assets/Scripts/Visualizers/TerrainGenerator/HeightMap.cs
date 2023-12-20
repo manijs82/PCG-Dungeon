@@ -1,20 +1,42 @@
 ﻿using UnityEngine;
 
+public class HeightGridObject : GridObject
+{
+    public float height;
+    
+    public HeightGridObject(int x, int y, float height) : base(x, y)
+    {
+        this.height = height;
+    }
+}
+
 public class HeightMap
 {
-    public float[,] heights;
+    public readonly Grid<HeightGridObject> heights;
 
     private HeightMapData structure;
     private Vector2[] octaveOffsets;
     
     float maxNoiseHeight = float.MinValue;
     float minNoiseHeight = float.MaxValue;
+    
+    public float this[int x, int y]
+    {
+        get
+        {
+            if (heights == null)
+                return 0;
+            if (heights.GetValue(x, y) == null)
+                return 0;
+            return heights.GetValue(x, y).height;
+        }
+    }
 
     public HeightMap(HeightMapData structure)
     {
         this.structure = structure;
 
-        heights = new float[structure.width + 1, structure.width + 1];
+        heights = new Grid<HeightGridObject>(structure.width, structure.width, 1, (_, x, y) => new HeightGridObject(x, y, 0));
         SetOffset();
         SetHeightMap();
     }
@@ -32,9 +54,9 @@ public class HeightMap
 
     private void SetHeightMap()
     {
-        for (int y = 0; y < heights.GetLength(1); y++)
+        for (int y = 0; y < heights.Height; y++)
         {
-            for (int x = 0; x < heights.GetLength(0); x++)
+            for (int x = 0; x < heights.Width; x++)
             {
                 float height = GetNoiseAt(x, y);
 
@@ -43,16 +65,16 @@ public class HeightMap
                 else if (height < minNoiseHeight) 
                     minNoiseHeight = height;
 
-                heights[x, y] = height;
+                heights.GetValue(x, y).height = height;
             }
         }
 
-        for (int y = 0; y < heights.GetLength(1); y++)
+        for (int y = 0; y < heights.Height; y++)
         {
-            for (int x = 0; x < heights.GetLength(0); x++)
+            for (int x = 0; x < heights.Width; x++)
             {
-                heights[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, heights[x, y]);
-                heights[x, y] = structure.elevationCurve.Evaluate(heights[x, y]) * structure.elevation;
+                heights.GetValue(x, y).height = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, heights.GetValue(x, y).height);
+                heights.GetValue(x, y).height = structure.elevationCurve.Evaluate(heights.GetValue(x, y).height) * structure.elevation;
             }
         }
     }
@@ -88,14 +110,13 @@ public class HeightMap
         return height;
     }
 
-    public Vector3 GetNormalAt(int x, int y)
+    public Vector3 GetNormalAt(float x, float y, float accuracy = 0.1f)
     {
-        float accuracy = 1f;
-        
-        Vector3 center = new Vector3(0, GetHeightAt(x, y), 0);
-        Vector3 up = new Vector3(0, GetHeightAt(x, y + accuracy), accuracy) - center;
-        Vector3 right = new Vector3(accuracy, GetHeightAt(x + accuracy, y), 0) - center;
+        Vector3 zero = new Vector3(-accuracy, GetHeightAt(x - accuracy, y - accuracy), -accuracy);
+        Vector3 up = new Vector3(-accuracy, GetHeightAt(x - accuracy, y + accuracy), accuracy);
+        Vector3 right = new Vector3(accuracy, GetHeightAt(x + accuracy, y - accuracy), -accuracy);
+        Vector3 one = new Vector3(accuracy, GetHeightAt(x + accuracy, y + accuracy), accuracy);
 
-        return Vector3.Cross(up, right).normalized;
+        return Vector3.Cross((one - up).normalized, (zero - up).normalized).normalized;
     }
 }

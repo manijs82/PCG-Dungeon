@@ -868,8 +868,8 @@ MonoBehaviour:
         time: 0
         value: 0
         inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        outSlope: 0.07453589
+        tangentMode: 65
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -877,11 +877,11 @@ MonoBehaviour:
         time: 0.63874346
         value: 0.047609314
         inSlope: 0.07453589
-        outSlope: 0.0565305
+        outSlope: 0.43073678
         tangentMode: 5
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.5559172
+        outWeight: 1
       - serializedVersion: 3
         time: 1
         value: 1
@@ -895,8 +895,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     scale: 120
-    octaves: 3
-    persistence: 0.74
+    octaves: 5
+    persistence: 0.3
     lacunarity: 2
   grassShell: {fileID: 0}
   rockMaterial: {fileID: 2100000, guid: 0abc1c1e12bbd7046afedf8547873c51, type: 2}
@@ -3049,7 +3049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeHierarchy: {fileID: 0}
-  showRoomGraphPath: 1
+  showRoomGraphPath: 0
   graphColor: {r: 1, g: 1, b: 1, a: 1}
   showRoomIndex: 0
   textColor: {r: 0.98039216, g: 0.93333334, b: 0.03137255, a: 1}
@@ -3058,7 +3058,7 @@ MonoBehaviour:
   showDoors: 0
   doorColor: {r: 1, g: 0, b: 0, a: 1}
   showDungeonOutline: 0
-  showRoomOutline: 1
+  showRoomOutline: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   showPDV: 0
   showGridTiles: 0
