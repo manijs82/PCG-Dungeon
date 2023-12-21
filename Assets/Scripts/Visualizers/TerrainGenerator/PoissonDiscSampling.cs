@@ -66,9 +66,51 @@ public static class PoissonDiscSampling
         
         return points;
     }
+    
+    public static List<Vector3> GeneratePoints(List<Vector3> samples, float radius, Bound sampleBound, int pointsLimit = Int32.MaxValue)
+    {
+        List<Vector3> points = new List<Vector3>();
+        
+        float cellSize = radius / Mathf.Sqrt(2);
+        Grid<SampleGridObject> grid = new Grid<SampleGridObject>(sampleBound.w, sampleBound.h,
+            cellSize, (_, x, y) => new SampleGridObject(x, y, -1),
+            new Vector3(sampleBound.x, sampleBound.y));
+
+        points.Add(samples[0]);
+
+        grid.GetGridPosition(samples[0], out int sampleX, out int sampleY);
+        grid.SetValue(sampleX, sampleY, new SampleGridObject(sampleX, sampleY, 0));
+
+        for (var i = 1; i < samples.Count; i++)
+        {
+            var sample = samples[i];
+            if (IsValid(sample, radius, sampleBound, points, grid))
+            {
+                points.Add(sample);
+
+                grid.GetGridPosition(sample, out int newX, out int newY);
+                SampleGridObject nextSample = new SampleGridObject(newX, newY, points.Count - 1);
+                grid.SetValue(newX, newY, nextSample);
+
+                if (points.Count > pointsLimit)
+                {
+                    break;
+                }
+            }
+
+            if (points.Count > pointsLimit)
+            {
+                break;
+            }
+        }
+
+        return points;
+    }
 
     static bool IsValid(Vector2 candidate, float radius, Bound sampleBound, List<Vector3> points, Grid<SampleGridObject> grid)
     {
+        if (points.Contains(candidate))
+            return false;
         if (!Bound.Inside(candidate, sampleBound))
             return false;
         

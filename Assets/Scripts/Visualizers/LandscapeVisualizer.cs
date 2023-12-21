@@ -1,18 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class TerrainVisualizer : DungeonVisualizer
+public class LandscapeVisualizer : DungeonVisualizer
 {
     [SerializeField] private HeightMapData heightMapData;
-    [SerializeField] private GrassShell grassShell;
     [SerializeField] private Material rockMaterial;
     [SerializeField] private Material bushMaterial;
     [SerializeField] private Material trunkMaterial;
 
     private HeightMap heightMap;
+    private List<Vector3> positionSamples;
     
     protected override void Visualize(Dungeon dungeon)
     {
         heightMap = new HeightMap(heightMapData);
+        positionSamples = PoissonDiscSampling.GeneratePoints(1, dungeon.bound, 1000000);
         
         TerrainGenerator terrainGenerator = new TerrainGenerator(dungeon, heightMap); //generate terrain
         var meshes = terrainGenerator.GenerateTerrainSections();
@@ -28,8 +30,8 @@ public class TerrainVisualizer : DungeonVisualizer
             meshCollider.sharedMesh = mesh;
         }
         
-        new RockMesh(new [] { rockMaterial }, heightMap).PlaceMeshes(dungeon); // generate rocks
-        new TreeMesh(new [] { bushMaterial, trunkMaterial }, heightMap).PlaceMeshes(dungeon); // generate bushes
+        new TreeMesh(new [] { bushMaterial, trunkMaterial }, heightMap, positionSamples).PlaceMeshes(dungeon); // generate bushes
+        new RockMesh(new [] { rockMaterial }, heightMap, positionSamples).PlaceMeshes(dungeon); // generate rocks
     }
 
     

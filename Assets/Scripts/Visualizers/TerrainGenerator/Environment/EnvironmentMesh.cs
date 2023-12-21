@@ -6,16 +6,23 @@ public abstract class EnvironmentMesh
 {
     protected Material[] materials;
     protected HeightMap heightMap;
+    protected List<Vector3> positionSamples;
     
-    public EnvironmentMesh(Material[] materials, HeightMap heightMap)
+    public EnvironmentMesh(Material[] materials, HeightMap heightMap, List<Vector3> positionSamples)
     {
         this.materials = materials;
         this.heightMap = heightMap;
+        this.positionSamples = positionSamples;
     }
 
     protected float GetHeightAt(int x, int y)
     {
-        return heightMap.heights.GetValue(x, y).height;
+        return heightMap[x, y];
+    }
+    
+    protected float GetHeightAt(float x, float y)
+    {
+        return heightMap.GetHeightAt(x, y);
     }
     
     public abstract void PlaceMeshes(Dungeon dungeon);

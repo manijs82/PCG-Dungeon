@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using MeshGen;
 using UnityEngine;
+using Utils;
 
 public class TreeMesh : EnvironmentMesh
 {
     private Dungeon dungeon;
     
-    public TreeMesh(Material[] materials, HeightMap heightMap) : base(materials, heightMap)
+    public TreeMesh(Material[] materials, HeightMap heightMap, List<Vector3> positionSamples) : base(materials, heightMap, positionSamples)
     {
     }
 
@@ -30,10 +31,11 @@ public class TreeMesh : EnvironmentMesh
     {
         PerlinMask perlinMask = new PerlinMask(dungeon, 0.5f);
         BackgroundMask backgroundMask = new BackgroundMask(dungeon);
-        SurroundingRoomMask surroundingRoomMask = new SurroundingRoomMask(dungeon, EnvironmentType.Set, true);
-        var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask, surroundingRoomMask);
-        
-        return PoissonDiscSampling.GeneratePoints(7, dungeon.bound, 1000).MaskPositions(mask);
+        var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask);
+
+        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 7, dungeon.bound, 1000).MaskPositions(mask);
+        positionSamples.RemoveValues(maskedPositions);
+        return maskedPositions;
     }
 
     protected override Mesh[] GetMeshVariations()

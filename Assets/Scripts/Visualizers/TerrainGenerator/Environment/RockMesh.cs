@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using MeshGen;
 using UnityEngine;
+using Utils;
 
 public class RockMesh : EnvironmentMesh
 {
     private Dungeon dungeon;
     
-    public RockMesh(Material[] materials, HeightMap heightMap) : base(materials, heightMap)
+    public RockMesh(Material[] materials, HeightMap heightMap, List<Vector3> positionSamples) : base(materials, heightMap, positionSamples)
     {
     }
 
@@ -18,7 +19,7 @@ public class RockMesh : EnvironmentMesh
         foreach (var position in GetPositions())
         {
             var go = new GameObject("Rock");
-            go.transform.position = position;
+            go.transform.position = new Vector3(position.x, GetHeightAt((int) position.x, (int) position.y), position.y);
             
             var mesh = meshVariation[Random.Range(0, meshVariation.Length)];
         
@@ -29,18 +30,13 @@ public class RockMesh : EnvironmentMesh
 
     protected override IEnumerable<Vector3> GetPositions()
     {
-        var mask = new SurroundingRoomMask(dungeon, EnvironmentType.Set).GetMask();
-        
-        for (int x = 0; x < mask.GetLength(0); x++)
-        {
-            for (int y = 0; y < mask.GetLength(1); y++)
-            {
-                if (mask[x, y])
-                {
-                    yield return new Vector3(x, GetHeightAt(x, y), y);
-                }
-            }
-        }
+        PerlinMask perlinMask = new PerlinMask(dungeon, 0.2f);
+        BackgroundMask backgroundMask = new BackgroundMask(dungeon);
+        var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask);
+
+        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 3, dungeon.bound, 10000).MaskPositions(mask);
+        positionSamples.RemoveValues(maskedPositions);
+        return maskedPositions;
     }
 
     protected override Mesh[] GetMeshVariations()
@@ -81,7 +77,7 @@ public class RockMesh : EnvironmentMesh
         meshData.RotateMesh(Vector3.up, Random.value * 360);
         meshData.RotateMesh(Vector3.right, Random.value * 360);
         meshData.RotateMesh(Vector3.forward, Random.value * 360);
-        meshData.ScaleMesh(Vector3.one *  Random.Range(0.6f, 1.1f));
+        meshData.ScaleMesh(Vector3.one *  Random.Range(0.6f, 2.5f));
 
         return meshData;
     }
