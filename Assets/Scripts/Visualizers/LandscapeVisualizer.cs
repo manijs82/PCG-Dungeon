@@ -14,7 +14,7 @@ public class LandscapeVisualizer : DungeonVisualizer
     protected override void Visualize(Dungeon dungeon)
     {
         heightMap = new HeightMap(heightMapData);
-        positionSamples = PoissonDiscSampling.GeneratePoints(1, dungeon.bound, 1000000);
+        positionSamples = PoissonDiscSampling.GeneratePoints(3, dungeon.bound, 3000);
         
         TerrainGenerator terrainGenerator = new TerrainGenerator(dungeon, heightMap); //generate terrain
         var meshes = terrainGenerator.GenerateTerrainSections();

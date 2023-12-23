@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MeshGen;
 using UnityEngine;
 using Utils;
@@ -34,8 +35,9 @@ public class TreeMesh : EnvironmentMesh
         var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask);
 
         var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 7, dungeon.bound, 1000).MaskPositions(mask);
-        positionSamples.RemoveValues(maskedPositions);
-        return maskedPositions;
+        var valuesToRemove = maskedPositions as Vector3[] ?? maskedPositions.ToArray();
+        positionSamples.RemoveValues(valuesToRemove);
+        return valuesToRemove;
     }
 
     protected override Mesh[] GetMeshVariations()
