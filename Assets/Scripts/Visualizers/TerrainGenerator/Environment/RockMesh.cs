@@ -30,11 +30,11 @@ public class RockMesh : EnvironmentMesh
 
     protected override IEnumerable<Vector3> GetPositions()
     {
-        PerlinMask perlinMask = new PerlinMask(dungeon, 0.2f);
+        PerlinMask perlinMask = new PerlinMask(dungeon, 0.6f);
         BackgroundMask backgroundMask = new BackgroundMask(dungeon);
         var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask);
 
-        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 3, dungeon.bound, 10000).MaskPositions(mask);
+        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 3, dungeon.bound, 2000).MaskPositions(mask);
         positionSamples.RemoveValues(maskedPositions);
         return maskedPositions;
     }
