@@ -1,13 +1,15 @@
-Shader "Hidden/Fog"
+Shader "Unlit/UnlitSurface"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _MainColor ("MainColor", Color) = (1,1,1,1)
     }
     SubShader
     {
-        // No culling or depth
-        Cull Off ZWrite Off ZTest Always
+        Tags { "RenderType"="Opaque" }
+        LOD 100
+        ZWrite On
 
         Pass
         {
@@ -29,32 +31,22 @@ Shader "Hidden/Fog"
                 float4 vertex : SV_POSITION;
             };
 
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            float4 _MainColor;
+
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }
 
-            sampler2D _MainTex, _CameraDepthTexture;
-            float4 _FogColor;
-            float _FogDensity, _FogOffset;
-
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
-                depth = Linear01Depth(depth);
-
-                float viewDistance = depth * _ProjectionParams.z;
-
-                float fogFactor = (_FogDensity / sqrt(log(2))) * max(0.0f, viewDistance - _FogOffset);
-                fogFactor = exp2(-fogFactor * fogFactor);
-
-                float4 fogOutput = lerp(_FogColor, col, saturate(fogFactor));
-
-                return depth;
+                fixed4 col = tex2D(_MainTex, i.uv) * _MainColor;
+                return col;
             }
             ENDCG
         }

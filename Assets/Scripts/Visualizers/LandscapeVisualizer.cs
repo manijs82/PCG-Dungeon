@@ -4,6 +4,7 @@ using UnityEngine;
 public class LandscapeVisualizer : DungeonVisualizer
 {
     [SerializeField] private HeightMapData heightMapData;
+    [SerializeField] private Material groundMaterial;
     [SerializeField] private Material rockMaterial;
     [SerializeField] private Material bushMaterial;
     [SerializeField] private Material trunkMaterial;
@@ -14,7 +15,7 @@ public class LandscapeVisualizer : DungeonVisualizer
     protected override void Visualize(Dungeon dungeon)
     {
         heightMap = new HeightMap(heightMapData);
-        positionSamples = PoissonDiscSampling.GeneratePoints(3, dungeon.bound, 3000);
+        positionSamples = PoissonDiscSampling.GeneratePoints(3, dungeon.bound, 300000);
         
         TerrainGenerator terrainGenerator = new TerrainGenerator(dungeon, heightMap); //generate terrain
         var meshes = terrainGenerator.GenerateTerrainSections();
@@ -24,7 +25,7 @@ public class LandscapeVisualizer : DungeonVisualizer
             var go = new GameObject("terrain section");
             go.transform.SetParent(transform);
             var meshFilter = go.AddComponent<MeshFilter>();
-            go.AddComponent<MeshRenderer>().material = rockMaterial;
+            go.AddComponent<MeshRenderer>().material = groundMaterial;
             meshFilter.mesh = mesh;
             var meshCollider = go.AddComponent<MeshCollider>();
             meshCollider.sharedMesh = mesh;

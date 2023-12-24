@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[ExecuteAlways]
 public class Fog : MonoBehaviour
 {
     [Header("Fog")]
@@ -24,13 +23,14 @@ public class Fog : MonoBehaviour
         }
 
         Camera cam = GetComponent<Camera>();
-        cam.depthTextureMode = cam.depthTextureMode | DepthTextureMode.Depth;
+        cam.depthTextureMode |= DepthTextureMode.Depth;
         
     }
 
     [ImageEffectOpaque]
-    void OnRenderImage(RenderTexture source, RenderTexture destination) 
+    void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
+        if (fogMat == null) return;
         fogMat.SetVector("_FogColor", fogColor);
         fogMat.SetFloat("_FogDensity", fogDensity);
         fogMat.SetFloat("_FogOffset", fogOffset);

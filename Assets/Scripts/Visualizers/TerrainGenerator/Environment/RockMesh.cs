@@ -35,7 +35,7 @@ public class RockMesh : EnvironmentMesh
         BackgroundMask backgroundMask = new BackgroundMask(dungeon);
         var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask);
 
-        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 3, dungeon.bound, 3000).MaskPositions(mask);
+        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 2, dungeon.bound, 1000).MaskPositions(mask);
         var valuesToRemove = maskedPositions as Vector3[] ?? maskedPositions.ToArray();
         positionSamples.RemoveValues(valuesToRemove);
         return valuesToRemove;
