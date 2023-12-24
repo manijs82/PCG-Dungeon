@@ -123,6 +123,44 @@ namespace MeshGen
             }
         }
         
+        public static void SetMeshPosition(this Mesh meshData, Vector3 center)
+        {
+            var currentCenter = GetPointsCenter(meshData.vertices);
+            var offset = center - currentCenter;
+            var moveMatrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
+            meshData.TranslateVertices(0, meshData.vertices.Length - 1, moveMatrix);
+        }
+        
+        public static void MoveMesh(this Mesh meshData, Vector3 offset)
+        {
+            var moveMatrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
+            meshData.TranslateVertices(0, meshData.vertices.Length - 1, moveMatrix);
+        }
+        
+        public static void MoveVertex(this Mesh meshData, int vIndex, Vector3 offset)
+        {
+            var moveMatrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
+            meshData.TranslateVertices(vIndex, vIndex, moveMatrix);
+        }
+        
+        public static void TranslateVertices(this Mesh meshData, int startIndex, int endIndex, Matrix4x4 translationMatrix)
+        {
+            var positions = new Vector3[endIndex - startIndex + 1];
+            for (int i = startIndex; i <= endIndex; i++) 
+                positions[i - startIndex] = meshData.vertices[i];
+
+            var center = GetPointsCenter(positions);
+            
+            var matrix = Matrix4x4.TRS(center, Quaternion.identity, Vector3.one);
+            var newMatrix = matrix * translationMatrix;
+            
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                var local = matrix.inverse.MultiplyPoint(positions[i - startIndex]);
+                meshData.vertices[i] = newMatrix.MultiplyPoint(local);
+            }
+        }
+        
         public static int InsertVertexTriangle(this MeshData meshData, int tIndex)
         {
             var triangle = meshData.GetTriangle(tIndex);

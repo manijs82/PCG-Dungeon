@@ -65,7 +65,7 @@ public static class RoomDecorator
                 }
                 
                 SetGenericStartEndNode(dungeon);
-                ServiceLocator.dungeonShapesDrawer.AddShape(() => caveCircle.DrawGizmos(true));
+                ServiceLocator.dungeonShapesDrawer.AddShape(() => caveCircle.DrawGizmos(true), "2D_Cave");
 
                 var roomCount = freeRooms.Count / 4;
                 for (int i = 0; i < roomCount; i++)

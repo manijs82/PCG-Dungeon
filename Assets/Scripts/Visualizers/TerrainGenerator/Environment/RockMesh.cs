@@ -16,17 +16,25 @@ public class RockMesh : EnvironmentMesh
     {
         this.dungeon = dungeon;
         var meshVariation = GetMeshVariations();
+        var positions = GetPositions().ToArray();
 
-        foreach (var position in GetPositions())
+        var combine = new CombineInstance[positions.Length];
+        var combinedMesh = new Mesh();
+
+        for (var i = 0; i < positions.Length; i++)
         {
-            var go = new GameObject("Rock");
-            go.transform.position = new Vector3(position.x, GetHeightAt((int) position.x, (int) position.y), position.y);
-            
+            var position = positions[i];
+            var meshPosition = new Vector3(position.x, GetHeightAt((int)position.x, (int)position.y), position.y);
+
             var mesh = meshVariation[Random.Range(0, meshVariation.Length)];
-        
-            go.AddComponent<MeshFilter>().mesh = mesh;
-            go.AddComponent<MeshRenderer>().materials = materials;
+            combine[i].mesh = mesh;
+            combine[i].transform = Matrix4x4.TRS(meshPosition, Quaternion.identity, Vector3.one);
         }
+
+        combinedMesh.CombineMeshes(combine, true);
+        var go = new GameObject("Rock");
+        go.AddComponent<MeshFilter>().mesh = combinedMesh;
+        go.AddComponent<MeshRenderer>().materials = materials;
     }
 
     protected override IEnumerable<Vector3> GetPositions()

@@ -1,30 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+[Serializable]
+public class ShapeCategory
+{
+    public string categoryName;
+    public bool shouldDraw;
+    
+    public List<Action> drawActions;
+}
 
 public class DungeonShapesDrawer : Service
 {
-    private List<Action> shapes;
+    [SerializeField] private List<ShapeCategory> categories = new();
+    
         
     protected override void Awake()
     {
         base.Awake();
         ServiceLocator.dungeonShapesDrawer = this;
-
-        shapes = new List<Action>();
     }
 
-    public void AddShape(Action drawAction)
+    public void AddShape(Action drawAction, string category)
     {
-        shapes.Add(drawAction);
+        var shapeCategory = categories.FirstOrDefault(c => c.categoryName == category);
+        if (shapeCategory == null)
+        {
+            categories.Add(new ShapeCategory
+            {
+                categoryName = category,
+                shouldDraw = true,
+                drawActions = new List<Action> {drawAction}
+            });
+        }
+        else
+        {
+            shapeCategory.drawActions ??= new List<Action>();
+            shapeCategory.drawActions.Add(drawAction);
+        }
     }
 
     private void OnDrawGizmos()
     {
-        if (shapes == null) return;
+        if (categories == null) return;
         
-        foreach (var shape in shapes)
+        foreach (var category in categories)
         {
-            shape();
+            if(!category.shouldDraw)
+                continue;
+
+            foreach (var drawAction in category.drawActions)
+                drawAction();
         }
     }
 

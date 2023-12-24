@@ -71,6 +71,6 @@ public class TerrainGenerator
         {
             var start = new Vector3(tile.x + 0.5f, heightMap.GetHeightAt(tile.x + 0.5f, tile.y + 0.5f), tile.y + 0.5f);
             Gizmos.DrawLine(start, start + normal);
-        });
+        }, "3D_Terrain");
     }
 }

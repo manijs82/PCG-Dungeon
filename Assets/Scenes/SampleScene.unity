@@ -814,6 +814,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21bac7174c834f309993ddae60fcce41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  categories:
+  - categoryName: 2D_Cave
+    shouldDraw: 0
+  - categoryName: 3D_Terrain
+    shouldDraw: 0
 --- !u!1 &261701028
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,10 +903,10 @@ MonoBehaviour:
     octaves: 5
     persistence: 0.3
     lacunarity: 2
-  groundMaterial: {fileID: 2100000, guid: d7a83b128119fd641aabcacb1cbea348, type: 2}
-  rockMaterial: {fileID: 2100000, guid: a284d72fbb8b2eb4ebcae79e624a3196, type: 2}
-  bushMaterial: {fileID: 2100000, guid: e9075d9e84778ee40bff4e9c1b667aa6, type: 2}
-  trunkMaterial: {fileID: 2100000, guid: 55c5262ddd21a7c43a517dbea5c48593, type: 2}
+  groundMaterial: {fileID: 2100000, guid: acf32a4619051de43ba1f8a51add4a43, type: 2}
+  rockMaterial: {fileID: 2100000, guid: 0abc1c1e12bbd7046afedf8547873c51, type: 2}
+  bushMaterial: {fileID: 2100000, guid: cac035c3d671e77438faed1e1dfe2559, type: 2}
+  trunkMaterial: {fileID: 2100000, guid: 65cb2e20e83598046b630b94930e96f0, type: 2}
 --- !u!1 &316120310
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,7 +3162,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.5529412, g: 0.27058825, b: 0.26666668, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
