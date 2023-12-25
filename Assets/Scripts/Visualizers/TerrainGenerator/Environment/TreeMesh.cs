@@ -8,7 +8,7 @@ public class TreeMesh : EnvironmentMesh
 {
     private Dungeon dungeon;
     
-    public TreeMesh(Material[] materials, HeightMap heightMap, List<Vector3> positionSamples) : base(materials, heightMap, positionSamples)
+    public TreeMesh(Material[] materials, NoiseMap noiseMap, List<Vector3> positionSamples) : base(materials, noiseMap, positionSamples)
     {
     }
 

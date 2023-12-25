@@ -5,24 +5,24 @@ using UnityEngine;
 public abstract class EnvironmentMesh
 {
     protected Material[] materials;
-    protected HeightMap heightMap;
+    protected NoiseMap noiseMap;
     protected List<Vector3> positionSamples;
     
-    public EnvironmentMesh(Material[] materials, HeightMap heightMap, List<Vector3> positionSamples)
+    public EnvironmentMesh(Material[] materials, NoiseMap noiseMap, List<Vector3> positionSamples)
     {
         this.materials = materials;
-        this.heightMap = heightMap;
+        this.noiseMap = noiseMap;
         this.positionSamples = positionSamples;
     }
 
     protected float GetHeightAt(int x, int y)
     {
-        return heightMap[x, y];
+        return noiseMap[x, y];
     }
     
     protected float GetHeightAt(float x, float y)
     {
-        return heightMap.GetHeightAt(x, y);
+        return noiseMap.GetValueAt(x, y);
     }
     
     public abstract void PlaceMeshes(Dungeon dungeon);

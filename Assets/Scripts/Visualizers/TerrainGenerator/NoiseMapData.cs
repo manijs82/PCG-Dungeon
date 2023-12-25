@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public struct HeightMapData
+public struct NoiseMapData
 {
     public int width;
     public float elevation;

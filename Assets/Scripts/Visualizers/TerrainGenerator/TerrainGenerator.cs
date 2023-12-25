@@ -9,14 +9,14 @@ public class TerrainGenerator
     public int maxSectionWidth = 80;
 
     private Dungeon dungeon;
-    private HeightMap heightMap;
+    private NoiseMap noiseMap;
     private int width;
     private MeshDataOld[] meshSections;
     
-    public TerrainGenerator(Dungeon dungeon, HeightMap heightMap)
+    public TerrainGenerator(Dungeon dungeon, NoiseMap noiseMap)
     {
         this.dungeon = dungeon;
-        this.heightMap = heightMap;
+        this.noiseMap = noiseMap;
         width = dungeon.dungeonParameters.width;
     }
 
@@ -53,15 +53,15 @@ public class TerrainGenerator
 
     private void AddTileQuadToMesh(MeshDataOld meshData, GridObject tile, int squareIndex)
     {
-        meshData.AddVertex(new Vector3(tile.x, heightMap[tile.x, tile.y], tile.y));
-        meshData.AddVertex(new Vector3(tile.x, heightMap[tile.x, tile.y + 1], tile.y + 1));
-        meshData.AddVertex(new Vector3(tile.x + 1, heightMap[tile.x + 1, tile.y + 1], tile.y + 1));
-        meshData.AddVertex(new Vector3(tile.x + 1, heightMap[tile.x + 1, tile.y], tile.y));
+        meshData.AddVertex(new Vector3(tile.x, noiseMap[tile.x, tile.y], tile.y));
+        meshData.AddVertex(new Vector3(tile.x, noiseMap[tile.x, tile.y + 1], tile.y + 1));
+        meshData.AddVertex(new Vector3(tile.x + 1, noiseMap[tile.x + 1, tile.y + 1], tile.y + 1));
+        meshData.AddVertex(new Vector3(tile.x + 1, noiseMap[tile.x + 1, tile.y], tile.y));
 
         meshData.AddTriangle(squareIndex, squareIndex + 1, squareIndex + 2);
         meshData.AddTriangle(squareIndex + 2, squareIndex + 3, squareIndex);
 
-        var normal = heightMap.GetNormalAt(tile.x + 0.5f, tile.y + 0.5f, 0.5f);
+        var normal = noiseMap.GetNormalAt(tile.x + 0.5f, tile.y + 0.5f, 0.5f);
         meshData.AddNormal(normal);
         meshData.AddNormal(normal);
         meshData.AddNormal(normal);
@@ -69,7 +69,7 @@ public class TerrainGenerator
         
         ServiceLocator.dungeonShapesDrawer.AddShape(() =>
         {
-            var start = new Vector3(tile.x + 0.5f, heightMap.GetHeightAt(tile.x + 0.5f, tile.y + 0.5f), tile.y + 0.5f);
+            var start = new Vector3(tile.x + 0.5f, noiseMap.GetValueAt(tile.x + 0.5f, tile.y + 0.5f), tile.y + 0.5f);
             Gizmos.DrawLine(start, start + normal);
         }, "3D_Terrain");
     }

@@ -8,7 +8,7 @@ public class RockMesh : EnvironmentMesh
 {
     private Dungeon dungeon;
     
-    public RockMesh(Material[] materials, HeightMap heightMap, List<Vector3> positionSamples) : base(materials, heightMap, positionSamples)
+    public RockMesh(Material[] materials, NoiseMap noiseMap, List<Vector3> positionSamples) : base(materials, noiseMap, positionSamples)
     {
     }
 
