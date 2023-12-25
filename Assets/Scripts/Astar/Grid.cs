@@ -286,6 +286,19 @@ public class Grid<TGridObject> where TGridObject : GridObject
             }
         }
     }
+    
+    public IEnumerable<TGridObject> GetGridObjectsInBound(Bound bound)
+    {
+        for (int x = bound.x; x <= bound.XPW; x++)
+        {
+            for (int y = bound.y; y <= bound.YPH; y++)
+            {
+                var gridObject = GetValue(x, y);
+                if (gridObject != null)
+                    yield return gridObject;
+            }
+        }
+    }
 
     public int GetManhattanDistance(TGridObject g1, TGridObject g2)
     {

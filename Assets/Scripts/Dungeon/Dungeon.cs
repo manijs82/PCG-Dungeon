@@ -193,8 +193,22 @@ public class Dungeon : Sample
             }
             else
             {
+                var roomsWithinDesiredRoomDistance = GetRoomsWithinDistance(rooms[i], dungeonParameters.desiredRoomDistance).ToArray();
+                
                 // select a closer position to the center
-                newStartPoint = rooms[i].startPoint + (bound.Center - rooms[i].Center).normalized * 2;
+                if(roomsWithinDesiredRoomDistance.Length == 0)
+                    newStartPoint = rooms[i].startPoint + (bound.Center - rooms[i].Center).normalized * 2;
+                else
+                {
+                    var averageDirectionToRoom = Vector2.zero;
+
+                    foreach (var room in roomsWithinDesiredRoomDistance)
+                        averageDirectionToRoom += rooms[i].Center - room.Center;
+
+                    averageDirectionToRoom /= roomsWithinDesiredRoomDistance.Length;
+
+                    newStartPoint = rooms[i].startPoint + averageDirectionToRoom.normalized * (dungeonParameters.desiredRoomDistance / 2f);
+                }
             }
             Room newRoom = new Room(rooms[i]);
             newRoom.ChangePosition(newStartPoint);
@@ -221,6 +235,17 @@ public class Dungeon : Sample
     {
         return !Bound.Inside(room.bound,
             new Bound(0, 0, dungeonParameters.width, dungeonParameters.height));
+    }
+
+    private IEnumerable<Room> GetRoomsWithinDistance(Room centerRoom, float distance)
+    {
+        foreach (var room in rooms)
+        {
+            if(room == centerRoom) continue;
+            if(Vector2.Distance(room.Center, centerRoom.Center) > distance) continue;
+
+            yield return room;
+        }
     }
 
     public override float Evaluate()

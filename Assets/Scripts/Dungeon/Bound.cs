@@ -88,4 +88,9 @@ public struct Bound
         return point.x > bound.x && point.x < bound.XPW &&
                point.y > bound.y && point.y < bound.YPH;
     }
+
+    public override string ToString()
+    {
+        return $"{x}, {y}, {w}, {h}";
+    }
 }

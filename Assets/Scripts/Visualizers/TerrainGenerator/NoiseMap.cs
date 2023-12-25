@@ -2,11 +2,11 @@
 
 public class NoiseGridObject : GridObject
 {
-    public float height;
+    public float noiseValue;
     
-    public NoiseGridObject(int x, int y, float height) : base(x, y)
+    public NoiseGridObject(int x, int y, float noiseValue) : base(x, y)
     {
-        this.height = height;
+        this.noiseValue = noiseValue;
     }
 }
 
@@ -29,7 +29,7 @@ public class NoiseMap
             var value = noiseGrid.GetValue(x, y);
             if (value == null)
                 return 0;
-            return value.height;
+            return value.noiseValue;
         }
     }
 
@@ -66,7 +66,7 @@ public class NoiseMap
                 else if (height < minNoiseValue) 
                     minNoiseValue = height;
 
-                noiseGrid.GetValue(x, y).height = height;
+                noiseGrid.GetValue(x, y).noiseValue = height;
             }
         }
 
@@ -74,8 +74,8 @@ public class NoiseMap
         {
             for (int x = 0; x < noiseGrid.Width; x++)
             {
-                noiseGrid.GetValue(x, y).height = Mathf.InverseLerp(minNoiseValue, maxNoiseValue, noiseGrid.GetValue(x, y).height);
-                noiseGrid.GetValue(x, y).height = structure.elevationCurve.Evaluate(noiseGrid.GetValue(x, y).height) * structure.elevation;
+                noiseGrid.GetValue(x, y).noiseValue = Mathf.InverseLerp(minNoiseValue, maxNoiseValue, noiseGrid.GetValue(x, y).noiseValue);
+                noiseGrid.GetValue(x, y).noiseValue = structure.elevationCurve.Evaluate(noiseGrid.GetValue(x, y).noiseValue) * structure.elevation;
             }
         }
     }
@@ -118,5 +118,19 @@ public class NoiseMap
         Vector3 one = new Vector3(accuracy, GetValueAt(x + accuracy, y + accuracy), accuracy);
 
         return Vector3.Cross((one - up).normalized, (zero - up).normalized).normalized;
+    }
+
+    public float GerHighestValueWithinBound(Bound bound)
+    {
+        float highestValue = 0;
+        foreach (var gridValue in noiseGrid.GetGridObjectsInBound(bound))
+        {
+            if (gridValue.noiseValue >= highestValue)
+            {
+                highestValue = gridValue.noiseValue;
+            }
+        }
+
+        return highestValue;
     }
 }

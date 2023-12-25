@@ -4,23 +4,36 @@ using MeshGen;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TerrainGenerator
+public class TerrainGenerator : DungeonMeshGenerator
 {
     public int maxSectionWidth = 80;
 
-    private Dungeon dungeon;
-    private NoiseMap noiseMap;
     private int width;
+    private Material groundMaterial;
     private MeshDataOld[] meshSections;
-    
-    public TerrainGenerator(Dungeon dungeon, NoiseMap noiseMap)
+
+    public TerrainGenerator(Dungeon dungeon, NoiseMap heightMap, Material groundMaterial) : base(dungeon, heightMap)
     {
-        this.dungeon = dungeon;
-        this.noiseMap = noiseMap;
+        this.groundMaterial = groundMaterial;
         width = dungeon.dungeonParameters.width;
     }
 
-    public Mesh[] GenerateTerrainSections()
+    public override void Generate()
+    {
+        var meshes = GenerateTerrainSections();
+        
+        foreach (var mesh in meshes)
+        {
+            var go = new GameObject("terrain section");
+            var meshFilter = go.AddComponent<MeshFilter>();
+            go.AddComponent<MeshRenderer>().material = groundMaterial;
+            meshFilter.mesh = mesh;
+            var meshCollider = go.AddComponent<MeshCollider>();
+            meshCollider.sharedMesh = mesh;
+        }
+    }
+
+    private Mesh[] GenerateTerrainSections()
     {
         int sectionWidth = Mathf.CeilToInt(dungeon.grid.Width / (float)maxSectionWidth);
         int sectionHeight = Mathf.CeilToInt(dungeon.grid.Height / (float)maxSectionWidth);
@@ -53,15 +66,15 @@ public class TerrainGenerator
 
     private void AddTileQuadToMesh(MeshDataOld meshData, GridObject tile, int squareIndex)
     {
-        meshData.AddVertex(new Vector3(tile.x, noiseMap[tile.x, tile.y], tile.y));
-        meshData.AddVertex(new Vector3(tile.x, noiseMap[tile.x, tile.y + 1], tile.y + 1));
-        meshData.AddVertex(new Vector3(tile.x + 1, noiseMap[tile.x + 1, tile.y + 1], tile.y + 1));
-        meshData.AddVertex(new Vector3(tile.x + 1, noiseMap[tile.x + 1, tile.y], tile.y));
+        meshData.AddVertex(new Vector3(tile.x, heightMap[tile.x, tile.y], tile.y));
+        meshData.AddVertex(new Vector3(tile.x, heightMap[tile.x, tile.y + 1], tile.y + 1));
+        meshData.AddVertex(new Vector3(tile.x + 1, heightMap[tile.x + 1, tile.y + 1], tile.y + 1));
+        meshData.AddVertex(new Vector3(tile.x + 1, heightMap[tile.x + 1, tile.y], tile.y));
 
         meshData.AddTriangle(squareIndex, squareIndex + 1, squareIndex + 2);
         meshData.AddTriangle(squareIndex + 2, squareIndex + 3, squareIndex);
 
-        var normal = noiseMap.GetNormalAt(tile.x + 0.5f, tile.y + 0.5f, 0.5f);
+        var normal = heightMap.GetNormalAt(tile.x + 0.5f, tile.y + 0.5f, 0.5f);
         meshData.AddNormal(normal);
         meshData.AddNormal(normal);
         meshData.AddNormal(normal);
@@ -69,7 +82,7 @@ public class TerrainGenerator
         
         ServiceLocator.dungeonShapesDrawer.AddShape(() =>
         {
-            var start = new Vector3(tile.x + 0.5f, noiseMap.GetValueAt(tile.x + 0.5f, tile.y + 0.5f), tile.y + 0.5f);
+            var start = new Vector3(tile.x + 0.5f, heightMap.GetValueAt(tile.x + 0.5f, tile.y + 0.5f), tile.y + 0.5f);
             Gizmos.DrawLine(start, start + normal);
         }, "3D_Terrain");
     }
