@@ -195,11 +195,14 @@ public class Dungeon : Sample
             {
                 var roomsWithinDesiredRoomDistance = GetRoomsWithinDistance(rooms[i], dungeonParameters.desiredRoomDistance).ToArray();
                 
-                // select a closer position to the center
                 if(roomsWithinDesiredRoomDistance.Length == 0)
+                {
+                    // select a closer position to the center
                     newStartPoint = rooms[i].startPoint + (bound.Center - rooms[i].Center).normalized * 2;
+                }
                 else
                 {
+                    // Move away from close by rooms
                     var averageDirectionToRoom = Vector2.zero;
 
                     foreach (var room in roomsWithinDesiredRoomDistance)
@@ -212,9 +215,9 @@ public class Dungeon : Sample
             }
             Room newRoom = new Room(rooms[i]);
             newRoom.ChangePosition(newStartPoint);
+            // move the room if the newly selected position isn't colliding with another room
             if(!DoesCollideWithOtherRooms(newRoom, rooms[i]))
             {
-                // move the room if the newly selected position isn't colliding with another room
                 rooms[i] = newRoom;
             }
         }
