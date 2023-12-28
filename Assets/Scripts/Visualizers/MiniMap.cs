@@ -4,14 +4,26 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RawImage))]
 public class MiniMap : DungeonVisualizer
 {
-    [SerializeField] private Transform player;
     [SerializeField] private Transform playerMinimap;
     [SerializeField] private Color backColor;
     [SerializeField] private Color forColor;
-        
+
+    private float width = 0;
+    private float height = 0;
+    
+    private void Start()
+    {
+        width = GetComponent<RectTransform>().rect.width;
+        height = GetComponent<RectTransform>().rect.height;
+    }
+
     private void Update()
     {
-        playerMinimap.localPosition = player.position * 2 - new Vector3(150, 150);
+        var player = GameManager.Instance.player;
+        if (player == null) return;
+        
+        var playerPos = player.GetCurrentPositionOnDungeon();
+        playerMinimap.localPosition = new Vector3(playerPos.x * width, playerPos.y * height) - new Vector3(150, 150);
     }
 
     protected override void Visualize(Dungeon dungeon)
