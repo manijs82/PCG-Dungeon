@@ -819,6 +819,8 @@ MonoBehaviour:
     shouldDraw: 0
   - categoryName: 3D_Terrain
     shouldDraw: 0
+  - categoryName: 3D_Stairs
+    shouldDraw: 0
 --- !u!1 &261701028
 GameObject:
   m_ObjectHideFlags: 0

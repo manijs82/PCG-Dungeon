@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Freya;
+using MeshGen;
 using UnityEngine;
 
 public class LandscapeVisualizer : DungeonVisualizer
@@ -21,5 +23,14 @@ public class LandscapeVisualizer : DungeonVisualizer
         new RoomMeshGenerator(dungeon, noiseMap, trunkMaterial).Generate();
         new TreeMesh(new [] { bushMaterial, trunkMaterial }, noiseMap, positionSamples).PlaceMeshes(dungeon); // generate bushes
         new RockMesh(new [] { rockMaterial }, noiseMap, positionSamples).PlaceMeshes(dungeon); // generate rocks
+
+        var stairLine = new LineSegment3D(new Vector3(-13, 0, 0), new Vector3(-13, 10, 20));
+        var mesh = StairMeshGenerator.GenerateStair(stairLine, 10, 5f);
+        MeshUtils.InstantiateMeshGameObject("stairs", mesh, groundMaterial);
+        
+        ServiceLocator.dungeonShapesDrawer.AddShape(() =>
+        {
+            Gizmos.DrawLine(stairLine.start, stairLine.end);
+        }, "3D_Stairs");
     }
 }

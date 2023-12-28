@@ -24,12 +24,7 @@ public class TerrainGenerator : DungeonMeshGenerator
         
         foreach (var mesh in meshes)
         {
-            var go = new GameObject("terrain section");
-            var meshFilter = go.AddComponent<MeshFilter>();
-            go.AddComponent<MeshRenderer>().material = groundMaterial;
-            meshFilter.mesh = mesh;
-            var meshCollider = go.AddComponent<MeshCollider>();
-            meshCollider.sharedMesh = mesh;
+            MeshUtils.InstantiateMeshGameObject("Terrain Section", mesh, groundMaterial, true);
         }
     }
 

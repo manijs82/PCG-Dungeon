@@ -268,5 +268,20 @@ namespace MeshGen
             v2 = meshData.vertices[meshData.GetTriangle(triangle).vertex2];
             v3 = meshData.vertices[meshData.GetTriangle(triangle).vertex3];
         }
+
+        public static GameObject InstantiateMeshGameObject(string objectName, Mesh mesh, Material material, bool collision = false, Transform parent = null)
+        {
+            var go = new GameObject(objectName);
+            if(parent != null)
+                go.transform.SetParent(parent);
+
+            go.AddComponent<MeshFilter>().mesh = mesh;
+            go.AddComponent<MeshRenderer>().material = material;
+
+            if (collision)
+                go.AddComponent<MeshCollider>().sharedMesh = mesh;
+
+            return go;
+        }
     }
 }
