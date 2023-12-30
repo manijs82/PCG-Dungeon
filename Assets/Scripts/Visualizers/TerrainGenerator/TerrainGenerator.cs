@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MeshGen;
+﻿using MeshGen;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class TerrainGenerator : DungeonMeshGenerator
 {
@@ -69,16 +66,16 @@ public class TerrainGenerator : DungeonMeshGenerator
         meshData.AddTriangle(squareIndex, squareIndex + 1, squareIndex + 2);
         meshData.AddTriangle(squareIndex + 2, squareIndex + 3, squareIndex);
 
-        var normal = heightMap.GetNormalAt(tile.x + 0.5f, tile.y + 0.5f, 0.5f);
+        var normal = heightMap.GetNormalAt(tile.x, tile.y);
         meshData.AddNormal(normal);
         meshData.AddNormal(normal);
         meshData.AddNormal(normal);
         meshData.AddNormal(normal);
         
-        ServiceLocator.dungeonShapesDrawer.AddShape(() =>
+        /* ServiceLocator.dungeonShapesDrawer.AddShape(() =>
         {
             var start = new Vector3(tile.x + 0.5f, heightMap.GetValueAt(tile.x + 0.5f, tile.y + 0.5f), tile.y + 0.5f);
             Gizmos.DrawLine(start, start + normal);
-        }, "3D_Terrain");
+        }, "3D_Terrain"); */
     }
 }

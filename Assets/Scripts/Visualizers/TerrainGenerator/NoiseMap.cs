@@ -119,6 +119,15 @@ public class NoiseMap
 
         return Vector3.Cross((one - up).normalized, (zero - up).normalized).normalized;
     }
+    
+    public Vector3 GetNormalAt(int x, int y)
+    {
+        Vector3 zero = new Vector3(x, this[x, y], y);
+        Vector3 up = new Vector3(x, this[x, y + 1], y + 1);
+        Vector3 one = new Vector3(x + 1, this[x + 1, y], y);
+
+        return Vector3.Cross((one - up).normalized, (zero - up).normalized).normalized;
+    }
 
     public float GerHighestValueWithinBound(Bound bound)
     {

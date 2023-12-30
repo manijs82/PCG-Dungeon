@@ -103,8 +103,6 @@ public static class PoissonDiscSampling
 
     static bool IsValid(Vector2 candidate, float radius, Bound sampleBound, List<Vector3> points, Grid<SampleGridObject> grid)
     {
-        if (points.Contains(candidate))
-            return false;
         if (!Bound.Inside(candidate, sampleBound))
             return false;
         

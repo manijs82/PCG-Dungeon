@@ -18,15 +18,15 @@ public class LandscapeVisualizer : DungeonVisualizer
     protected override void Visualize(Dungeon dungeon)
     {
         noiseMap = new NoiseMap(noiseMapData);
-        var watch = new Stopwatch();
-        watch.Start();
         positionSamples = PoissonDiscSampling.GeneratePoints(3, dungeon.bound);
-        watch.Stop();
-        print($"Point Sampling time: '{watch.ElapsedMilliseconds}'ms");
         
         new TerrainGenerator(dungeon, noiseMap, groundMaterial).Generate(); //generate terrain
         new RoomMeshGenerator(dungeon, noiseMap, trunkMaterial).Generate();
+        var watch = new Stopwatch();
+        watch.Start();
         new TreeMesh(new [] { bushMaterial, trunkMaterial }, noiseMap, positionSamples).PlaceMeshes(dungeon); // generate bushes
+        watch.Stop();
+        print($"Tree time: '{watch.ElapsedMilliseconds}'ms");
         new RockMesh(new [] { rockMaterial }, noiseMap, positionSamples).PlaceMeshes(dungeon); // generate rocks
 
         var stairLine = new LineSegment3D(new Vector3(-13, 0, 0), new Vector3(-13, 10, 20));

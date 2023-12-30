@@ -30,16 +30,18 @@ namespace MeshGen
             SetVertexTriangleIndex(v2, triangleIndex);
             SetVertexTriangleIndex(v3, triangleIndex);
 
-            for (var i = 0; i < triangles.Count; i++)
+            for (int i = 0, c = 0; i < triangles.Count; i++)
             {
+                if(c >= 3) break;
                 var triangle = triangles[i];
-                if (triangle.index == newTriangle.index)
-                    continue;
-
+                if (triangle.index == newTriangle.index) continue;
+                
                 if (triangle.IsAdjacentTo(newTriangle, out int sharedV1, out int sharedV2))
                 {
                     SetTriangleEdge(triangle.index, sharedV1, sharedV2, newTriangle.index);
                     SetTriangleEdge(newTriangle.index, sharedV1, sharedV2, triangle.index);
+
+                    c++;
                 }
             }
 
@@ -113,23 +115,25 @@ namespace MeshGen
 
             vertices[vIndex] = vert;
         }
-
-        private void SetTriangleEdge(int triangle, int edge, int edgeTriangle)
-        {
-            var tri = GetTriangle(triangle);
-            var tIndex = triangles.IndexOf(tri);
-            tri.SetAdjacentTriangle(edge, edgeTriangle);
-
-            triangles[tIndex] = tri;
-        }
         
         public void SetTriangleEdge(int triangle, int vIndex1, int vIndex2, int edgeTriangle)
         {
-            var tri = GetTriangle(triangle);
-            var tIndex = triangles.IndexOf(tri);
-            tri.SetAdjacentTriangle(vIndex1, vIndex2, edgeTriangle);
+            int index = -1;
+            for (int i = triangle; i >= 0; i--)
+            {
+                if(i >= triangles.Count) continue;
+                if (triangles[i].index != triangle) continue;
 
-            triangles[tIndex] = tri;
+                index = i;
+                break;
+            }
+
+            if (index == -1)
+                return;
+            
+            var tri = triangles[index];
+            tri.SetAdjacentTriangle(vIndex1, vIndex2, edgeTriangle);
+            triangles[index] = tri;
         }
         
         public Vector3 GetTriangleCenter(Triangle triangle)

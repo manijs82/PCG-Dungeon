@@ -14,6 +14,8 @@ namespace MeshGen
         public int adjacentTriangle2;
         public int adjacentTriangle3;
 
+        private int[] vertices;
+
         public Triangle(int vertex1, int vertex2, int vertex3, int index, int adjacentTriangle1, int adjacentTriangle2, int adjacentTriangle3)
         {
             this.vertex1 = vertex1;
@@ -23,6 +25,8 @@ namespace MeshGen
             this.adjacentTriangle1 = adjacentTriangle1;
             this.adjacentTriangle2 = adjacentTriangle2;
             this.adjacentTriangle3 = adjacentTriangle3;
+
+            vertices = new[] { vertex1, vertex2, vertex3 };
         }
         
         public Triangle(int vertex1, int vertex2, int vertex3, int index)
@@ -34,6 +38,8 @@ namespace MeshGen
             this.adjacentTriangle1 = -1;
             this.adjacentTriangle2 = -1;
             this.adjacentTriangle3 = -1;
+            
+            vertices = new[] { vertex1, vertex2, vertex3 };
         }
 
         public int[] GetEdgeVertices(int edgeIndex)
@@ -97,21 +103,6 @@ namespace MeshGen
             return -1;
         }
         
-        public int GetVertex(int vIndex)
-        {
-            switch (vIndex)
-            {
-                case 0:
-                    return vertex1;
-                case 1:
-                    return vertex2;
-                case 2:
-                    return vertex3;
-            }
-
-            return -1;
-        }
-        
         public int GetVertexIndex(int vertex)
         {
             if (vertex1 == vertex)
@@ -131,7 +122,7 @@ namespace MeshGen
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (GetVertex(i) == other.GetVertex(j))
+                    if (vertices[i] == other.vertices[j])
                     {
                         sharedVertices++;
                         if (sharedVertices == 2)
@@ -154,16 +145,17 @@ namespace MeshGen
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (GetVertex(i) == other.GetVertex(j))
+                    var v = vertices[i];
+                    if (v == other.vertices[j])
                     {
                         sharedVertices++;
                         if (sharedVertices == 1)
                         {
-                            v1 = GetVertex(i);
+                            v1 = v;
                         }
                         if (sharedVertices == 2)
                         {
-                            v2 = GetVertex(i);
+                            v2 = v;
                             return true;
                         }
                     }

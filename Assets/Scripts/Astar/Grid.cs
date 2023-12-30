@@ -200,18 +200,16 @@ public class Grid<TGridObject> where TGridObject : GridObject
         return output;
     }
 
-    public List<TGridObject> Get8Neighbors(TGridObject center) => 
+    public IEnumerable<TGridObject> Get8Neighbors(TGridObject center) => 
         Get8Neighbors(center.x, center.y);
 
-    public List<TGridObject> Get8Neighbors(int x, int y)
+    public IEnumerable<TGridObject> Get8Neighbors(int x, int y)
     {
         return GetNeighbors(x, y, new Bound(1, 1, 1, 1), true);
     }
     
-    public List<TGridObject> GetNeighbors(int x, int y, Bound extents, bool checkBlocked = false)
+    public IEnumerable<TGridObject> GetNeighbors(int x, int y, Bound extents, bool checkBlocked = false)
     {
-        var output = new List<TGridObject>();
-        
         for (int i = x - extents.x; i <= x + extents.w; i++)
         {
             for (int j = y - extents.y; j <= y + extents.h; j++)
@@ -219,14 +217,12 @@ public class Grid<TGridObject> where TGridObject : GridObject
                 if(i == x && j == y) continue;
                 if (!HasValue(i, j, out TGridObject gridObject)) continue;
                 if(checkBlocked && gridObject.IsBlocked) continue;
-                output.Add(gridObject);
+                yield return gridObject;
             }
         }
-
-        return output;
     }
     
-    public List<TGridObject> GetNeighbors(int x, int y, int radius, bool checkBlocked = false)
+    public IEnumerable<TGridObject> GetNeighbors(int x, int y, int radius, bool checkBlocked = false)
     {
         var output = GetNeighbors(x, y, new Bound(radius, radius, radius, radius), checkBlocked);
 
