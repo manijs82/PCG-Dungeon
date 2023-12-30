@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 using Random = UnityEngine.Random;
 
 public static class PoissonDiscSampling
 {
-    public static List<Vector3> GeneratePoints(float radius, Bound sampleBound, int pointsLimit = Int32.MaxValue, int numSamplesBeforeRejection = 30)
+    public static List<Vector3> GeneratePoints(float radius, Bound sampleBound, int pointsLimit = Int32.MaxValue, int numSamplesBeforeRejection = 15)
     {
         List<Vector3> points = new List<Vector3>();
         
@@ -39,16 +40,11 @@ public static class PoissonDiscSampling
                     points.Add(nextSamplePosition);
                     activeList.Add(points.Count - 1);
 
-                    grid.GetGridPosition(nextSamplePosition, out int newX, out int newY);
-                    grid.GetValue(newX, newY).index = points.Count - 1;
+                    grid.GetValue(nextSamplePosition).index = points.Count - 1;
 
                     addedAnySample = true;
                     
-                    if(points.Count > pointsLimit)
-                    {
-                        break;
-                    }
-                    //break;
+                    break;
                 }
             }
 
@@ -124,7 +120,7 @@ public static class PoissonDiscSampling
             return false;
         }
 
-        var neighbors = grid.GetNeighbors(x, y, new Bound(2, 2, 2, 2));
+        var neighbors = grid.GetNeighbors(x, y, new Bound(1, 1, 1, 1));
         foreach (var neighbor in neighbors)
         {
             if(neighbor.index == -1) continue;
