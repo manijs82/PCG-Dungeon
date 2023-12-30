@@ -2,7 +2,7 @@
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] [HideInInspector] public Player player;
+    public Player player;
     
     [SerializeField] private Generator generator;
     [SerializeField] private ItemDataBase itemDataBase;

@@ -33,7 +33,7 @@ public class Player3D : Player
         
         if (active)
         {
-            if(gameManager.player != null)
+            if(gameManager.player != null && gameManager.player != this)
                 gameManager.player.Active = false;
             
             gameManager.player = this;

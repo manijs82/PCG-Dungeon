@@ -20,8 +20,7 @@ public static class PoissonDiscSampling
         List<int> activeList = new List<int>() { 0 };
         
         grid.GetGridPosition(initialSamplePos, out int sampleX, out int sampleY);
-        SampleGridObject initialSample = new SampleGridObject(sampleX, sampleY, 0);
-        grid.SetValue(sampleX, sampleY, initialSample);
+        grid.GetValue(sampleX, sampleY).index = 0;
         
         while (activeList.Count != 0)
         {
@@ -41,8 +40,7 @@ public static class PoissonDiscSampling
                     activeList.Add(points.Count - 1);
 
                     grid.GetGridPosition(nextSamplePosition, out int newX, out int newY);
-                    SampleGridObject nextSample = new SampleGridObject(newX, newY, points.Count - 1);
-                    grid.SetValue(newX, newY, nextSample);
+                    grid.GetValue(newX, newY).index = points.Count - 1;
 
                     addedAnySample = true;
                     
@@ -50,6 +48,7 @@ public static class PoissonDiscSampling
                     {
                         break;
                     }
+                    //break;
                 }
             }
 
@@ -89,8 +88,7 @@ public static class PoissonDiscSampling
                 points.Add(sample);
 
                 grid.GetGridPosition(sample, out int newX, out int newY);
-                SampleGridObject nextSample = new SampleGridObject(newX, newY, points.Count - 1);
-                grid.SetValue(newX, newY, nextSample);
+                grid.GetValue(newX, newY).index = points.Count - 1;
 
                 if (points.Count > pointsLimit)
                 {

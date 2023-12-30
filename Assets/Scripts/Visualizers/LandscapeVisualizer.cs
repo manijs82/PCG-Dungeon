@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Freya;
 using MeshGen;
 using UnityEngine;
@@ -17,7 +18,11 @@ public class LandscapeVisualizer : DungeonVisualizer
     protected override void Visualize(Dungeon dungeon)
     {
         noiseMap = new NoiseMap(noiseMapData);
-        positionSamples = PoissonDiscSampling.GeneratePoints(3, dungeon.bound, 300000);
+        var watch = new Stopwatch();
+        watch.Start();
+        positionSamples = PoissonDiscSampling.GeneratePoints(3, dungeon.bound);
+        watch.Stop();
+        print($"Point Sampling time: '{watch.ElapsedMilliseconds}'ms");
         
         new TerrainGenerator(dungeon, noiseMap, groundMaterial).Generate(); //generate terrain
         new RoomMeshGenerator(dungeon, noiseMap, trunkMaterial).Generate();
