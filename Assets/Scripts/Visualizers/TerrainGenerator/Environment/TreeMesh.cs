@@ -42,7 +42,7 @@ public class TreeMesh : EnvironmentMesh
 
     protected override Mesh[] GetMeshVariations()
     {
-        Mesh[] meshes = new Mesh[10];
+        Mesh[] meshes = new Mesh[5];
         for (int i = 0; i < meshes.Length; i++)
         {
             var randomMeshData = GetRandomMeshData();

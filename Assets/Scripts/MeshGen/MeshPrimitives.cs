@@ -42,6 +42,9 @@ namespace MeshGen
         
         #endregion
 
+        private static MeshData Cube;
+        private static MeshData Subdivided8x8Cube;
+
         public static void AddQuad(this MeshData meshData, Vector3 center, Vector3 right, Vector3 up)
         {
             int triangleOffset = meshData.vertices.Count;

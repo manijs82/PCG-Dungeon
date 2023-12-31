@@ -12,6 +12,52 @@ namespace MeshGen
         public List<int> subMeshes = new();
 
         private int currentTriangleIndex = 0;
+
+        public static MeshData Clone(MeshData toCopy)
+        {
+            MeshData meshData = new MeshData();
+            meshData.triangles = new List<Triangle>(meshData.triangles);
+            meshData.vertices = new List<Vertex>(meshData.vertices);
+            meshData.subMeshes = new List<int>(meshData.subMeshes);
+            meshData.currentTriangleIndex = toCopy.currentTriangleIndex;
+
+            return meshData;
+        }
+
+        public void Add(MeshData toAdd)
+        {
+            var vertexCount = vertices.Count;
+            var triangleCount = triangles.Count;
+            
+            foreach (var vertex in toAdd.vertices)
+            {
+                var v = vertex;
+                v.triangle += currentTriangleIndex;
+                vertices.Add(v);
+            }
+
+            foreach (var subMesh in toAdd.subMeshes)
+            {
+                subMeshes.Add(subMesh + triangleCount + 1);
+            }
+            
+            foreach (var triangle in toAdd.triangles)
+            {
+                var t = new Triangle
+                (
+                    triangle.vertex1 + vertexCount,
+                    triangle.vertex2 + vertexCount,
+                    triangle.vertex3 + vertexCount,
+                    currentTriangleIndex,
+                    triangle.adjacentTriangle1 + currentTriangleIndex,
+                    triangle.adjacentTriangle2 + currentTriangleIndex,
+                    triangle.adjacentTriangle3 + currentTriangleIndex
+                );
+                
+                triangles.Add(t);
+                currentTriangleIndex++;
+            }
+        }
         
         public int AddTriangle(int v1, int v2, int v3)
         {
