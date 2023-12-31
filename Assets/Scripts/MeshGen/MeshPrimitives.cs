@@ -45,6 +45,51 @@ namespace MeshGen
         private static MeshData Cube;
         private static MeshData Subdivided8x8Cube;
 
+        private static void InitCubeDefaults()
+        {
+            Cube = new MeshData();
+            var halfExtents = new Vector3(.5f, .5f, .5f);
+            Cube.AddVertex(new Vector3(-halfExtents.x, -halfExtents.y, -halfExtents.z)); // back bottom left 0
+            Cube.AddVertex(new Vector3(-halfExtents.x, halfExtents.y, -halfExtents.z)); // back top left 1
+            Cube.AddVertex(new Vector3(halfExtents.x, -halfExtents.y, -halfExtents.z)); // back bottom right 2
+            Cube.AddVertex(new Vector3(halfExtents.x, halfExtents.y, -halfExtents.z)); // back top right 3
+            
+            Cube.AddVertex(new Vector3(-halfExtents.x, -halfExtents.y, halfExtents.z)); // front bottom left 4
+            Cube.AddVertex(new Vector3(-halfExtents.x, halfExtents.y, halfExtents.z)); // front top left 5
+            Cube.AddVertex(new Vector3(halfExtents.x, -halfExtents.y, halfExtents.z)); // front bottom right 6
+            Cube.AddVertex(new Vector3(halfExtents.x, halfExtents.y, halfExtents.z)); // front top right 7
+            
+            // back
+            Cube.AddTriangle(0, 1, 2); // 0
+            Cube.AddTriangle(1, 3, 2); // 1
+            
+            // front
+            Cube.AddTriangle(6, 7, 4); // 2
+            Cube.AddTriangle(7, 5, 4); // 3
+            
+            // left
+            Cube.AddTriangle(4, 5, 0); // 4
+            Cube.AddTriangle(5, 1, 0); // 5
+            
+            // right
+            Cube.AddTriangle(2, 3, 6); // 6
+            Cube.AddTriangle(3, 7, 6); // 7
+            
+            // bottom
+            Cube.AddTriangle(4, 0, 6); // 8
+            Cube.AddTriangle(0, 2, 6); // 9
+            
+            // top
+            Cube.AddTriangle(1, 5, 3); // 10
+            Cube.AddTriangle(5, 7, 3); // 11
+        }
+
+        private static void InitSubdivided8x8Defaults()
+        {
+            Subdivided8x8Cube = new MeshData();
+            Subdivided8x8Cube.AddSubdividedCube(Vector3.zero, Vector3.one / 2f, 8, 8, 8);
+        }
+
         public static void AddQuad(this MeshData meshData, Vector3 center, Vector3 right, Vector3 up)
         {
             int triangleOffset = meshData.vertices.Count;
@@ -60,51 +105,52 @@ namespace MeshGen
 
         public static void AddCube(this MeshData meshData, Vector3 center, Vector3 halfExtents)
         {
-            int triangleOffset = meshData.vertices.Count;
-
-            int tIndex(int index) => triangleOffset + index; 
-
-            meshData.AddVertex(center + new Vector3(-halfExtents.x, -halfExtents.y, -halfExtents.z)); // back bottom left 0
-            meshData.AddVertex(center + new Vector3(-halfExtents.x, halfExtents.y, -halfExtents.z)); // back top left 1
-            meshData.AddVertex(center + new Vector3(halfExtents.x, -halfExtents.y, -halfExtents.z)); // back bottom right 2
-            meshData.AddVertex(center + new Vector3(halfExtents.x, halfExtents.y, -halfExtents.z)); // back top right 3
+            if(Cube == null)
+                InitCubeDefaults();
             
-            meshData.AddVertex(center + new Vector3(-halfExtents.x, -halfExtents.y, halfExtents.z)); // front bottom left 4
-            meshData.AddVertex(center + new Vector3(-halfExtents.x, halfExtents.y, halfExtents.z)); // front top left 5
-            meshData.AddVertex(center + new Vector3(halfExtents.x, -halfExtents.y, halfExtents.z)); // front bottom right 6
-            meshData.AddVertex(center + new Vector3(halfExtents.x, halfExtents.y, halfExtents.z)); // front top right 7
+            int vertexOffset = meshData.vertices.Count;
+            int vIndex(int index) => vertexOffset + index;
             
-            // back
-            meshData.AddTriangle(tIndex(0), tIndex(1), tIndex(2)); // 0
-            meshData.AddTriangle(tIndex(1), tIndex(3), tIndex(2)); // 1
+            meshData.Add(Cube);
+            meshData.SetVertexPosition(vIndex(0), center + new Vector3(-halfExtents.x, -halfExtents.y, -halfExtents.z));
+            meshData.SetVertexPosition(vIndex(1), center + new Vector3(-halfExtents.x, halfExtents.y, -halfExtents.z));
+            meshData.SetVertexPosition(vIndex(2), center + new Vector3(halfExtents.x, -halfExtents.y, -halfExtents.z));
+            meshData.SetVertexPosition(vIndex(3), center + new Vector3(halfExtents.x, halfExtents.y, -halfExtents.z));
             
-            // front
-            meshData.AddTriangle(tIndex(6), tIndex(7), tIndex(4)); // 2
-            meshData.AddTriangle(tIndex(7), tIndex(5), tIndex(4)); // 3
-            
-            // left
-            meshData.AddTriangle(tIndex(4), tIndex(5), tIndex(0)); // 4
-            meshData.AddTriangle(tIndex(5), tIndex(1), tIndex(0)); // 5
-            
-            // right
-            meshData.AddTriangle(tIndex(2), tIndex(3), tIndex(6)); // 6
-            meshData.AddTriangle(tIndex(3), tIndex(7), tIndex(6)); // 7
-            
-            // bottom
-            meshData.AddTriangle(tIndex(4), tIndex(0), tIndex(6)); // 8
-            meshData.AddTriangle(tIndex(0), tIndex(2), tIndex(6)); // 9
-            
-            // top
-            meshData.AddTriangle(tIndex(1), tIndex(5), tIndex(3)); // 10
-            meshData.AddTriangle(tIndex(5), tIndex(7), tIndex(3)); // 11
+            meshData.SetVertexPosition(vIndex(4), center + new Vector3(-halfExtents.x, -halfExtents.y, halfExtents.z));
+            meshData.SetVertexPosition(vIndex(5), center + new Vector3(-halfExtents.x, halfExtents.y, halfExtents.z));
+            meshData.SetVertexPosition(vIndex(6), center + new Vector3(halfExtents.x, -halfExtents.y, halfExtents.z));
+            meshData.SetVertexPosition(vIndex(7), center + new Vector3(halfExtents.x, halfExtents.y, halfExtents.z));
         }
         
         public static void AddRoundedCube(this MeshData meshData, Vector3 center, Vector3 halfExtents, int roundness)
         {
-            meshData.AddSubdividedCube(center, halfExtents, 8, 8, 8, roundness);
+            if (Subdivided8x8Cube == null)
+                InitSubdivided8x8Defaults();
+
+            int xSize = 8, ySize = 8, zSize = 8;
+            Matrix4x4 matrix = Matrix4x4.TRS(center, Quaternion.identity, halfExtents);
+            Vector3 getPoint(float x, float y, float z)
+            {
+                var point = new Vector3(x, y, z);
+
+                var inner = point / roundness;
+                
+                var normal = (point - inner).normalized;
+                return matrix.MultiplyPoint(inner + normal * roundness);
+            }
+
+            int vertexCount = meshData.vertices.Count;
+            meshData.Add(Subdivided8x8Cube);
+
+            for (int i = vertexCount; i < vertexCount + Subdivided8x8Cube.vertices.Count; i++)
+            {
+                var pos = meshData.vertices[i].position;
+                meshData.SetVertexPosition(i, getPoint(pos.x, pos.y, pos.z));
+            }
         }
 
-        public static void AddSubdividedCube(this MeshData meshData, Vector3 center, Vector3 halfExtents, int xSize, int ySize, int zSize, int roundness = 0)
+        public static void AddSubdividedCube(this MeshData meshData, Vector3 center, Vector3 halfExtents, int xSize, int ySize, int zSize)
         {
             int startVIndex = meshData.vertices.Count;
             
@@ -112,35 +158,7 @@ namespace MeshGen
             Vector3 getPoint(float x, float y, float z)
             {
                 var point = new Vector3(x, y, z);
-
-                var inner = point;
-                if (x < roundness) 
-                {
-                    inner.x = roundness;
-                }
-                else if (x > xSize - roundness) 
-                {
-                    inner.x = xSize - roundness;
-                }
-                if (y < roundness) 
-                {
-                    inner.y = roundness;
-                }
-                else if (y > ySize - roundness) 
-                {
-                    inner.y = ySize - roundness;
-                }
-                if (z < roundness) 
-                {
-                    inner.z = roundness;
-                }
-                else if (z > zSize - roundness) 
-                {
-                    inner.z = zSize - roundness;
-                }
-                
-                var normal = (point - inner).normalized;
-                return matrix.MultiplyPoint(inner + normal * roundness);
+                return matrix.MultiplyPoint(point);
             }
 
             // add vertices layer by layer from bottom to top
