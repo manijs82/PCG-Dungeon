@@ -61,7 +61,7 @@ public class TreeMesh : EnvironmentMesh
 
         float height = Random.Range(5, 7);
 
-        meshData.AddRoundedCube(Vector3.up * height, new Vector3(height - 1, height - Random.Range(1, 2), height - 1), Random.Range(2, 5));
+        meshData.AddRoundedCube(Vector3.up * height, new Vector3(height - 1, height - Random.Range(1, 2), height - 1), Random.Range(3, 5));
         meshData.subMeshes.Add(meshData.triangles.Count - 1);
         meshData.AddCube(Vector3.down, new Vector3(1, height + 1, 1));
         meshData.subMeshes.Add(meshData.triangles.Count - 1);

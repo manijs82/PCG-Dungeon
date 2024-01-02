@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Freya;
+using UnityEngine;
 
 namespace MeshGen
 {
@@ -87,7 +88,7 @@ namespace MeshGen
         private static void InitSubdivided8x8Defaults()
         {
             Subdivided8x8Cube = new MeshData();
-            Subdivided8x8Cube.AddSubdividedCube(Vector3.zero, Vector3.one / 2f, 8, 8, 8);
+            Subdivided8x8Cube.AddSubdividedCube(Vector3.zero, Vector3.one, 8, 8, 8);
         }
 
         public static void AddQuad(this MeshData meshData, Vector3 center, Vector3 right, Vector3 up)
@@ -123,21 +124,30 @@ namespace MeshGen
             meshData.SetVertexPosition(vIndex(7), center + new Vector3(halfExtents.x, halfExtents.y, halfExtents.z));
         }
         
-        public static void AddRoundedCube(this MeshData meshData, Vector3 center, Vector3 halfExtents, int roundness)
+        public static void AddRoundedCube(this MeshData meshData, Vector3 center, Vector3 halfExtents, float cornerRadius)
         {
             if (Subdivided8x8Cube == null)
                 InitSubdivided8x8Defaults();
 
-            int xSize = 8, ySize = 8, zSize = 8;
-            Matrix4x4 matrix = Matrix4x4.TRS(center, Quaternion.identity, halfExtents);
             Vector3 getPoint(float x, float y, float z)
             {
                 var point = new Vector3(x, y, z);
-
-                var inner = point / roundness;
+                point.x *= halfExtents.x;
+                point.y *= halfExtents.y;
+                point.z *= halfExtents.z;
                 
+                var inner = point.Abs();
+
+                inner.x = inner.x.AtMost(halfExtents.x - cornerRadius);
+                inner.y = inner.y.AtMost(halfExtents.y - cornerRadius);
+                inner.z = inner.z.AtMost(halfExtents.z - cornerRadius);
+
+                inner.x *= point.x.Sign();
+                inner.y *= point.y.Sign();
+                inner.z *= point.z.Sign();
+
                 var normal = (point - inner).normalized;
-                return matrix.MultiplyPoint(inner + normal * roundness);
+                return center + (inner + normal * cornerRadius);
             }
 
             int vertexCount = meshData.vertices.Count;
