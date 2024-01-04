@@ -18,32 +18,41 @@ public class RockMesh : EnvironmentMesh
         var meshVariation = GetMeshVariations();
         var positions = GetPositions().ToArray();
 
-        var combine = new CombineInstance[positions.Length];
-        var combinedMesh = new Mesh();
-
-        for (var i = 0; i < positions.Length; i++)
+        int meshCount = Mathf.CeilToInt(positions.Length / 1000f);
+        int lastMeshRockCount = positions.Length % 1000;
+        for (int i = 0, p = 0; i < meshCount; i++)
         {
-            var position = positions[i];
-            var meshPosition = new Vector3(position.x, GetHeightAt((int)position.x, (int)position.y), position.y);
+            var rockCount = i == meshCount - 1 ? lastMeshRockCount : 1000;
+            var combine = new CombineInstance[rockCount];
+            var combinedMesh = new Mesh();
+            
+            for (var j = 0; j < rockCount; j++, p++)
+            {
+                if(p >= positions.Length)
+                    break;
+                
+                var position = positions[p];
+                var meshPosition = new Vector3(position.x, GetHeightAt((int)position.x, (int)position.y), position.y);
 
-            var mesh = meshVariation[Random.Range(0, meshVariation.Length)];
-            combine[i].mesh = mesh;
-            combine[i].transform = Matrix4x4.TRS(meshPosition, Quaternion.identity, Vector3.one);
+                var mesh = meshVariation[Random.Range(0, meshVariation.Length)];
+                combine[j].mesh = mesh;
+                combine[j].transform = Matrix4x4.TRS(meshPosition, Quaternion.identity, Vector3.one);
+            }
+            
+            combinedMesh.CombineMeshes(combine, true);
+            var go = new GameObject("Rock");
+            go.AddComponent<MeshFilter>().mesh = combinedMesh;
+            go.AddComponent<MeshRenderer>().materials = materials;
         }
-
-        combinedMesh.CombineMeshes(combine, true);
-        var go = new GameObject("Rock");
-        go.AddComponent<MeshFilter>().mesh = combinedMesh;
-        go.AddComponent<MeshRenderer>().materials = materials;
     }
 
     protected override IEnumerable<Vector3> GetPositions()
     {
-        PerlinMask perlinMask = new PerlinMask(dungeon, 0.6f);
+        PerlinMask perlinMask = new PerlinMask(dungeon, 0.6f, 5);
         BackgroundMask backgroundMask = new BackgroundMask(dungeon);
         var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask);
 
-        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 2, dungeon.bound, 1000).MaskPositions(mask);
+        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 2, dungeon.bound, 10000).MaskPositions(mask);
         var valuesToRemove = maskedPositions as Vector3[] ?? maskedPositions.ToArray();
         positionSamples.RemoveValues(valuesToRemove);
         return valuesToRemove;

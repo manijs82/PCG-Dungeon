@@ -9,6 +9,7 @@ public class Generator : MonoBehaviour
 {
     public static Random tileRnd;
     public static Random dungeonRnd;
+    public static Random terrainRnd;
     
     public static event Action<Dungeon> OnDungeonGenerated;
 
@@ -26,6 +27,7 @@ public class Generator : MonoBehaviour
         
         dungeonRnd = new Random(seed - 50);
         tileRnd = new Random(seed + 50);
+        terrainRnd = new Random(seed + 100);
     }
 
     private void Start()

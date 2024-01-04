@@ -47,8 +47,8 @@ public class NoiseMap
         octaveOffsets = new Vector2[structure.octaves];
         for (int i = 0; i < structure.octaves; i++)
         {
-            float offsetX = Generator.dungeonRnd.Next(-100000, 100000);
-            float offsetY = Generator.dungeonRnd.Next(-100000, 100000);
+            float offsetX = Generator.terrainRnd.Next(-100000, 100000);
+            float offsetY = Generator.terrainRnd.Next(-100000, 100000);
             octaveOffsets[i] = new Vector2(offsetX, offsetY);
         }
     }

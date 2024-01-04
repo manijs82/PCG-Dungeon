@@ -30,11 +30,11 @@ public class TreeMesh : EnvironmentMesh
 
     protected override IEnumerable<Vector3> GetPositions()
     {
-        PerlinMask perlinMask = new PerlinMask(dungeon, 0.5f);
+        PerlinMask perlinMask = new PerlinMask(dungeon, .6f, 30);
         BackgroundMask backgroundMask = new BackgroundMask(dungeon);
         var mask = Mask.GetCombinedMask(CombineMode.Intersection, perlinMask, backgroundMask);
 
-        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 7, dungeon.bound, 1000).MaskPositions(mask);
+        var maskedPositions = PoissonDiscSampling.GeneratePoints(positionSamples, 5, dungeon.bound, 10000).MaskPositions(mask);
         var valuesToRemove = maskedPositions as Vector3[] ?? maskedPositions.ToArray();
         positionSamples.RemoveValues(valuesToRemove);
         return valuesToRemove;
