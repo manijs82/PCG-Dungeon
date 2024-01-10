@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using LSystem;
 using Mani;
 using Mani.Graph;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class Generator : MonoBehaviour
 
     private void Awake()
     {
+        FractalTree fractalTree = new FractalTree();
+        
         if (randomSeed)
             seed = UnityEngine.Random.Range(100000, 1000000000);
         
