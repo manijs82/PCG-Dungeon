@@ -18,6 +18,11 @@ public class PerlinMask : Mask
         return Mathf.PerlinNoise((randomOffset.x + x) / scale, (randomOffset.y + y) / scale) > threshold;
     }
 
+    private float GetNoiseValueAt(float x, float y)
+    {
+        return Mathf.PerlinNoise(x + Mathf.PerlinNoise(x, y), y + Mathf.PerlinNoise(x, y));
+    }
+
     public override Texture2D GetMaskTexture(float resolutionScaling)
     {
         return null;

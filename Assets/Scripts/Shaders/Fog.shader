@@ -54,7 +54,7 @@ Shader "Hidden/Fog"
 
                 float4 fogOutput = lerp(_FogColor, col, saturate(fogFactor));
 
-                return depth;
+                return fogOutput;
             }
             ENDCG
         }
